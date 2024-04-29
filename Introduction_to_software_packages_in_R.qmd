@@ -1,0 +1,46 @@
+---
+title: "Summary of R software for Symbolic Data Analysis"
+author: "Antonio Irpino"
+format: html
+editor: visual
+---
+
+```{r setup, include=FALSE}
+library(symbolicDA) #Polish library
+library(HistDAWass)#Histogram Data Analysis using Wasserstein distance
+library(RSDA) #R to Symbolic Data Analysis
+
+```
+
+## Introduction
+
+Three main packages in R are available for the Analysis of Symbolic Data:
+
+-   `RSDA` R to Symbolic Data Analysis
+
+-   `symbolicDA` Symbolic Data Analysis
+
+-   `HistDAWass` Histogram data analysis
+
+## `RSDA` R to Symbolic Data Analysis
+
+R to Symbolic Data Analysis: Symbolic Data Analysis (SDA) was proposed by professor Edwin Diday in 1987, the main purpose of SDA is to substitute the set of rows (cases) in the data table for a concept (second order statistical unit). This package implements, to the symbolic case, certain techniques of automatic classification, as well as some linear models.
+
+## `symbolicDA` Symbolic Data Analysis
+
+Symbolic Data Analysis: Symbolic data analysis methods: importing/exporting data from ASSO XML Files, distance calculation for symbolic data (Ichino-Yaguchi, de Carvalho measure), zoom star plot, 3d interval plot, multidimensional scaling for symbolic interval data, dynamic clustering based on distance matrix, HINoV method for symbolic data, Ichino's feature selection method, principal component analysis for symbolic interval data, decision trees for symbolic data based on optimal split with bagging, boosting and random forest approach (+visualization), kernel discriminant analysis for symbolic data, Kohonen's self-organizing maps for symbolic data, replication and profiling, artificial symbolic data generation.
+
+## `HistDAWass` Histogram data analysis
+
+Histogram data analysis: In the framework of Symbolic Data Analysis, a relatively new approach to the statistical analysis of multi-valued data, we consider histogram-valued data, i.e., data described by univariate histograms. The methods and the basic statistics for histogram-valued data are mainly based on the L2 Wasserstein metric between distributions, i.e., the Euclidean metric between quantile functions. The package contains unsupervised classification techniques, least square regression and tools for histogram-valued data and for histogram time series.
+
+### Some packages for download offical statistics microdata
+
+-   `OfficialStatistics` install through
+
+```{r echo=FALSE}
+# require(ctv)
+# ctv::install.views("OfficialStatistics", coreOnly = TRUE) #main library
+# ctv::update.views("OfficialStatistics") #updates
+                   
+```
