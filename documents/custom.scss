@@ -1,0 +1,21 @@
+/*-- scss:defaults --*/
+.title {
+  font-size: 80px !important;
+  color: white !important;
+}
+
+.quarto-title-author-name {
+  font-size: 50px;
+  color: white !important;
+}
+
+.reveal .slides {
+  margin-top: 2.0em;
+}
+
+/*-- scss:rules --*/
+
+
+.slide-background-content{
+  background-image: url("../../../../../images/header.svg");
+}

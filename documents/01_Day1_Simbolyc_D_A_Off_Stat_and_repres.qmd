@@ -1,0 +1,19 @@
+---
+title: "Symbolic Data on official statistics and visual exploration"
+author: "Antonio Irpino"
+format: 
+  revealjs: 
+    theme: [dark, custom.scss]
+    width: 1280
+    height: 720
+title-slide-attributes:
+  data-background-image: "images/main.svg"
+  data-background-color: white
+  data-background-size: contain
+editor: visual
+---
+
+## Symbolic Data Analysis on Official statistics
+
+
+
