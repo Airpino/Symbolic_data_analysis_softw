@@ -8,7 +8,7 @@
 <link href="01_Day1_Simbolyc_D_A_Off_Stat_and_repres_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="01_Day1_Simbolyc_D_A_Off_Stat_and_repres_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="01_Day1_Simbolyc_D_A_Off_Stat_and_repres_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.4.554">
 
   <meta name="author" content="Antonio Irpino">
   <title>Symbolic Data on official statistics and visual exploration</title>
@@ -156,7 +156,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -336,10 +337,408 @@ Antonio Irpino
 </div>
 
 </section>
-<section id="symbolic-data-analysis-on-official-statistics" class="slide level2">
+<section id="symbolic-data-analysis-on-official-statistics" class="slide level2" style="font-size: 0.8em">
 <h2>Symbolic Data Analysis on Official statistics</h2>
-<div class="footer footer-default">
+<p>Symbolic data analysis plays an important role in the field of official statistics. Let me provide you with some relevant information:</p>
+<p><strong>Symbolic Data Analysis (SDA)</strong>:</p>
+<ul>
+<li>SDA is a technique used to analyze complex data structures. It allows us to describe data with intricate relationships and patterns.</li>
+<li>In the context of official statistics, SDA provides a way to handle various forms of symbolic data efficiently.</li>
+<li>Symbolic data can represent individuals or groups of individuals, and it captures information beyond traditional numerical values.</li>
+<li>The goal of SDA is to enhance our understanding of data by considering both quantitative and qualitative aspects.</li>
+</ul>
+</section>
+<section id="applications-in-official-statistics" class="slide level2">
+<h2><strong>Applications in Official Statistics</strong>:</h2>
+<ul>
+<li>Symbolic objects are used to describe complex data structures in official statistics.</li>
+<li>These objects extract information from databases and represent individuals or categories of individuals.</li>
+<li>By using symbolic data, statisticians can capture more nuanced information beyond simple numerical values.</li>
+</ul>
+<p>In summary, symbolic data analysis provides a powerful framework for handling diverse and complex data in official statistics. It allows us to go beyond traditional numerical analysis and consider the rich context of information.</p>
+</section>
+<section id="practical-examples" class="slide level2">
+<h2><strong>Practical Examples</strong>:</h2>
+<ul>
+<li>In official statistics, symbolic objects describe complex data structures. Here are some practical examples:
+<ul>
+<li><strong>Symbolic Objects for Individuals</strong>:
+<ul>
+<li>Imagine a dataset representing citizens in a country. Each citizen has attributes like age, education level, occupation, and income.</li>
+<li>Instead of treating these attributes as separate numerical values, we create symbolic objects that encapsulate this information.</li>
+<li>For instance, a symbolic object could represent a “young, highly educated professional with a high income.”</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
 
+<ul>
+<li>In official statistics, symbolic objects describe complex data structures. Here are some practical examples:
+<ul>
+<li><strong>Symbolic Objects for Categories</strong>:
+<ul>
+<li>Official statistics often deal with categories (e.g., regions, industries, products).</li>
+<li>Symbolic objects can describe these categories based on various attributes.</li>
+<li>For example, a symbolic object might represent a “rural agricultural region with low GDP per capita.”</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="applications" class="slide level2">
+<h2><strong>Applications</strong>:</h2>
+<ul>
+<li>Symbolic data analysis finds applications in:
+<ul>
+<li><strong>Quality Reports</strong>: Enhancing the understanding of data quality by considering both quantitative and qualitative aspects.</li>
+<li><strong>Exploratory Data Analysis</strong>: Uncovering patterns and relationships in complex datasets.</li>
+<li><strong>Policy Formulation</strong>: Informing policy decisions by analyzing symbolic data related to social,and economic.</li>
+</ul></li>
+</ul>
+<p>In summary, symbolic data analysis enriches our understanding of complex data structures in official statistics. It allows us to go beyond mere numbers and consider the context and meaning behind the data.</p>
+</section>
+<section id="data-fusion" class="slide level2 scrollable">
+<h2>DATA Fusion</h2>
+<p>Certainly! Data fusion is becoming increasingly relevant in official statistics. The aim of data fusion is to combine two or more data sources using statistical methods in order to analyze different characteristics that were not jointly observed in one data source². Let’s delve into this topic further.</p>
+<p>Data fusion involves integrating multiple related datasets. It allows statisticians to manage uncertainty and conflicting data on a large scale. The goal of data fusion is to create useful representations of reality that are more complete and reliable than what a single source of data can provide⁴.</p>
+</section>
+<section class="slide level2">
+
+<p>Here are some key points related to data fusion in official statistics:</p>
+<ol type="1">
+<li><strong>Principles of Official Statistics</strong>:
+<ul>
+<li>Official statistics play a crucial role in informing policy decisions, research, and public understanding.</li>
+<li>Data fusion helps enhance the quality and completeness of official statistics by combining information from various sources.</li>
+</ul></li>
+<li><strong>Scenarios for Data Fusion</strong>:
+<ul>
+<li>Data fusion scenarios can be explicit or implicit.</li>
+<li>Explicit scenarios involve combining data from different sources explicitly (e.g., merging survey data with administrative records).</li>
+<li>Implicit scenarios involve indirect data fusion (e.g., imputing missing values based on related variables).</li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<ol start="3" type="1">
+<li><strong>Imputation Approaches</strong>:
+<ul>
+<li>Classical imputation approaches include:
+<ul>
+<li><strong>Distance Hot Deck (DHD)</strong>: Imputes missing values by matching similar records.</li>
+<li><strong>Regression Model (RM)</strong>: Uses regression equations to predict missing values.</li>
+<li><strong>Predictive Mean Matching (PMM)</strong>: Imputes missing values by matching observed values with similar patterns.</li>
+</ul></li>
+<li>Statistical learning approaches include:
+<ul>
+<li><strong>Decision Trees (DT)</strong>: Used for classification or regression tasks.</li>
+<li><strong>Random Forest (RF)</strong>: Ensemble of decision trees.</li>
+<li><strong>Predictive Value Matching (PVM)</strong>: Matches predicted values from a model.</li>
+</ul></li>
+<li>These approaches help handle missing data during data fusion¹.</li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<ol start="4" type="1">
+<li><strong>Example: EU-SILC and HBS Data Fusion</strong>:
+<ul>
+<li>Consider combining data from the European Union Statistics on Income and Living Conditions (EU-SILC) and the Household Budget Survey (HBS).</li>
+<li>Motivation: To analyze characteristics that were not jointly observed in either dataset.</li>
+<li>Simulation design: Create a database and perform a Monte Carlo study.</li>
+<li>Results: Evaluate compliance with the conditional independence assumption (CIA) and discuss the implications¹.</li>
+</ul></li>
+</ol>
+<p>In summary, data fusion in official statistics allows statisticians to leverage multiple data sources effectively, leading to more comprehensive and accurate insights.</p>
+</section>
+<section class="slide level2">
+
+<ol type="1">
+<li>OPUS 4 | Data Fusion in Official Statistics: An Evaluation of Classical …. https://ubt.opus.hbz-nrw.de/opus45-ubtr/frontdoor/index/index/year/2024/docId/2214.</li>
+<li>Data Fusion | SpringerLink. https://link.springer.com/referenceworkentry/10.1007/978-3-319-32010-6_305.</li>
+<li>Data Fusion in Official Statistics: An Evaluation of Classical versus …. https://ubt.opus.hbz-nrw.de/opus45-ubtr/files/2214/Dissertation_Schaller.pdf.</li>
+<li>Data fusion using factor analysis and low-rank matrix completion - Springer. https://link.springer.com/article/10.1007/s11222-021-10033-7.</li>
+</ol>
+</section>
+<section id="data-fusion-classic-approach-discussion" class="slide level2">
+<h2>Data fusion: classic approach, discussion</h2>
+<p>DF is the practice by which two or more separate data sources are brought together to form a single database that contains all the previously separate information. The purpose of such integration is to obtain a reliable estimate of the true relationship between any set of statistics which are currently unavailable in single-source form.</p>
+<p>During the fusion, <strong>individuals</strong> from one survey are matched to individuals in the other and the two sets of behaviours are jointly ascribed to the matched individuals. For the sake of understanding the process, it is convenient to nominate one survey the donor and the other the recipient.</p>
+<p>An important fundamental assumption of fusion is that “hooks” or linking variables contain enough information to describe the correlations between the variables in Donor and Recipient datasets. For example: “If given two datasets, Recipient, consisting of variable sets X and Y, and Donor, consisting of variables X and Z, we can perform fusion under the assumption that Y and Z are independent given X”.</p>
+</section>
+<section class="slide level2">
+
+<p>It is important to note that fusion is not a single technique – there are different approaches that might be taken depending on the objectives. The principles for the different approaches of data fusion are quite similar and follow these general steps:</p>
+<h3 id="set-the-objectives-for-the-data-fusion">Set the objectives for the data fusion</h3>
+<ul>
+<li>Analyse the datasets to select the variables and metrics that are subject to data fusion, and the relationships that need to be preserved. Define the universe and common variables.</li>
+<li>Some common variables may be described as critical and absolutely have to be maintained Socio-demographic variables such as Gender (so that males are always fused onto males), Age and Geography are commonly used us critical variables. Other critical variables may relate to other measured behaviour such as media consumption.</li>
+<li>Select matching (non-critical) variables used to further predict or explain the variables being linked within each critical cell. This step should also include assigning the importance weights to each of the non-critical common variables. Various approaches for the selection and weighting of matching variables can be used (e.g.&nbsp;ANOVA, regression, CHAID, Principal Component Analysis).</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="choose-an-overall-data-fusion-technique.-the-main-techniques-used-are">Choose an overall data fusion technique. The main techniques used are:</h3>
+<ul>
+<li>“Row wise” (The entire record of each donor is fused onto a matching recipient or group of recipients. The same set of ‘common’ variables is used to estimate the true relationship between donor and recipient for all variables.)</li>
+<li>“Column wise” (Datasets are fused variable by variable, or ‘column-by-column’. Each variable will have its own set of ‘common’ variables, the one that best explains the relationship for this particular variable.)</li>
+<li>“Hybrid” (Dataset is divided in blocks of variables with similar characteristics. Within each block, the fusion will be row-based copying all variables from a donor to a recipient for that particular group of variables. However, for each block, the fusion is independent and can take advantage of choosing the different set of common variables that best explains the relationship.)</li>
+</ul>
+<h4 id="select-a-single-distance-metric-to-be-used-in-the-matching-process.-usual-approaches-include-euclidean-distance-mahalanobis-distance-or-the-manhattan-block-distance.">Select a single distance metric to be used in the matching process. Usual approaches include Euclidean distance, Mahalanobis distance, or the Manhattan block distance.</h4>
+</section>
+<section class="slide level2">
+
+<h3 id="choose-a-matching-technique-constrained-or-un-constrained.">Choose a matching technique – “constrained” or “un-constrained.”</h3>
+<h4 id="unconstrained-fusion">Unconstrained fusion</h4>
+<ul>
+<li>In approaches using “unconstrained fusion”, the donor variables are passed across and attached to the recipient’s record. Unconstrained matching simply means that a donor can be matched to any number of recipients, or none. This approach has the advantage of permitting the closest possible match of donors with recipients because it does not require for all potential donors to be used. However, there are a number of disadvantages. The most important disadvantage is that there is no guarantee that the marginal and joint distribution of the donor variables in the fused dataset will be identical to the corresponding distributions in the donor dataset. This is partly because each donor is used as often as necessary and partly because the donor’s weight is “left behind”.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h4 id="constrained-fusion">Constrained fusion</h4>
+<ul>
+<li>In the “constrained fusion” approach, all respondents from both surveys have to be used and their data together with their weights are transported into the new synthetic dataset. Respondents from either survey may still be used more than once, but in such cases their weight is shared out. This method has a number of advantages, but the main one is that marginal distributions from both surveys can be preserved, due to the preservation and sharing out of both sets of weights. Though in principle the matching may not be as good as for unconstrained fusion, in practice this is not an issue, especially when the two surveys with large samples are being fused.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="run-the-matching-or-modelling-process.">Run the matching (or modelling) process.</h3>
+<ul>
+<li>Create a new fused dataset.</li>
+<li>Validate the results and provide fusion diagnostics. For example:
+<ul>
+<li>Evaluation of the matching algorithm to measure the success in finding fused pairs of individuals with similar profiles.</li>
+<li>Comparison of the incidences for key fused variables between the original and fused dataset.</li>
+</ul></li>
+<li>Assess the effect of “regression-to-the-mean.” Analyse the fused dataset, combining variables from the donor and the recipient datasets.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>For example, in marketing, marketers want to know everything they can about their target consumer in order to maximise the return on their research investment:</p>
+<ul>
+<li>Who they are (demographics, geo-demographics, psychographics etc.)</li>
+<li>What they think about brands in the category they are asking about</li>
+<li>How they behave (purchasing levels, brand choice etc.)</li>
+<li>What they intend to purchase in the future</li>
+</ul>
+<p>Those planning and buying advertising campaigns need to uncover the best ways of reaching and influencing their target audiences:</p>
+<ul>
+<li>Which media do they come into contact with at different times of day (TV programmes, newspapers, magazines, radio stations, web sites, apps, poster panels…)?</li>
+<li>Which media are they more or less attentive to or engaged with at different times of day?</li>
+<li>When is the best time to reach people with an advertising message (message receptiveness, when are they in the market to buy…)?</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>But no individual respondent will agree to answer such a large number of questions. And many of the questions will be impossible to answer accurately.</p>
+<p>This conundrum of needing more information while finding it harder to collect from surveys alone is likely to get harder rather than easier as time passes. One of the statistical techniques used to help address this is data fusion.</p>
+<p>The practical application of data science demands a high level of skill and expertise, as well as experience – many of the decisions and choices made in building fusions, for example, are not black and white, demanding judgement and a deep knowledge of the context.</p>
+</section>
+<section id="going-back-to-surveys-of-official-statistics-institutes" class="slide level2">
+<h2>Going back to surveys of Official Statistics Institutes</h2>
+<p>We match <strong>concepts/classes</strong> (not the single individuals), which rapresents aggregation of microdata, not always of the same nature (income is measured on citizens, healt services are measured on hospitals, land cover use is measured on the geographical space,…) from different database/surveys e.g.</p>
+<ul>
+<li>Incomes</li>
+<li>Time use</li>
+<li>Behaviours</li>
+<li>…</li>
+</ul>
+</section>
+<section id="data-fusion-the-symbolic-advanced-approach" class="slide level2">
+<h2>Data Fusion: the Symbolic advanced approach</h2>
+<p>Uses of Joining Objects in Official Statistics: Data Fusion We find a new application of joining symbolic objects that consists of joining assertions coming from different surveys. This joining enables us to obtain additional information, data imputation, to obtain conclusions about causes and possible effects,…</p>
+<p>Fusion using symbolic objects differs from the traditional data fusion in the way of matching. Instead of joining record by record of common variables, we join by symbolic objects each one describing a group.</p>
+<p>The fusion allows us to relate independent surveys to some common items. In the SODAS project framework, this comparison will be between surveys of different countries of the European Union.</p>
+
+<img data-src="figures/fusion.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="example" class="slide level2 scrollable">
+<h2>Example</h2>
+<p>An example showing this new use in EUSTAT, is the fusion of the two independent surveys Use of Time (EPT) and Living Conditions (ECV). They have common variables (socio-demographic) and it is probable that there is a relation between them.</p>
+<ul>
+<li>The first step is to define the common socio-demographic variables and to create assertions for each survey separately. The group attribute for these assertions will be the concatenation of common variables.</li>
+</ul>
+<p>The common variables chosen for this study could be: Sex, Marital status, Age, Relation to Activity and Level of Education.</p>
+<ul>
+<li>The second step is to join assertions describing the same group. Then, for the same group we will have the description in the specific variables of each survey.</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>We consider the following data arrays:</p>
+<p><span class="math inline">\(X_1\)</span> is a symbolic data array that describes socio-demographic groups by the following variables of Use of Time:</p>
+<p><span class="math display">\[Y_{11}(limp) = \text{Participation in Cleaning}\]</span></p>
+<p><span class="math display">\[Y_{12}(prpc) = \text{Participation in Preparing Meals}\]</span> <span class="math display">\[Y_{13}(prac) = \text{Sport Practice}\]</span> <span class="math display">\[Y_{14}(cuip) = \text{Time used in Personal Care}\]</span></p>
+</section>
+<section class="slide level2">
+
+<p>One of the objects of the array is:</p>
+<p><code>os "Woman Married &lt; 35 years Employed Secondary"(54) =</code></p>
+<p><code>[limp = {"Null Particip."(0.347273), "Low Particip."(0.188186), "Average Particip."(0.346782), "High Particip."(0.117759)}] &amp;</code></p>
+<p><code>[prpc = {"Null Particip."(0.0719004), "Low Particip."(0.400066), "Average Particip."(0.436589), "High Particip."(0.0914451)}] &amp;</code></p>
+<p><code>[prac = {"Null Particip."(0.877218), "Low Particip."(0.122782)}] &amp;</code></p>
+<p><code>[cuip = [0:170]]</code></p>
+</section>
+<section class="slide level2">
+
+<p><span class="math inline">\(X_2\)</span> is a symbolic data array that describes the same socio-demographic groups by the following variables of Living Conditions:</p>
+<p><span class="math display">\[Y_{21} (jorna) = \text{Length of Working Day}\]</span> <span class="math display">\[Y_{22} (comt) = \text{Return home to have lunch} \]</span> <span class="math display">\[Y_{23} (ractp) = \text{Branch of Economic Activity} \]</span></p>
+</section>
+<section class="slide level2">
+
+<h4 id="symbolic-description-from-the-x_2">Symbolic description from the <span class="math inline">\(X_2\)</span></h4>
+<p><code>os "Woman Married &lt; 35 years Employed Secondary"(34) =</code></p>
+<p><code>[jorna = {"SPLIT SHIFT"(0.394297), "CONTINUOUS"(0.434047), "NOT APPLICABLE"(0.171656)}] &amp;</code></p>
+<p><code>[comt = {"RETURN HOME TO LUNCH"(0.637714), "NOT RETURN HOME TO LUNCH"(0.345755), "NOT APPLICABLE"(0.0165312)}] &amp;</code></p>
+<p><code>[ractp2 = {"PAPER-GRAPHIC ART"(0.0165312), "CONSTRUCTION AND CIVIL WORKS"(0.0235133), "COMMERCE-HOSTELRY-REPARING-RECOVERY"(0.337456), "TRANSPORTS AND COMMUNICATION"(0.0317708), "BANK AND INSURANCES"(0.048266), "NON-COMMERCIAL SERVICES"(0.078488), "PUBLIC ADMINISTRATION- TEACHING"(0.137167), "VEHICLES AND TRANSPORT MATERIAL"(0.0167604), "CHEMISTRY"(0.0331782), "COMMERCIAL SERVICES"(0.140833), "RUBBER AND PLASTIC TRANSFORMATIONS"(0.0199348), "AGRICULTURE-CATTLE-FORESTRY- FISHING"(0.0201623), "METALLIC CONSTRUCTION"(0.0246369), "ELECTRIC MATERIAL AND MACHINERY"(0.0497522), "WOOD-FURNITURE"(0.0215493)}]</code></p>
+</section>
+<section class="slide level2">
+
+<h4 id="the-joint-symbolic-object">The JOINT Symbolic object</h4>
+<p>Then, the joint symbolic objects is:</p>
+<p style="font-size:0.8em; color:yellow;">
+os “Woman Married &lt; 35 years Employed Secondary”(88) <code>=</code><br> <code>[</code>limp<code>= {"Null Particip."(0.347273), "Low Particip."(0.188186), "Average Particip."(0.346782), "High Particip."(0.117759)}] &amp;</code> <br><code>[</code>prpc<code>= {"Null Particip."(0.0719004), "Low Particip."(0.400066),"Average Particip."(0.436589), "High Particip."(0.0914451)}] &amp;</code> <br><code>[</code>prac<code>= {"Null Particip."(0.877218), "Low Particip."(0.122782)}] &amp;</code> <br><code>[</code>cuip<code>= [0:170]] &amp;</code> <br><code>[</code>jorna<code>= {"SPLIT SHIFT"(0.394297), "CONTINUOUS"(0.434047), "NOT APPLICABLE"(0.171656)}] &amp;</code> <br><code>[</code>comt<code>= {"RETURN HOME TO LUNCH"(0.637714), "NOT RETURN HOME TO LUNCH"(0.345755), "NOT APPLICABLE"(0.0165312)}] &amp;</code> <br><code>[</code>ractp2<code>= {"BANK AND INSURANCES"(0.048266), "NON-COMMERCIAL SERVICES"(0.078488), "PAPER-GRAPHIC ART"(0.0165312), "COMMERCIAL SERVICES"(0.140833), "CHEMISTRY"(0.0331782), "VEHICLES AND TRANSPORT MATERIAL"(0.0167604), "COMMERCE-HOSTELRY-REPARING-RECOVERY"(0.337456), "METALLIC CONSTRUCTION"(0.0246369), "ELECTRIC MATERIAL AND MACHINERY"(0.0497522), "TRANSPORTS AND COMMUNICATION"(0.0317708), "WOOD-FURNITURE"(0.0215493), "AGRICULTURE-CATTLE-FORESTRY-FISHING"(0.0201623), "PUBLIC ADMINISTRATION- TEACHING"(0.137167), "CONSTRUCTION AND CIVIL WORKS"(0.0235133), "RUBBER AND PLASTIC TRANSFORMATIONS"(0.0199348)}]</code>
+</p>
+</section>
+<section id="visualization-of-symbolic-objects." class="slide level2">
+<h2>Visualization of Symbolic Objects.</h2>
+<p>Symbolic Objects may be visualized in three different ways:</p>
+<ul>
+<li><p>In a symbolic table,</p></li>
+<li><p>By star graphs and</p></li>
+<li><p>By the specific language of symbolic objects, SOL (Symbolic Object Language).</p></li>
+<li><p>By other plots that are specific for interval or distributional descriptions.</p></li>
+</ul>
+</section>
+<section id="symbolic-tables" class="slide level2">
+<h2>Symbolic tables</h2>
+<p>A sybolic data table is like a classical datatable but each cell contains a multi-valued description <br><br><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/symbmat.png" class="quarto-figure quarto-figure-center" height="300"></p>
+</figure>
+</div>
+<p><br></p>
+</section>
+<section id="zoom-star" class="slide level2 smaller">
+<h2>Zoom star</h2>
+<p>A Zoom star is a radial plot where each radius represents a variable. There are two types of zoom star visualization, 2D and 3D, which provide different levels of detail. The 2D representation provides a global impression of the symbolic object, whereas 3D representation provides much more detailed information.</p>
+<p>The Zoom Star representation is derived from Kiviat Diagrams where each axis corresponds to a variable. In the same graph we can represent categorical variables, intervals, weighted values, taxonomies,… without overloading the graph.</p>
+<p>The following table summarizes the representation of each variable depending on its type.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable Type</th>
+<th>Axis Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quantitative</td>
+<td>Graduated axis</td>
+</tr>
+<tr class="even">
+<td>Categorical</td>
+<td>Dots equally distributed on the axis</td>
+</tr>
+<tr class="odd">
+<td>Categorical not weighted</td>
+<td>Axis drawn in black</td>
+</tr>
+<tr class="even">
+<td>Categorical weighted</td>
+<td>Axis drawn in claret</td>
+</tr>
+<tr class="odd">
+<td>Not applicable</td>
+<td>Axis drawn in grey</td>
+</tr>
+</tbody>
+</table>
+<p>The limit for variables to be represented is 24 and for categories is 15.</p>
+<p>Selecting an axis with the mouse, we can display the distribution of the chosen variable (histogram). Moreover, we can also display taxonomies and dependencies of a variable by clicking on the icon that appears in the corresponding axis.</p>
+<p>Graphics can be moved right, left, up and down for a better visualization.</p>
+</section>
+<section id="d-zoom-stars" class="slide level2">
+<h2>2D Zoom stars</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p style="font-size:0.7em; color:white;">
+In the 2D Zoom Star, axes are linked by a line that connects most frequent values of each variable. If there were a tie of the most frequent value in several categories, the line would link all of them.<br> In the presence of an interval variable, the line is linked to the minimum and maximum limits and the entire area is filled.<br><br> For instance, we have defined symbolic objects as groups of population defined by sex, age, marital status, level of education and relation to activity in the P.R.A. survey. We have obtained 314 symbolic objects, which are the combination of the modalities of these variables.<br><br> In this case, as we use a survey, the distribution has been calculated taking into account sampling weights.<br><br> In the following graph, we can see two mother-daughter variables. Daughter variables that are N.A. appear in the graph as a grey axis. On the right, we can see the distribution of one of the variables.
+</p>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center" style="text-align: center;">
+<figure>
+<p><img data-src="figures/zoom2d.png" height="300"></p>
+<figcaption>2d Zoom star</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="d-zoom-stars-1" class="slide level2">
+<h2>3D Zoom stars</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>In the 3D representation, we can see distributions corresponding to each variable with weighted values. Numerical variables are represented by rectangles from the minimum to the maximum value.</p>
+<p>For example, the distribution of the symbolic object “Woman” in the P.R.A survey corresponding to a quarter in Alava is the following,</p>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center" style="text-align: center;">
+<figure>
+<p><img data-src="figures/zoom3d.png" height="300"></p>
+<figcaption>2d Zoom star</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="comparison-of-several-symbolic-objects" class="slide level2">
+<h2>Comparison of several Symbolic Objects</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The comparison of several symbolic objects is easier using the 2D representation. We compare if the shapes of the lines that link the axes are similar.</p>
+<h3 id="example-1">Example</h3>
+<p style="font-size:0.7em; color:white;">
+From the survey of Enterprises doing R&amp;D in the Basque Country, we have built some symbolic objects describing branches of economic activity. From the 18 available branches, we have chosen 2 to compare them, “Land, Cattle and Fishing” and “Metallurgy”.<br> The chosen variables to describe both branches are: Type of Enterprise, Type of R&amp;D activity, number of researchers in the activity, size of the enterprise in staff, intramural expenses, percentage of researching dedicated to manufacturing products and energy.
+</p>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/zoomcomp.png" class="quarto-figure quarto-figure-center" style="text-align: center;" height="500"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p style="font-size:0.75em; color:white;">
+From the graphs we can draw the following conclusions:<br>The two branches differ in the character of the R&amp;D activities , in “Land, Cattle and Fishing” the activities can be both systematic or occasional, whereas in “Metallurgy” the activities are mostly systematic. Another difference is the size of the enterprises, in the metallurgic industry they are larger than in the “Land, Cattle and Fishing” branch. Moreover, the metallurgic industry uses 100% of intramural expenses for researching manufacturing products.<br> The comparison with histograms (3D representation) also provides relevant information about the distributions.<br> We represent the same 3D graphs of branches of economic activity as in the previous example, to obtain more information.<br> Now, we can observe better the differences between distributions in the two branches. In “Metallurgy”, the distributions of the variables “size of the enterprise” (taman) and “intramural expenses” (gintr) are much more dispersed among all categories, whereas in “Land, Cattle and Fishing” the distributions of these two variables are centred in a unique value.
+</p>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/zoomcom3dp.png" class="quarto-figure quarto-figure-center" style="text-align: center;" height="500"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="basic-statistics-of-symbolic-objects" class="slide level2">
+<h2>Basic statistics of Symbolic Objects</h2>
+<p>Basic Statistics of Symbolic Objects consists of a set of graphs and summary measures depending on the type of variable.</p>
+<p>If the variables are multinomial, we can draw frequency graphs such as bar graphs and pie charts.</p>
+<p>If the variables are interval, we can draw frequency graphs with central tendency and dispersion measures. Moreover, we can represent biplots.</p>
+<p>Finally, if the variables are probabilistic, we can draw graphs of capacities.</p>
+<div class="quarto-auto-generated-content">
+<div class="footer footer-default">
+<p>Symbolic Data on official stats and visualization</p>
+</div>
 </div>
 </section>
     </div>
@@ -368,7 +767,6 @@ Antonio Irpino
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -394,7 +792,7 @@ Antonio Irpino
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -629,10 +1027,27 @@ Antonio Irpino
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -642,8 +1057,17 @@ Antonio Irpino
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -657,7 +1081,11 @@ Antonio Irpino
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

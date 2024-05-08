@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/clipboard/clipboard.min.js"></script>
+<script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/quarto-html/tabby.min.js"></script>
+<script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/quarto-html/popper.min.js"></script>
+<script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.4.554">
+
+  <meta name="author" content="A. Irpino, R. Verde">
+  <title>Symbolic Data from classical data  and basic stats for distributional data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; background-color: #2a0f15; font-weight: bold; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-dark">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="white" data-background-image="images/main.svg" data-background-size="contain" class="quarto-title-block center">
+  <h1 class="title">Symbolic Data from classical data<br> and basic stats for distributional data</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+A. Irpino, R. Verde 
+</div>
+</div>
+</div>
+
+</section>
+<section id="outline" class="slide level2">
+<h2>Outline</h2>
+<ul>
+<li>The <code>HistDAWass</code> package and how to install it</li>
+<li>Main classes and methods</li>
+<li>From raw data to histograms</li>
+<li>Histogram-valued data table</li>
+<li>Distances for histogram-valued data: the <span class="math inline">\(L_2\)</span> Wasserstein distance</li>
+<li>Basic univariate statistics for histogram variables</li>
+<li>Association measure for histogram variables</li>
+</ul>
+</section>
+<section id="histdawass-package" class="slide level2">
+<h2>HistDAWass Package</h2>
+<ul>
+<li><code>Hist</code>ogram</li>
+<li><code>D</code>ata</li>
+<li><code>A</code>nalysis</li>
+<li>using <code>Wass</code>erstein distance</li>
+</ul>
+<p>The package can be downloaded from CRAN and charged as usually(in R):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"HistDAWass"</span>)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(<span class="st">"HistDAWass"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="classes-of-histdawass" class="slide level2">
+<h2>Classes of <code>HistDAWass</code></h2>
+<h4 id="classes-and-methods-were-implemented-in-the-package-using-s4">Classes and methods were implemented in the package using S4</h4>
+<p>The main motivation is that the S4 paradigm is object-oriented, while S3 does not.</p>
+<h4 id="main-classes-of-the-package">Main classes of the package</h4>
+<ul>
+<li><code>distributionH</code> – the class representing a histogram-valued data (HD);</li>
+<li><code>MatH</code> – a matrix of HD, it is symilar to a symbolic table, but containing only histograms;</li>
+<li><code>TdistributionH</code> – an HD with a timestamp, or a time interval (useful for the analysis of histogram time series)</li>
+<li><code>TMatH</code> – a matrix of HD’s with a timestamp, or a time interval;</li>
+<li><code>HTS</code> – a Histogram Time Series (an ordered list of TdistributionH);</li>
+</ul>
+</section>
+<section>
+<section id="the-distributionh-class-a-class-for-describing-and-manipulating-histogram-valued-data" class="title-slide slide level1 center">
+<h1>The <code>distributionH</code> class: a class for describing and manipulating histogram-valued data</h1>
+
+</section>
+<section id="a-class-describing-a-1-d-histogram" class="slide level2">
+<h2>A class describing a 1-d histogram</h2>
+<p>We want to create a new object containing the following histogram:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Bin</strong></th>
+<th style="text-align: right;"><strong>Rel.freq.</strong></th>
+<th style="text-align: right;"><strong>CDF</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\text{[1;2)}\)</span></td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\text{(2;3]}\)</span></td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Tot.</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>mydist<span class="ot">=</span><span class="fu">distributionH</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="at">p=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.4</span>, <span class="dv">1</span>))</span>
+<span id="cb2-2"><a href=""></a><span class="fu">str</span>(mydist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Formal class 'distributionH' [package "HistDAWass"] with 4 slots
+  ..@ x: num [1:3] 1 2 3
+  ..@ p: num [1:3] 0 0.4 1
+  ..@ m: num 2.1
+  ..@ s: num 0.569</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="show-function" class="slide level2">
+<h2>Show function</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>mydist </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          X         p
+Bin_1 [ 1 ; 2 )       0.4
+Bin_2 [ 2 ; 3 ]       0.6
+
+ mean =  2.1   std  =  0.568624070307733 
+ </code></pre>
+</div>
+</div>
+</section>
+<section id="plot-functions" class="slide level2">
+<h2>Plot functions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>mydist<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">15</span>),<span class="at">p=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.7</span>, <span class="dv">1</span>))</span>
+<span id="cb6-2"><a href=""></a><span class="fu">plot</span>(mydist) <span class="co">#plots mydist</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/distribution_plot-1.png" width="384" class="r-stretch"></section>
+<section id="some-options-for-plotting-a-distributionh-object" class="slide level2">
+<h2>Some options for plotting a distributionH object</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>p1<span class="ot">&lt;-</span><span class="fu">plot</span>(mydist, <span class="at">type=</span><span class="st">"HISTO"</span>, <span class="at">col=</span><span class="st">"red"</span>,</span>
+<span id="cb7-2"><a href=""></a>        <span class="at">border=</span><span class="st">"blue"</span>)</span>
+<span id="cb7-3"><a href=""></a><span class="co">#plots a density approximation for mydist</span></span>
+<span id="cb7-4"><a href=""></a>p2<span class="ot">&lt;-</span><span class="fu">plot</span>(mydist, <span class="at">type=</span><span class="st">"DENS"</span>, <span class="at">col=</span><span class="st">"red"</span>, </span>
+<span id="cb7-5"><a href=""></a>         <span class="at">border=</span><span class="st">"blue"</span>) </span>
+<span id="cb7-6"><a href=""></a><span class="co">#plots a horizontal boxplot for mydist</span></span>
+<span id="cb7-7"><a href=""></a>p3<span class="ot">&lt;-</span><span class="fu">plot</span>(mydist, <span class="at">type=</span><span class="st">"HBOXPLOT"</span>) </span>
+<span id="cb7-8"><a href=""></a></span>
+<span id="cb7-9"><a href=""></a><span class="co">#plots a vertical boxplot for mydist</span></span>
+<span id="cb7-10"><a href=""></a>p4<span class="ot">&lt;-</span><span class="fu">plot</span>(mydist, <span class="at">type=</span><span class="st">"VBOXPLOT"</span>) </span>
+<span id="cb7-11"><a href=""></a></span>
+<span id="cb7-12"><a href=""></a><span class="co">#plots the cumulative distr. func. of mydist</span></span>
+<span id="cb7-13"><a href=""></a>p5<span class="ot">&lt;-</span><span class="fu">plot</span>(mydist, <span class="at">type=</span><span class="st">"CDF"</span>) </span>
+<span id="cb7-14"><a href=""></a></span>
+<span id="cb7-15"><a href=""></a><span class="co">#plots the quantile function of mydist</span></span>
+<span id="cb7-16"><a href=""></a>p6<span class="ot">&lt;-</span><span class="fu">plot</span>(mydist, <span class="at">type=</span><span class="st">"QF"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="obtainning-the-histogram-and-the-cdf-of-a-distributionh-object" class="slide level2">
+<h2>Obtainning the histogram and the CDF of a distributionH object</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>mydist.histo<span class="ot">&lt;-</span><span class="fu">get.histo</span>(mydist) <span class="co">#this returns the histogram</span></span>
+<span id="cb8-2"><a href=""></a>mydist.cdf<span class="ot">&lt;-</span><span class="fu">get.distr</span>(mydist) <span class="co">#this returns the CDF</span></span>
+<span id="cb8-3"><a href=""></a><span class="co">#into data.frame objects</span></span>
+<span id="cb8-4"><a href=""></a>mydist.histo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  min.x max.x   p
+1     7     8 0.2
+2     8    10 0.5
+3    10    15 0.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>mydist.cdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   x   p
+1  7 0.0
+2  8 0.2
+3 10 0.7
+4 15 1.0</code></pre>
+</div>
+</div>
+</section>
+<section id="obtaining-a-single-quantile-or-a-probability-from-a-distributionh-object" class="slide level2">
+<h2>Obtaining a single quantile or a probability from a distributionH object</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># computes the CDF value for x=9.5</span></span>
+<span id="cb12-2"><a href=""></a><span class="fu">compP</span>(<span class="at">object =</span> mydist,<span class="at">q =</span> <span class="fl">9.5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.575</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="co"># computes the quantile  for p=0.1</span></span>
+<span id="cb14-2"><a href=""></a><span class="fu">compQ</span>(<span class="at">object =</span> mydist,<span class="at">p =</span> <span class="fl">0.1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.5</code></pre>
+</div>
+</div>
+</section>
+<section id="other-basic-statistics-for-distributionh-objects" class="slide level2 smaller">
+<h2>Other basic statistics for distributionH objects</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>mydist.mean<span class="ot">=</span><span class="fu">meanH</span>(mydist) <span class="co">#computes the mean</span></span>
+<span id="cb16-2"><a href=""></a>mydist.std<span class="ot">=</span><span class="fu">stdH</span>(mydist) <span class="co">#computes the standard deviation</span></span>
+<span id="cb16-3"><a href=""></a>mydist.skew<span class="ot">=</span><span class="fu">skewH</span>(mydist) <span class="co">#computes the 3rd stand. centr. moment</span></span>
+<span id="cb16-4"><a href=""></a>mydist.kurt<span class="ot">=</span><span class="fu">kurtH</span>(mydist) <span class="co">#computes the 4th stand. centr. moment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Being <span class="math inline">\(Q(p)\)</span> a quantile function the four measures are, respectively, the histogram version of the following formulas <span class="citation" data-cites="Gilch2000">(<a href="#/references" role="doc-biblioref" onclick="">Gilchrist 2000</a>)</span>:<br>
+<span class="math display">\[\boxed{\color{orange}{\mu=\int\limits_0^1Q(p)dp}},\;\;\boxed{\color{lime}{\sigma=\sqrt{\int\limits_0^1Q(p)^2dp-\mu^2}}},\]</span></p>
+<p><span class="math display">\[\boxed{\color{yellow}{sk=\int\limits_0^1\left(\frac{Q(p)-\mu}{\sigma}\right)^3dp}},\;\;\boxed{\color{pink}{ku=\int\limits_0^1\left(\frac{Q(p)-\mu}{\sigma}\right)^4dp}}.\]</span></p>
+</section>
+<section id="the-histogram-trick-1" class="slide level2 smaller">
+<h2>The histogram trick (1)</h2>
+<p>We can consider the histogram as a weighted mixture of <span class="math inline">\(b\)</span> (the number of classes or bins of a histogram) disjointed uniform <em>pdf</em>s. Thus, if we consider the trivial histogram as the histogram with one bin (namely, a uniform distribution), and that it is defined as <span class="math inline">\(X\sim U(a,b)\)</span> having <em>qf</em> <span class="math inline">\(Q(p)=a+p\cdot(b-a)\)</span> we have: <span class="math display">\[\boxed{\color{orange}{\mu=\int\limits_0^1Q(p)dp=\int\limits_0^1[a+p\cdot(b-a)]dp=\frac{a+b}{2}}}\]</span> or if we consider the center (midpoint) <span class="math inline">\(c=\frac{a+b}{2}\)</span> and the radius (half-width) <span class="math inline">\(r=\frac{b-a}{2}\)</span>, the <span class="math inline">\(Q(p)=c-r + 2pr=c+r(2p-1)\)</span> we have <span class="math display">\[\boxed{\color{orange}{\mu=\int\limits_0^1Q(p)dp=\int\limits_0^1[c+r(2p-1)]dp=c}}\]</span></p>
+</section>
+<section id="the-histogram-trick-the-mean-2" class="slide level2">
+<h2>The histogram trick: the mean (2)</h2>
+<p>If we consider the histogram with <span class="math inline">\(k\)</span> bins a collection of weighted uniform: <span class="math display">\[H=\{([a_1,b_1],\pi_1),\ldots,([a_k,b_k],\pi_k)\}.\]</span> Let’s consider <span class="math inline">\(F_{\ell}=\sum\limits_{s=1}^{\ell}\pi_{s}\)</span> and <span class="math inline">\(F_0=0\)</span>, then the <span class="math inline">\(Q(p)\)</span> is a piece wise linear function then: <span class="math display">\[\boxed{\color{orange}{\mu=\int\limits_0^1Q(p)dp=\sum\limits_{\ell=1}^k\int\limits_{F_{\ell-1}}^{F_\ell}Q(p)dp=\sum\limits_{\ell=1}^k\pi_{\ell}\frac{a_{\ell}+b_{\ell}}{2} =\sum\limits_{\ell=1}^k\pi_{\ell}c_{\ell}}} \]</span></p>
+</section>
+<section id="the-histogram-trick-plus-the-center-radii-transformation-standard-deviation-3" class="slide level2">
+<h2>The histogram trick, plus the center-radii transformation: standard deviation (3)</h2>
+<p>We have the distribution <span style="background-color: grey"><span class="math inline">\(H=\{([a_1,b_1],\pi_1),\ldots,([a_k,b_k],\pi_k)\}\)</span></span>. Each bin can be described in terms of center and radii: <span style="background-color: grey"><span class="math inline">\(c_{\ell}=\frac{a_{\ell}+b_{\ell}}{2}\)</span></span> and <span style="background-color: grey"><span class="math inline">\(r_{\ell}=\frac{b_{\ell}-a_{\ell}}{2}\)</span></span>. The standard deviation of a histogram is computed as follows: <span class="math display">\[\boxed{\color{lime}{\sigma=\sqrt{\int\limits_0^1Q(p)^2dp-\mu^2}=\sqrt{\sum\limits_{\ell=1}^k\int\limits_{F_{\ell-1}}^{F_\ell}Q(p)^2dp-\mu^2}=
+\sqrt{\sum\limits_{\ell=1}^k\pi_{\ell}\left[c_{\ell}^2+\frac{1}{3}r_{\ell}^2\right] -\mu^2}}}
+\]</span></p>
+</section>
+<section id="the-histogram-trick-the-center-radii-transformation-and-standardization-skweness-and-the-kurtosis-4" class="slide level2 smaller">
+<h2>The histogram trick, the center-radii transformation and standardization: skweness and the kurtosis (4)</h2>
+<p>The skewness and the kurtosis indices are computed as the third and the fourth standardized moments of the histogram. Using a centered histogram (i.e.&nbsp;a histogram shifted to their mean value), the corresponding <em>centered quantile function</em> <span style="background-color: grey"><span class="math inline">\(Q^c(p)=Q(p)-\mu\)</span></span> and some well-known simplifications, it is possible to prove that we can compute exactly the indices into a finite number of operations (avoiding the numerical problems related to the numeric computation of the integrals). Let’s consider <span style="background-color: grey"><span class="math inline">\(_sc_{\ell}=\frac{c_{\ell}-\mu}{\sigma}\)</span></span> and <span style="background-color: grey"><span class="math inline">\(_sr_{\ell}=\frac{r_{\ell}}{\sigma}\)</span></span>, the standardized midpoints and the normalized radii of the bins, the two shape indices are computed (exactly) as follows: <span class="math display">\[\boxed{\color{yellow}{sk=\frac{\int\limits_0^1\left[Q^c(p)\right]^3dp}{\sigma^3}=\sum\limits_{\ell=1}^k\pi_{\ell}\cdot {_sc}_{\ell}\cdot \left[ \,_sc_{\ell}^2+\,_sr_{\ell}^2\right]}},\;\;\boxed{\color{pink}{ ku=\frac{\int\limits_0^1\left[Q^c(p)\right]^4dp}{\sigma^4}=\sum\limits_{\ell=1}^k\frac{\pi_{\ell}}{5}\left[5{_sc}_{\ell}^4+10{_sc}^2_{\ell}{_sr}^2_{\ell}+{_sr}^4_{\ell}\right]}}\]</span></p>
+</section>
+<section id="how-to-obtain-midponts-and-radii-1" class="slide level2">
+<h2>How to obtain midponts and radii (1)</h2>
+<div class="cell">
+<pre><code>##   min.x max.x   p
+## 1     7     8 0.2
+## 2     8    10 0.5
+## 3    10    15 0.3
+## $Centers
+## [1]  7.5  9.0 12.5
+## 
+## $Radii
+## [1] 0.5 1.0 2.5
+## 
+## $Weights
+## [1] 0.2 0.5 0.3</code></pre>
+</div>
+</section>
+<section id="l_2-wasserstein-distance-between-distributionh-objects" class="slide level2 smaller">
+<h2><span class="math inline">\(L_2\)</span> Wasserstein distance between distributionH objects</h2>
+<p>Given two distributions having <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> as <em>pdf</em>s and, respectively, <span class="math inline">\(Q_f(p)\)</span> and <span class="math inline">\(Q_g(p)\)</span> as quantile functions, the (squared) <span class="math inline">\(L_2\)</span> Wasserstein distance is: <span class="math display">\[\boxed{\color{orange}{d_W^2(f,g)=\int\limits_0^1\left[Q_f(p)-Q_g(p)\right]^2dp}}\]</span> <span class="citation" data-cites="DBLP:conf/f-egc/2007">(<a href="#/references" role="doc-biblioref" onclick="">Irpino and Romano 2007</a>)</span> and <span class="citation" data-cites="IrpVer2015">(<a href="#/references" role="doc-biblioref" onclick="">Irpino and Verde 2015</a>)</span> showed that <span class="math display">\[\boxed{\color{yellow}{d_W^2(f,g)=\left(\mu_f-\mu_g\right)^2+\left(\sigma_f-\sigma_g\right)^2+2\sigma_f\sigma_g\left[1-\rho_{QQ}(f,g)\right]}}\]</span> where <span class="math inline">\(\rho_{QQ}(f,g)\)</span> is the Pearson correlation between two <em>qf</em>s: <span class="math display">\[\rho_{QQ}(f,s)=\frac{\int\limits_0^1Q_f(p)Q_g(p)dp-\mu_f\mu_g}{\sigma_f\sigma_g} \]</span></p>
+</section>
+<section id="computing-the-dot-product-between-two-quantile-functions-of-histograms" class="slide level2">
+<h2>Computing the dot product between two quantile functions of histograms</h2>
+<p>If two histograms <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span> have a same number of bins, say <span class="math inline">\(k\)</span>, and such bins contain respectively the same mass, namely, <span class="math inline">\(\pi_{\ell,1}=\pi_{\ell,2}\)</span> <span class="math inline">\(\forall \ell \in k\)</span> the dot product can be computed using the histogram trick as follows: <span class="math display">\[\int\limits_0^1Q_f(p)Q_g(p)dp=\sum\limits_{\ell=1}^k\left( c_{\ell,1}c_{\ell,2}+\frac{1}{3}r_{\ell,1}r_{\ell,2}\right)\]</span></p>
+</section>
+<section class="slide level2">
+
+<h3 id="how-to-recode-two-hstograms-such-that-thay-have-the-same-number-of-bins-and-the-same-masses">How to recode two hstograms such that thay have the same number of bins and the same masses?</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>registered<span class="ot">=</span><span class="fu">register</span>(dist1, dist2) </span>
+<span id="cb18-2"><a href=""></a><span class="co">#returns a list with 2 registered distributionH objects</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-register-method-in-action" class="slide level2">
+<h2>The <code>register</code> method in action</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a> dist1<span class="ot">=</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>, <span class="dv">1</span>))</span>
+<span id="cb19-2"><a href=""></a> dist2<span class="ot">=</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">15</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.7</span>, <span class="dv">1</span>))</span>
+<span id="cb19-3"><a href=""></a> registered<span class="ot">=</span><span class="fu">register</span>(dist1,dist2) <span class="do">## register the two distributions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="figures/PLOT2.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="returning-on-l_2-wasserstein-distance" class="slide level2">
+<h2>Returning on <span class="math inline">\(L_2\)</span> Wasserstein distance</h2>
+<p>Using <code>register</code> method, the (Squared) <span class="math inline">\(L_2\)</span> Wasserstein distance between two histograms exactly:</p>
+<div class="cell">
+<pre><code>## [1] 61.03667
+##  SQ_W_dist   POSITION       SIZE      SHAPE        rQQ 
+## 61.0366667 58.5225000  2.3165745  0.1975922  0.9168940</code></pre>
+</div>
+<p><span class="math display">\[d_W^2(f,g)=\underbrace{\left(\mu_f-\mu_g\right)^2}_{Position}+\underbrace{\underbrace{\left(\sigma_f-\sigma_g\right)^2}_{Size}+\underbrace{2\sigma_f\sigma_g\left[1-\rho_{QQ}(f,g)\right]}_{Shape}}_{Variability}\]</span></p>
+</section>
+<section id="a-bit-more-on-rqq" class="slide level2">
+<h2>A bit more on <code>rQQ</code></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>The method <code>rQQ</code> computes the Pearson correlation index of two quantile functions. It is equal to <span class="math inline">\(1\)</span> when the distributions have the same shape (except for the means and the standard deviations).</p>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/PLOT3.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="operations-between-distributionh-objects" class="slide level2">
+<h2>Operations between distributionH objects</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li><p>Sum (Between two <em>qf</em>s, or a <em>qf</em> and a number)</p></li>
+<li><p>Multiplication (Between a <em>qf</em> and a positive number)</p></li>
+<li><p>Difference (When admissible, namely the result is a <em>qf</em>, between two <em>qf</em>s, or a <em>qf</em> and a number)</p></li>
+</ul>
+</div><div class="column" style="width:60%;">
+<p><img data-src="figures/Sum_Prod_Diff.png"></p>
+</div>
+</div>
+</section>
+<section id="from-raw-data-to-distributionh-objects" class="slide level2">
+<h2>From raw data to <code>distributionH</code> objects</h2>
+<div class="columns">
+<div class="column" style="width:20%;">
+<p><code>data2hist</code>, a function for converting raw data to histogram-valued one.</p>
+</div><div class="column" style="width:80%;">
+<p><img data-src="figures/data_to_hist.svg"></p>
+</div>
+</div>
+</section></section>
+<section>
+<section id="the-mathclass-a-histogram-valued-data-table" class="title-slide slide level1 center">
+<h1>The <code>MatH</code>class: a histogram-valued data table</h1>
+
+</section>
+<section id="a-data-table-of-hd-the-math-object" class="slide level2 smaller">
+<h2>A data table of HD: the <code>MatH</code> object</h2>
+<p>A <code>MatH</code> object is a table (a matrix): each row is an individual each column is a histogram variable.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>a matrix of distributions 
+ 3  variables  14  rows 
+ each distibution in the cell is represented by the mean and the standard deviation 
+                 Cholesterol               Hemoglobin                Hematocrit        
+u1: F-20  [m= 150.1  ,s= 26.336 ]  [m= 13.695  ,s= 0.55031 ] [m= 41.526  ,s= 2.1968 ] 
+u2: F-30 [m= 150.71  ,s= 25.284 ]  [m= 12.158  ,s= 0.52834 ] [m= 36.497  ,s= 2.1225 ] 
+u3: F-40 [m= 164.96  ,s= 25.334 ]  [m= 12.134  ,s= 0.50739 ] [m= 36.549  ,s= 2.2299 ] 
+u4: F-50 [m= 186.51  ,s= 26.655 ]  [m= 12.133  ,s= 0.58514 ]  [m= 36.48  ,s= 2.1985 ] 
+u5: F-60 [m= 194.03  ,s= 25.215 ]  [m= 12.145  ,s= 0.52031 ] [m= 36.341  ,s= 2.0979 ] 
+u6: F-70  [m= 193.2  ,s= 26.561 ]  [m= 12.205  ,s= 0.52258 ] [m= 36.703  ,s= 2.1818 ] 
+u7: F-80+ [m= 187.14  ,s= 24.592 ]  [m= 12.141  ,s= 0.55247 ] [m= 36.503  ,s= 2.1911 ] 
+u8: M-20 [m= 159.62  ,s= 19.844 ]  [m= 13.557  ,s= 0.29974 ]  [m= 40.5  ,s= 1.6358 ]  
+u9: M-30 [m= 164.43  ,s= 26.486 ]  [m= 12.088  ,s= 0.62237 ] [m= 35.914  ,s= 2.1141 ] 
+u10: M-40 [m= 170.06  ,s= 20.011 ]  [m= 12.092  ,s= 0.52656 ] [m= 36.456  ,s= 2.2476 ] 
+u11: M-50 [m= 194.22  ,s= 30.165 ]  [m= 12.214  ,s= 0.59708 ]  [m= 36.72  ,s= 2.0024 ] 
+u12: M-60 [m= 203.36  ,s= 26.223 ]  [m= 12.245  ,s= 0.50862 ] [m= 35.814  ,s= 2.0083 ] 
+u13: M-70 [m= 205.66  ,s= 22.499 ]  [m= 12.15  ,s= 0.33425 ]   [m= 35.75  ,s= 2.1651 ] 
+u14: M-80+ [m= 205.48  ,s= 23.537 ]   [m= 12.12  ,s= 0.6163 ]   [m= 38.45  ,s= 2.6158 ] </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/plot_BLOOD-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-math-class-and-its-initialization" class="slide level2">
+<h2>The <code>MatH</code> class and its initialization</h2>
+<ul>
+<li><code>x</code> is a list of <code>distributionH</code> objects</li>
+<li><code>nrows</code> is the number of rows (the individuals)</li>
+<li><code>ncols</code> is the number of columns (the variables)</li>
+<li><code>rownames</code> is a vector of strings with the labels of the individuals</li>
+<li><code>varnames</code> is a vector of strings with the labels of variables</li>
+<li><code>by.row</code> indicates if the matrix must be filled by row (TRUE) or by column (FALSE this is the default)</li>
+</ul>
+</section>
+<section id="an-example-of-creation-of-a-new-math-object" class="slide level2">
+<h2>An example of creation of a new <code>MatH</code> object</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="do">##---- create a list of six distributionH objects</span></span>
+<span id="cb22-2"><a href=""></a>ListOfDist<span class="ot">&lt;-</span><span class="fu">vector</span>(<span class="st">"list"</span>,<span class="dv">6</span>)</span>
+<span id="cb22-3"><a href=""></a>ListOfDist[[<span class="dv">1</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>, <span class="dv">1</span>))</span>
+<span id="cb22-4"><a href=""></a>ListOfDist[[<span class="dv">2</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">15</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.7</span>, <span class="dv">1</span>))</span>
+<span id="cb22-5"><a href=""></a>ListOfDist[[<span class="dv">3</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">20</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</span>
+<span id="cb22-6"><a href=""></a>ListOfDist[[<span class="dv">4</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>, <span class="dv">1</span>))</span>
+<span id="cb22-7"><a href=""></a>ListOfDist[[<span class="dv">5</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">15</span>),<span class="fu">c</span>(<span class="dv">0</span>,  <span class="fl">0.75</span>, <span class="dv">1</span>))</span>
+<span id="cb22-8"><a href=""></a>ListOfDist[[<span class="dv">6</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">22</span>,<span class="dv">24</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.12</span>, <span class="dv">1</span>))</span>
+<span id="cb22-9"><a href=""></a></span>
+<span id="cb22-10"><a href=""></a><span class="do">## create a MatH object filling it by columns</span></span>
+<span id="cb22-11"><a href=""></a>MyMAT<span class="ot">=</span><span class="fu">MatH</span>(<span class="at">x=</span>ListOfDist,<span class="at">nrows=</span><span class="dv">3</span>,<span class="at">ncols=</span><span class="dv">2</span>,</span>
+<span id="cb22-12"><a href=""></a>  <span class="at">rownames=</span><span class="fu">c</span>(<span class="st">"I1"</span>,<span class="st">"I2"</span>,<span class="st">"I3"</span>), <span class="at">varnames=</span><span class="fu">c</span>(<span class="st">"Var1"</span>,<span class="st">"Var2"</span>),<span class="at">by.row=</span><span class="cn">FALSE</span>)</span>
+<span id="cb22-13"><a href=""></a></span>
+<span id="cb22-14"><a href=""></a><span class="co">#bulding an empty 10 by 4 matrix of histograms</span></span>
+<span id="cb22-15"><a href=""></a>empty.MAT<span class="ot">=</span><span class="fu">MatH</span>(<span class="at">nrows=</span><span class="dv">10</span>,<span class="at">ncols=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="show-method" class="slide level2">
+<h2><code>show</code> method</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">show</span>(MyMAT) <span class="co">#or simply type MyMAT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>a matrix of distributions 
+ 2  variables  3  rows 
+ each distibution in the cell is represented by the mean and the standard deviation 
+              Var1                     Var2          
+I1  [m= 2.1  ,s= 0.56862 ]   [m= 5.6  ,s= 1.6248 ]  
+I2  [m= 9.75  ,s= 2.0907 ]  [m= 9.875  ,s= 1.7515 ] 
+I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
+</div>
+</div>
+</section>
+<section id="plot-method" class="slide level2">
+<h2><code>plot</code> method</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">plot</span>(MyMAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="more-on-ploting-a-math-13-basic-plot" class="slide level2">
+<h2>More on <code>plot</code>ing a <code>MatH</code> (1/3): basic plot</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"HISTO"</span>,  <span class="at">border=</span><span class="st">"blue"</span>) <span class="co">#plots a matrix of histograms</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="more-on-ploting-a-math-23-density-plot" class="slide level2">
+<h2>More on <code>plot</code>ing a <code>MatH</code> (2/3): density plot</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a> <span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"DENS"</span>,  <span class="at">border=</span><span class="st">"blue"</span>) <span class="co">#plots a matrix of densities</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="more-on-ploting-a-math-33-boxplots" class="slide level2">
+<h2>More on <code>plot</code>ing a <code>MatH</code> (3/3): boxplots</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a> <span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"BOXPLOT"</span>) <span class="co">#plots a  boxplots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1152"></section>
+<section id="main-methods-for-the-math-class" class="slide level2">
+<h2>Main methods for the <code>MatH</code> class</h2>
+<h3 id="for-accessing-to-some-basic-information">For accessing to some basic information</h3>
+<ul>
+<li><code>get.MatH.ncols</code> returns the number of columns<br>
+</li>
+<li><code>get.MatH.nrows</code> returns the number of rows<br>
+</li>
+<li><code>get.MatH.rownames</code> returns the list of the row-labels</li>
+<li><code>get.MatH.varnames</code> return the list of labels of thevariables (the columns)</li>
+<li><code>get.MatH.stats</code> return a matrix of a basic statistic computed for each cell of the matrix (some examples follow).</li>
+</ul>
+</section>
+<section id="an-example-of-get.math.stats-method" class="slide level2">
+<h2>An example of <code>get.MatH.stats</code> method</h2>
+<p>The <code>get.MatH.stats</code> returns a list containing the name of the basic statistics computed and a <code>$mat</code> containing a matrix of numbers with the same size of the <code>MatH</code> object</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD) <span class="co"># the means of the distributions in BLOOD dataset </span></span>
+<span id="cb29-2"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'median'</span>) <span class="co"># the medians of the distributions</span></span>
+<span id="cb29-3"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="fl">0.5</span>) <span class="co">#the same as median</span></span>
+<span id="cb29-4"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'min'</span>) <span class="co"># minima of the distributions </span></span>
+<span id="cb29-5"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="dv">0</span>) <span class="co">#the same as min</span></span>
+<span id="cb29-6"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'max'</span>) <span class="co"># maxima of the distributions </span></span>
+<span id="cb29-7"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="dv">1</span>) <span class="co">#the same as max</span></span>
+<span id="cb29-8"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'std'</span>) <span class="co"># standard deviations </span></span>
+<span id="cb29-9"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'skewness'</span>) <span class="co">#skewness indices</span></span>
+<span id="cb29-10"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'kurtosis'</span>) <span class="co">#kurtosis indices</span></span>
+<span id="cb29-11"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>,<span class="at">prob=</span><span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="functions-useful-for-manipulating" class="slide level2 smaller">
+<h2>Functions useful for manipulating</h2>
+<h3 id="useful-for-the-histogram-trick">Useful for the histogram trick</h3>
+<ul>
+<li><code>registerMH(MyMat)</code>, returns a new <code>MatH</code> object with all the distributions transformed. All the distributions have the same number of bins each one containing the same mass (It is useful for computing exactly the basic statistics based on <span class="math inline">\(L_2\)</span> Wasserstein metric)</li>
+</ul>
+<h3 id="fuctions-for-subsetting-of-for-binding-math-objects">Fuctions for subsetting of for binding <code>MatH</code> objects</h3>
+<ul>
+<li><code>WH.bind(MAT1, MAT2, byrow=TRUE)</code> attaches MAT2 on the right of MAT1. The two <code>MatH</code> objects must have the same number of rows;<br>
+</li>
+<li><code>WH.bind(MAT1, MAT2, byrow=FALSE)</code> attaches MAT2 under MAT1. The two <code>MatH</code> objects must have the same number of columns;<br>
+</li>
+<li><code>[,]</code> an overloaded method for sub-setting a matrix. It returns a new <code>MatH</code> object.</li>
+</ul>
+</section>
+<section id="subsetting-example" class="slide level2">
+<h2>Subsetting example</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>BLOOD[<span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] </span>
+<span id="cb30-2"><a href=""></a><span class="do">## a matrix of distributions </span></span>
+<span id="cb30-3"><a href=""></a><span class="do">##  2  variables  5  rows </span></span>
+<span id="cb30-4"><a href=""></a><span class="do">##  each distibution in the cell is represented by the mean and the standard deviation </span></span>
+<span id="cb30-5"><a href=""></a><span class="do">##                   Cholesterol               Hemoglobin        </span></span>
+<span id="cb30-6"><a href=""></a><span class="do">## u10: M-40 [m= 170.06  ,s= 20.011 ]  [m= 12.092  ,s= 0.52656 ]</span></span>
+<span id="cb30-7"><a href=""></a><span class="do">## u11: M-50 [m= 194.22  ,s= 30.165 ]  [m= 12.214  ,s= 0.59708 ]</span></span>
+<span id="cb30-8"><a href=""></a><span class="do">## u12: M-60 [m= 203.36  ,s= 26.223 ]  [m= 12.245  ,s= 0.50862 ]</span></span>
+<span id="cb30-9"><a href=""></a><span class="do">## u13: M-70 [m= 205.66  ,s= 22.499 ]  [m= 12.15  ,s= 0.33425 ] </span></span>
+<span id="cb30-10"><a href=""></a><span class="do">## u14: M-80+ [m= 205.48  ,s= 23.537 ]   [m= 12.12  ,s= 0.6163 ]</span></span>
+<span id="cb30-11"><a href=""></a></span>
+<span id="cb30-12"><a href=""></a>BLOOD[<span class="dv">2</span>,<span class="dv">3</span>] <span class="co">#ATTENTION: returns a 1x1 MatH, and not a distributionH</span></span>
+<span id="cb30-13"><a href=""></a><span class="do">## a matrix of distributions </span></span>
+<span id="cb30-14"><a href=""></a><span class="do">##  1  variables  1  rows </span></span>
+<span id="cb30-15"><a href=""></a><span class="do">##  each distibution in the cell is represented by the mean and the standard deviation </span></span>
+<span id="cb30-16"><a href=""></a><span class="do">##                  Hematocrit       </span></span>
+<span id="cb30-17"><a href=""></a><span class="do">## u2: F-30 [m= 36.497  ,s= 2.1225 ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="extracting-a-distributionh-from-a-math-how-to-do-it" class="slide level2">
+<h2>Extracting a <code>distributionH</code> from a <code>MatH</code>: how to do it?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="co"># instead of BLOOD[2,3]</span></span>
+<span id="cb31-2"><a href=""></a><span class="co"># you must use </span></span>
+<span id="cb31-3"><a href=""></a></span>
+<span id="cb31-4"><a href=""></a>BLOOD<span class="sc">@</span>M[<span class="dv">2</span>,<span class="dv">3</span>][[<span class="dv">1</span>]] <span class="co">#Not attractive, it needs improvements! </span></span>
+<span id="cb31-5"><a href=""></a><span class="do">##               X             p</span></span>
+<span id="cb31-6"><a href=""></a><span class="do">## Bin_1   [ 31 ; 33 )         0.046</span></span>
+<span id="cb31-7"><a href=""></a><span class="do">## Bin_2   [ 33 ; 35 )         0.171</span></span>
+<span id="cb31-8"><a href=""></a><span class="do">## Bin_3 [ 35 ; 36.5 )         0.295</span></span>
+<span id="cb31-9"><a href=""></a><span class="do">## Bin_4 [ 36.5 ; 38 )         0.243</span></span>
+<span id="cb31-10"><a href=""></a><span class="do">## Bin_5 [ 38 ; 39.5 )          0.17</span></span>
+<span id="cb31-11"><a href=""></a><span class="do">## Bin_6 [ 39.5 ; 41 )         0.072</span></span>
+<span id="cb31-12"><a href=""></a><span class="do">## Bin_7   [ 41 ; 44 ]         0.003</span></span>
+<span id="cb31-13"><a href=""></a><span class="do">## </span></span>
+<span id="cb31-14"><a href=""></a><span class="do">##  mean =  36.497   std  =  2.12245714522903 </span></span>
+<span id="cb31-15"><a href=""></a><span class="do">## </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="matrix-operation-between-math-objects" class="slide level2 smaller">
+<h2>Matrix operation between <code>MatH</code> objects</h2>
+<h3 id="methods-based-on-l_2-wasserstein-norm-for-summing-and-multiplying-matrices">Methods based on <span class="math inline">\(L_2\)</span> Wasserstein norm for summing and multiplying matrices</h3>
+<ul>
+<li><code>WH.mat.sum</code> performs a classic cell by cell sum. In particular, the result is a new <code>MatH</code> object having in each cell a distribution associated with the quantile function resulting from the sum of the corresponding quantile functions (It is a sum consistent with the Wasserstein metric). As usual, the matrix must have the same dimensions.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>MAT.sum<span class="ot">=</span><span class="fu">WH.mat.sum</span>(MyMAT1,MyMAT2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>WH.mat.prod</code> performs the matrix multiplication of two <code>MatH</code> objects. It returns a <strong>matrix of numbers</strong> according to the dot product defined for two distributions and associated with the <span class="math inline">\(L_2\)</span> Wasserstein metric. It is possible also to consider trasposition of matrices.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">FALSE</span>, <span class="at">traspose2=</span><span class="cn">FALSE</span>)</span>
+<span id="cb33-2"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">TRUE</span>, <span class="at">traspose2=</span><span class="cn">FALSE</span>)</span>
+<span id="cb33-3"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">FALSE</span>, <span class="at">traspose2=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="methods-for-univariate-and-bivariate-statistics-of-histogram-variables-the-mean-distribution" class="slide level2 smaller">
+<h2>Methods for univariate and bivariate statistics of histogram variables: the mean distribution</h2>
+<ul>
+<li><code>WH.vec.mean</code> computes a <code>distributionH</code> that is the mean distribution of a vector or a matrix of distributions (a <code>MatH</code> object). The mean distribution is computed accordingly to the sum based on the <span class="math inline">\(L_2\)</span> Wasserstein distance, namely, it is the distribution associated with the average <em>quantile function</em> of the <em>quantile functions</em> of the vector of distributions. It is possible also to assign weights to the elements of vetor in order to obtain a weighted mean.<br>
+</li>
+<li><code>WH.vec.sum</code> same as <code>WH.vec.mean</code>, but computes only the sum.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">WH.vec.mean</span>(BLOOD[,<span class="dv">1</span>]) <span class="co">#returns the average distribution of </span></span>
+<span id="cb34-2"><a href=""></a><span class="co"># the first variable</span></span>
+<span id="cb34-3"><a href=""></a><span class="fu">WH.vec.mean</span>(BLOOD[,<span class="dv">1</span>], <span class="at">w =</span> <span class="fu">runif</span>(<span class="fu">get.MatH.nrows</span>(MyMAT)))</span>
+<span id="cb34-4"><a href=""></a><span class="co"># returns a random weighted average</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="a-graphic-example-of-wh.vec.mean" class="slide level2">
+<h2>A graphic example of <code>WH.vec.mean</code></h2>
+
+<img data-src="figures/Mean_BLOOD.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="methods-for-univariate-and-bivariate-statistics-of-histogram-variables-the-variability-and-the-association-indexes" class="slide level2 smaller">
+<h2>Methods for univariate and bivariate statistics of histogram variables: the variability and the association indexes</h2>
+<p>These methods returns a matrix of numbers accordingly to the number of the compared variables. The formulas are those presented in <span class="citation" data-cites="IrpVer2015">(<a href="#/references" role="doc-biblioref" onclick="">Irpino and Verde 2015</a>)</span>.</p>
+<h3 id="sum-of-squares"><strong>Sum of squares</strong></h3>
+<ul>
+<li><strong><code>WH.SSQ(MyMAT, w=w)</code></strong> computes the wheighted Sum of Squares and the Sum of products of the deviations from the means of a <code>MatH</code> object. The weights are associated to the rows, if missing, the weights are considered equal. The result is square matrix of dimension equal to the number of variables of the <code>MatH</code> object.</li>
+<li><strong><code>WH.SSQ2(MyMAT1, MyMAT2, w=w)</code></strong> computes the wheighted Sum of products of the deviations from the means of two <code>MatH</code> objects. The two matrices must have the same number of rows. The result is rectangular matrix with rows equal to the number of variables of the first <code>MatH</code> object and columns the number of variables of the first <code>MatH</code> object.</li>
+</ul>
+<p>Using these it is possible to compute covariances and correlations.</p>
+</section>
+<section id="covariance-and-correlation-indexes" class="slide level2 smaller">
+<h2>Covariance and correlation indexes</h2>
+<h3 id="variance-covariance-and-correlation"><strong>Variance, covariance and correlation</strong></h3>
+<ul>
+<li><strong><code>WH.var.covar(MyMAT, w=w)</code></strong> computes the variance-covariance matrix of a <code>MatH</code> object.</li>
+<li><strong><code>WH.var.covar2(MyMAT1, MyMAT2, w=w)</code></strong> computes a covariance matrix between two <code>MatH</code> objects.</li>
+<li><strong><code>WH.correlation(MyMAT, w=w)</code></strong> computes the correlation matrix of a <code>MatH</code> object.</li>
+<li><strong><code>WH.correlation2(MyMAT1, MyMAT2, w=w)</code></strong> computes the correlation matrix of two <code>MatH</code> objects.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">WH.var.covar</span>(BLOOD)</span>
+<span id="cb35-2"><a href=""></a><span class="do">##             Cholesterol Hemoglobin  Hematocrit</span></span>
+<span id="cb35-3"><a href=""></a><span class="do">## Cholesterol  388.137633 -5.0005134 -14.9202378</span></span>
+<span id="cb35-4"><a href=""></a><span class="do">## Hemoglobin    -5.000513  0.2802215   0.8266558</span></span>
+<span id="cb35-5"><a href=""></a><span class="do">## Hematocrit   -14.920238  0.8266558   2.9779786</span></span>
+<span id="cb35-6"><a href=""></a><span class="fu">WH.correlation</span>(BLOOD)</span>
+<span id="cb35-7"><a href=""></a><span class="do">##             Cholesterol Hemoglobin Hematocrit</span></span>
+<span id="cb35-8"><a href=""></a><span class="do">## Cholesterol   1.0000000 -0.4794806 -0.4388560</span></span>
+<span id="cb35-9"><a href=""></a><span class="do">## Hemoglobin   -0.4794806  1.0000000  0.9049264</span></span>
+<span id="cb35-10"><a href=""></a><span class="do">## Hematocrit   -0.4388560  0.9049264  1.0000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="examples-of-how-to-compute-basic-statistics-of-variability-for-a-single-variable" class="slide level2">
+<h2>Examples of how to compute basic statistics of variability for a single variable</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="co"># the variance of a histogram variable</span></span>
+<span id="cb36-2"><a href=""></a>VAR.Choresterol<span class="ot">=</span><span class="fu">WH.var.covar</span>(BLOOD[,<span class="dv">1</span>])</span>
+<span id="cb36-3"><a href=""></a><span class="fu">as.numeric</span>(VAR.Choresterol)</span>
+<span id="cb36-4"><a href=""></a><span class="do">## [1] 388.1376</span></span>
+<span id="cb36-5"><a href=""></a><span class="co"># the standard deviation</span></span>
+<span id="cb36-6"><a href=""></a>STD.Choresterol<span class="ot">=</span><span class="fu">sqrt</span>(VAR.Choresterol)</span>
+<span id="cb36-7"><a href=""></a><span class="fu">as.numeric</span>(STD.Choresterol)</span>
+<span id="cb36-8"><a href=""></a><span class="do">## [1] 19.70121</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="the-tdistributionh-class-a-class-for-a-histogram-valued-data-observed-along-time" class="title-slide slide level1 center">
+<h1>The <code>TdistributionH</code> class: a class for a histogram-valued data observed along time</h1>
+
+</section>
+<section id="tdistributionh-class-not-completely-developed" class="slide level2">
+<h2><code>TdistributionH</code> class (Not completely developed!!)</h2>
+<p>It is essentially a specilized class of <code>distributionH</code> equipped with a time-related information. Being a distribution, we considered to specialize the class such that it can contains</p>
+<ul>
+<li>a <code>tstamp</code>, a numeric value that represents a time stamp, or;</li>
+<li>a <code>period</code>, a list containing two slots <code>start</code> and <code>end</code>, two numbers (for now, a time/date dormat will be chosen in the future), indicating the initial and the final period of observation. Indeed, we imagine that a histogram (or a distribution) is the set of values observed during a time period.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>My.Time.histo  <span class="ot">=</span> <span class="fu">new</span>(<span class="st">'TdistributionH'</span>,<span class="at">tstamp=</span><span class="dv">1</span>, </span>
+<span id="cb37-2"><a href=""></a>                      <span class="at">x=</span>dist1<span class="sc">@</span>x, <span class="at">p=</span>dist1<span class="sc">@</span>p)</span>
+<span id="cb37-3"><a href=""></a>My.Period.histo<span class="ot">=</span> <span class="fu">new</span>(<span class="st">'TdistributionH'</span>,<span class="at">period=</span><span class="fu">list</span>(<span class="at">start=</span><span class="dv">1</span>,<span class="at">end=</span><span class="dv">3</span>),</span>
+<span id="cb37-4"><a href=""></a>                      <span class="at">x=</span>dist1<span class="sc">@</span>x, <span class="at">p=</span>dist1<span class="sc">@</span>p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="the-hts-class-a-class-for-histogram-time-series" class="title-slide slide level1 center">
+<h1>The <code>HTS</code> class: a class for histogram time series</h1>
+
+</section>
+<section id="a-hts-is-a-list-of-tdistributionh" class="slide level2">
+<h2>A <code>HTS</code> is a list of <code class="smaller">TdistributionH</code></h2>
+<p><strong>Initializing a <code>HTS</code></strong></p>
+<p>The list of <code>TdistributionH</code> objects are organized into a vector of dimension equal to <code>epoc</code>. The slot containing the vector is called <code>data</code>. If we need to see what is in the HTS we need to call elements from <code>@data</code> slot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a><span class="co"># RetHTS is a HTS of the returns five-minutes returns of DOLL/YEN changes </span></span>
+<span id="cb38-2"><a href=""></a><span class="co"># rates observed along 108 days (it is one of the dataset available in the pkg)</span></span>
+<span id="cb38-3"><a href=""></a>RetHTS<span class="sc">@</span>data[<span class="dv">2</span>]</span>
+<span id="cb38-4"><a href=""></a><span class="do">## [[1]]</span></span>
+<span id="cb38-5"><a href=""></a><span class="do">##                   X                 p</span></span>
+<span id="cb38-6"><a href=""></a><span class="do">## Bin_1  [ -0.1 ; -0.06 )           0.03833</span></span>
+<span id="cb38-7"><a href=""></a><span class="do">## Bin_2 [ -0.06 ; -0.03 )            0.1394</span></span>
+<span id="cb38-8"><a href=""></a><span class="do">## Bin_3  [ -0.03 ; 0.03 )            0.7038</span></span>
+<span id="cb38-9"><a href=""></a><span class="do">## Bin_4   [ 0.03 ; 0.06 )           0.09059</span></span>
+<span id="cb38-10"><a href=""></a><span class="do">## Bin_5   [ 0.06 ; 0.12 ]           0.02787</span></span>
+<span id="cb38-11"><a href=""></a><span class="do">## </span></span>
+<span id="cb38-12"><a href=""></a><span class="do">##  mean =  -0.00275259208362382   std  =  0.0342206481885284 </span></span>
+<span id="cb38-13"><a href=""></a><span class="do">## </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="main-methods">Main methods</h3>
+<ul>
+<li><code>subsetHTS(HTS, from, to)</code> extracts a piece (in the time sense) of HTS</li>
+<li><code>show(HTS)</code> returns a list of valuesand basic statistics related to the distributions in the HTS (wee see the results in the next slide)</li>
+<li><code>plot(HTS,...)</code> shows a plot of the HTS, (we see examples in the next slides)</li>
+</ul>
+</section>
+<section id="the-show-method" class="slide level2">
+<h2>The <code>show</code> method</h2>
+<div class="cell">
+<pre><code>##     Tstamp T_period_start T_period_end          mean        std         skew
+## 1    38749          38749        38749 -0.0019860297 0.04224402  0.696353637
+## 2    38750          38750        38750 -0.0027525921 0.03422065  0.161710205
+## 3    38751          38751        38751 -0.0022545180 0.04252923  1.054658950
+## 4    38754          38754        38754 -0.0056181618 0.03660866 -0.287735490
+## 5    38755          38755        38755 -0.0108187759 0.04469958 -0.691931506
+## 6    38756          38756        38756 -0.0015679186 0.03932478  0.676302020
+## 7    38757          38757        38757 -0.0038849961 0.03521140  0.474190871
+## 8    38758          38758        38758 -0.0057090553 0.05180512 -0.108275213
+## 9    38761          38761        38761 -0.0048545204 0.03741751 -0.264327106
+## 10   38762          38762        38762 -0.0060801071 0.04140493  0.276796508
+## 11   38763          38763        38763 -0.0018814832 0.05313136 -0.151476128
+## 12   38764          38764        38764 -0.0060526111 0.03971651 -0.041866347
+## 13   38765          38765        38765 -0.0019454181 0.05084949  0.354931260
+## 14   38768          38768        38768 -0.0051052438 0.02793509  0.009895520
+## 15   38769          38769        38769 -0.0034561197 0.02806190  0.028340867
+## 16   38770          38770        38770 -0.0069337719 0.03726113 -0.602640682
+## 17   38771          38771        38771 -0.0106445600 0.05501497 -0.995706447
+## 18   38772          38772        38772 -0.0073090483 0.05280985 -0.254510473
+## 19   38775          38775        38775 -0.0092402357 0.04994473 -2.456202932
+## 20   38776          38776        38776 -0.0070208812 0.03425427 -0.170867642
+## 21   38777          38777        38777 -0.0047212118 0.04867714  0.296046999
+## 22   38778          38778        38778 -0.0047038051 0.03674708  0.240445851
+## 23   38779          38779        38779 -0.0064233064 0.05259779 -1.269210426
+## 24   38782          38782        38782 -0.0011817858 0.04103728  0.718818282
+## 25   38783          38783        38783 -0.0047734896 0.03857179 -0.141197527
+## 26   38784          38784        38784 -0.0048606093 0.03369879 -0.515454518
+## 27   38785          38785        38785 -0.0047037812 0.05545347 -0.295411527
+## 28   38786          38786        38786 -0.0007272310 0.05204268  0.707027815
+## 29   38789          38789        38789 -0.0064363434 0.03191699 -0.078502518
+## 30   38790          38790        38790 -0.0105923052 0.04003190 -0.199008788
+## 31   38791          38791        38791 -0.0069511893 0.03898982 -0.086497721
+## 32   38792          38792        38792 -0.0074389851 0.04508932 -0.935993029
+## 33   38793          38793        38793 -0.0075729608 0.04550285  0.000219057
+## 34   38796          38796        38796 -0.0030633416 0.04627440  0.093724269
+## 35   38797          38797        38797 -0.0017307386 0.04216918  0.617796078
+## 36   38798          38798        38798 -0.0052264546 0.03984408  0.118317228
+## 37   38799          38799        38799 -0.0010626723 0.04243500  2.076246948
+## 38   38800          38800        38800 -0.0087817694 0.05320716 -2.306995986
+## 39   38803          38803        38803 -0.0072534963 0.04214570 -1.085068170
+## 40   38804          38804        38804 -0.0002786968 0.05085144  1.087733108
+## 41   38805          38805        38805 -0.0051219166 0.04418986 -0.011704014
+## 42   38806          38806        38806 -0.0076828832 0.05040461 -1.028022895
+## 43   38807          38807        38807 -0.0060545003 0.05235379 -0.606038718
+## 44   38810          38810        38810 -0.0061090452 0.05826492 -0.395657824
+## 45   38811          38811        38811 -0.0055985506 0.04355256 -0.486466779
+## 46   38812          38812        38812 -0.0046689580 0.04185633  0.459999525
+## 47   38813          38813        38813 -0.0029616471 0.03672018 -0.042695220
+## 48   38814          38814        38814 -0.0041635993 0.04382331  0.448764601
+## 49   38817          38817        38817 -0.0043612930 0.03274848  0.187488595
+## 50   38818          38818        38818 -0.0057142672 0.03244375 -0.246011044
+## 51   38819          38819        38819 -0.0036585120 0.03779608  0.122059841
+## 52   38820          38820        38820 -0.0049477194 0.02559904  0.261164825
+## 53   38821          38821        38821 -0.0045724760 0.01996054  0.563223610
+## 54   38824          38824        38824 -0.0091635871 0.04472303  0.237533944
+## 55   38825          38825        38825 -0.0081532739 0.04128826 -0.939945016
+## 56   38826          38826        38826 -0.0046166875 0.04686141  0.537764380
+## 57   38827          38827        38827 -0.0029616389 0.03641048 -0.028545536
+## 58   38828          38828        38828 -0.0089010695 0.04042375  0.713792677
+## 59   38831          38831        38831 -0.0101929316 0.05653616 -1.690331963
+## 60   38832          38832        38832 -0.0028571058 0.04468332  0.083454199
+## 61   38833          38833        38833 -0.0060278319 0.04528931 -0.440157943
+## 62   38834          38834        38834 -0.0093705645 0.06338602 -3.139906218
+## 63   38835          38835        38835 -0.0048908788 0.03923458 -0.850739442
+## 64   38838          38838        38838 -0.0075879791 0.05844668 -0.987439643
+## 65   38839          38839        38839 -0.0040766233 0.04768498 -0.616224072
+## 66   38840          38840        38840 -0.0047901832 0.03987908 -0.187875569
+## 67   38841          38841        38841 -0.0050174516 0.04519448 -0.363053027
+## 68   38842          38842        38842 -0.0100362910 0.06474940 -3.844042297
+## 69   38845          38845        38845 -0.0069999632 0.04992085 -0.780782148
+## 70   38846          38846        38846 -0.0075086792 0.04351507 -0.119390300
+## 71   38847          38847        38847 -0.0098083081 0.05765520 -0.452096610
+## 72   38848          38848        38848 -0.0054180625 0.06859318 -1.126436266
+## 73   38849          38849        38849 -0.0075272232 0.06127886  0.827625388
+## 74   38852          38852        38852 -0.0041985656 0.06142446  0.529495001
+## 75   38853          38853        38853 -0.0087804475 0.05342095 -0.070909200
+## 76   38854          38854        38854 -0.0054529214 0.06511938  0.008851600
+## 77   38855          38855        38855 -0.0081010001 0.05995930 -0.677938766
+## 78   38856          38856        38856  0.0004364151 0.06453323  0.156490593
+## 79   38859          38859        38859 -0.0039895079 0.05471918 -0.333312689
+## 80   38860          38860        38860 -0.0028146368 0.05766031  0.328591403
+## 81   38861          38861        38861 -0.0048257411 0.06988168  0.611671245
+## 82   38862          38862        38862 -0.0083797562 0.04348548 -0.346286093
+## 83   38863          38863        38863 -0.0021897476 0.04553626  0.064172498
+## 84   38866          38866        38866 -0.0051851697 0.02586819 -0.160231468
+## 85   38867          38867        38867 -0.0056097161 0.05844088  0.599221592
+## 86   38868          38868        38868 -0.0041637175 0.05226989 -1.287457703
+## 87   38869          38869        38869 -0.0031184325 0.04704296 -0.807542954
+## 88   38870          38870        38870 -0.0099453839 0.06255275 -4.200081947
+## 89   38873          38873        38873 -0.0027655402 0.03808986  1.089654951
+## 90   38874          38874        38874 -0.0005419267 0.04214455  0.897775010
+## 91   38875          38875        38875 -0.0033971822 0.03736942 -0.093831117
+## 92   38876          38876        38876 -0.0036933386 0.04352173  0.834360678
+## 93   38877          38877        38877 -0.0062726803 0.04113597  0.501480836
+## 94   38880          38880        38880 -0.0043090723 0.03271514 -0.149798527
+## 95   38881          38881        38881 -0.0002787105 0.04565224  1.053359064
+## 96   38882          38882        38882 -0.0059789644 0.04801573 -1.297302438
+## 97   38883          38883        38883 -0.0067595325 0.04059745 -0.074733516
+## 98   38884          38884        38884 -0.0035948660 0.03331588 -0.289386820
+## 99   38887          38887        38887 -0.0036701835 0.03245845  0.535800150
+## 100  38888          38888        38888 -0.0074911337 0.03855696 -0.354157836
+## 101  38889          38889        38889 -0.0052787230 0.03079112  0.191272381
+## 102  38890          38890        38890 -0.0007491067 0.03511747  0.840005560
+## 103  38891          38891        38891 -0.0049817761 0.04259499 -0.213627962
+## 104  38894          38894        38894 -0.0061031761 0.03335348  0.516790674
+## 105  38895          38895        38895 -0.0040592063 0.03850145  0.089547785
+## 106  38896          38896        38896 -0.0051567757 0.02822681 -0.303361576
+## 107  38897          38897        38897 -0.0105069555 0.04670969 -2.181569432
+## 108  38898          38898        38898 -0.0077189437 0.04557718 -0.555615542
+##          kurt
+## 1    6.433505
+## 2    3.860462
+## 3    6.334018
+## 4    4.077056
+## 5    5.949878
+## 6    4.805117
+## 7    4.194543
+## 8    4.937425
+## 9    4.290259
+## 10   6.148626
+## 11   9.303889
+## 12   4.189392
+## 13   6.160713
+## 14   5.072376
+## 15   4.330262
+## 16   5.229702
+## 17   6.528730
+## 18   7.056863
+## 19  16.218037
+## 20   3.533228
+## 21   5.833572
+## 22   6.362662
+## 23  11.922934
+## 24   5.971927
+## 25   5.804973
+## 26   3.729712
+## 27   8.626437
+## 28   8.276109
+## 29   3.762579
+## 30   3.885703
+## 31   5.293574
+## 32   7.833595
+## 33   4.890152
+## 34   5.230596
+## 35   5.686636
+## 36   5.678807
+## 37  15.385329
+## 38  13.792963
+## 39   4.974648
+## 40   8.830547
+## 41   6.374511
+## 42   9.496948
+## 43   8.880585
+## 44   6.925153
+## 45   6.884867
+## 46   5.036577
+## 47   4.208889
+## 48   7.897283
+## 49   4.668999
+## 50   3.562023
+## 51   5.802111
+## 52   4.069244
+## 53   5.127033
+## 54   9.820100
+## 55   7.934035
+## 56   5.537140
+## 57   6.009552
+## 58   6.595900
+## 59  11.243804
+## 60   5.849040
+## 61   6.474160
+## 62  21.884934
+## 63   5.869432
+## 64   9.724247
+## 65   4.198066
+## 66   4.626865
+## 67   3.945153
+## 68  30.346126
+## 69   5.403221
+## 70   4.367429
+## 71   7.850489
+## 72   8.279600
+## 73   6.821111
+## 74   4.612564
+## 75   6.192405
+## 76   5.422810
+## 77   6.368277
+## 78   6.391666
+## 79   4.294341
+## 80   5.971598
+## 81   4.677875
+## 82   5.958471
+## 83   5.382289
+## 84   4.313987
+## 85   5.366215
+## 86   9.113494
+## 87   6.421688
+## 88  33.147580
+## 89   7.042168
+## 90   6.642544
+## 91   5.687776
+## 92   8.806083
+## 93   7.990728
+## 94   3.469891
+## 95   7.260356
+## 96  14.176536
+## 97   9.526191
+## 98   4.557180
+## 99   6.465983
+## 100  6.562610
+## 101  4.722468
+## 102  5.816567
+## 103  7.646801
+## 104  5.481879
+## 105  4.773725
+## 106  4.315656
+## 107 12.221400
+## 108  6.150324</code></pre>
+</div>
+</section>
+<section id="the-plot-method-14" class="slide level2">
+<h2>The <code>plot</code> method (1/4)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a><span class="co">#plots the first 20 elements RetHTS dataset</span></span>
+<span id="cb40-2"><a href=""></a><span class="fu">plot</span>(<span class="fu">subsetHTS</span>(RetHTS,<span class="at">from=</span><span class="dv">1</span>,<span class="at">to=</span><span class="dv">20</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="figures/HTS1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="the-plot-method-24" class="slide level2">
+<h2>The <code>plot</code> method (2/4)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="co"># plots the first 60 elements RetHTS dataset divided in </span></span>
+<span id="cb41-2"><a href=""></a><span class="co"># pieces of 30 epocs</span></span>
+<span id="cb41-3"><a href=""></a><span class="fu">plot</span>(<span class="fu">subsetHTS</span>(RetHTS,<span class="at">from=</span><span class="dv">1</span>,<span class="at">to=</span><span class="dv">60</span>), <span class="at">maxno.perplot=</span><span class="dv">30</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="figures/HTS2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="the-plot-method-34" class="slide level2">
+<h2>The <code>plot</code> method (3/4)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a><span class="co"># plots HTS elements RetHTS dataset divided in </span></span>
+<span id="cb42-2"><a href=""></a><span class="co"># pieces of 36 epocs</span></span>
+<span id="cb42-3"><a href=""></a><span class="fu">plot</span>(RetHTS, <span class="at">maxno.perplot=</span><span class="dv">36</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="figures/HTS3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="the-plot-method-44-plotting-using-boxplots" class="slide level2">
+<h2>The <code>plot</code> method (4/4): plotting using boxplots</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a><span class="co"># plots HTS elements RetHTS dataset divided in </span></span>
+<span id="cb43-2"><a href=""></a><span class="co"># pieces of 54 epocs</span></span>
+<span id="cb43-3"><a href=""></a><span class="fu">plot</span>(RetHTS, <span class="at">type=</span><span class="st">"BOXPLOT"</span>, <span class="at">maxno.perplot=</span><span class="dv">54</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="figures/HTS4.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="in-the-next-presentations" class="slide level2 smaller">
+<h2>In the next presentations</h2>
+<h3 id="implementation-of-methods-for-data-analysis-of-histogram-valued-data-tables">Implementation of methods for data analysis of histogram-valued data tables</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Principal component analysis
+<ul>
+<li>of a single Histogram variable</li>
+<li>of several histogram variables</li>
+</ul></li>
+<li>Regression
+<ul>
+<li>Two components regression analysis</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Clustering methods
+<ul>
+<li>Dynamic clustering (a generalization of k-means algorithm)</li>
+<li>Adaptive distances-based dynamic clustering</li>
+<li>Hierarchical clustering</li>
+<li>Kohonen Self Organizing Maps</li>
+<li>Fuzzy c-means</li>
+<li>Adaptive distances-based Fuzzy c-means</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+<div class="quarto-auto-generated-content">
+<div class="footer footer-default">
+<p>Symbolic Data from classical data and basic stats</p>
+</div>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Gilch2000" class="csl-entry" role="listitem">
+Gilchrist, Warren. 2000. <em>Statistical Modelling with Quantile Functions</em>. Abingdon: CRC Press.
+</div>
+<div id="ref-DBLP:conf/f-egc/2007" class="csl-entry" role="listitem">
+Irpino, Antonio, and Elvira Romano. 2007. <span>“Optimal Histogram Representation of Large Data Sets: Fisher Vs Piecewise Linear Approximation.”</span> In <em>EGC</em>, edited by Monique Noirhomme-Fraiture and Gilles Venturini, RNTI-E-9:99–110. Revue Des Nouvelles Technologies de l’information. C<span>é</span>padu<span>è</span>s-<span>É</span>ditions.
+</div>
+<div id="ref-IrpVer2015" class="csl-entry" role="listitem">
+Irpino, Antonio, and Rosanna Verde. 2015. <span>“Basic Statistics for Distributional Symbolic Variables: A New Metric-Based Approach.”</span> <em>Advances in Data Analysis and Classification</em> 9 (2): 143–75. <a href="https://doi.org/10.1007/s11634-014-0176-4">https://doi.org/10.1007/s11634-014-0176-4</a>.
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 500,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

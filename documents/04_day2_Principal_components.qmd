@@ -1,25 +1,290 @@
 ---
-title: "Principal components of SD"
-author: "A. Irpino"
-format: revealjs
+title: "Principal components of distributional SD"
+author: "A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024"
+format: 
+  revealjs: 
+    theme: [dark, custom.scss]
+    width: 1280
+    height: 500
+    fontsize: 2em
+    linestretch: 1.1
+    footer: "Principal components of distributional SD, ESTP Cologne 14-16 May 2024"
+    slideNumber: true
+filters:
+  - "parse-latex.lua"
+title-slide-attributes:
+  data-background-image: "images/main.svg"
+  data-background-color: white
+  data-background-size: contain
+bibliography: biblio.bib
 editor: visual
 ---
 
-## Quarto
+## Principal Component Analysis of distributional data
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
 
-## Bullets
+```{r eval=T, echo=F}
+library(tidyverse)
+library(ggrepel)
 
-When you click the **Render** button a document will be generated that includes:
+```
 
--   Content authored with markdown
--   Output from executable code
+We use the `HistDAWass` R package for showing the main procedures.
 
-## Code
+```{r echo=T}
+# install.packages("HistDAWass",dependencies = T) #Installing the first time
+library(HistDAWass)
+```
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+The main procedures available for the PCA are:
+
+- `WH.1d.PCA` for the analysis of a single distributional variable.
+- `WH.MultiplePCA` for analysing more than one distributional variable.
+
+
+## The Ozone dataset
+
+The dataset contains MatH (matrix of histogram-valued data) object This data set list 78 stations located in the USA recording four variables, without missing data.
+
+::: columns
+::: {.column width="35%"}
+```{r echo=T, eval=F}
+get.MatH.main.info(OzoneFull)
+
+```
+::: 
+::: {.column width="65%"}
+```{r}
+get.MatH.main.info(OzoneFull)
+
+```
+:::
+:::
+
+----------
+
+### The data
 
 ```{r}
-1 + 1
+plot(OzoneFull,type="DENS")
 ```
+
+
+
+## 1d PCA: the analysis of `Ozone COncentration ppb`
+
+```{r echo=T}
+OZ_1d_PCA<-WH.1d.PCA(OzoneFull,1,quantiles=20)
+
+```
+
+::: columns
+::: {.column width="40%"}
+
+Let's see the scree plot and the first plane
+
+```{r fig.dim=c(4,3)}
+library(tidyverse)
+library(plotly)
+eigs<-as.data.frame(round(OZ_1d_PCA$PCAout$eig,3))
+ggplotly(ggplot(eigs[1:10,])+geom_bar(aes(x=1:10,y=`percentage of variance`),stat="Identity",fill="lightgreen")+geom_line(aes(x=1:10,y=`percentage of variance`),color="red", linewidth=1.5)+theme_light()+
+scale_x_continuous(breaks=c(1:10))+labs(x="eigenvalue"))
+```
+
+::: 
+::: {.column width="60%"}
+
+![Stations on the first plane](figures/PCA_OZ_1.png)
+:::
+:::
+
+
+-------
+
+## Interpreting PCs
+
+__The Spanish fan plot__ for variable correlation
+
+::: columns
+::: {.column width="45%"}
+
+![](figures/Spa1.svg)
+```{r }
+# correla<-as.data.frame(OZ_1d_PCA$PCAout$var$cor)
+# library(ggforce)
+# ggplot(correla)+
+# geom_point(aes(x=Dim.1,y=Dim.2))+
+# geom_circle(aes(x0 = 0, y0 = 0, r = 1))+
+# coord_fixed()+
+# geom_path(aes(x=Dim.1,y=Dim.2))+
+# geom_segment(aes(x=Dim.1,y=Dim.2,xend=rep(0,21),yend=rep(0,21)))+
+# geom_text(aes(x=Dim.1,y=Dim.2,label=rownames(correla)))+
+# geom_hline(yintercept=0)+geom_vline(xintercept=0)+theme_light()
+```
+
+::: 
+::: {.column width="55%"}
+
+![Stations on the first plane](figures/PCA_OZ_1.png)
+:::
+:::
+
+## PCA of all the variables
+
+Now we take into consideration all the four variables and we start performing the multiple PCA using the function `WH.MultiplePCA`
+
+```{r PCA_all, echo=T, eval=T,fig.show='hide'}
+OZ_PCA<-WH.MultiplePCA(data=OzoneFull,list.of.vars = c(1:4),quantiles = 20)
+```
+
+The code executes a Multiple PCA and produces a set of textual and graphical outputs. The code make use of the `FactoMiner` package which is specialized for dimension reduction techniques and the output interpretation.
+
+## Ouput of the procedure
+
+```{r eval=T}
+OZ_PCA
+```
+
+## The analysis of the eigenvalues: the scree-plot
+
+```{r eval=T}
+eigs_2<-as.data.frame(round(OZ_PCA$eig,3))
+ggplotly(ggplot(eigs_2[1:10,])+geom_bar(aes(x=1:10,y=`percentage of variance`),stat="Identity",fill="lightgreen")+geom_line(aes(x=1:10,y=`percentage of variance`),color="red", linewidth=1.5)+theme_light()+
+scale_x_continuous(breaks=c(1:10))+labs(x="eigenvalue"))
+```
+
+
+## The plot of individuals (the 78 stations) on the first plane
+
+
+::: columns
+::: {.column width="60%"}
+
+```{r eval=T}
+indivs<-as.data.frame(OZ_PCA$ind$coord)
+ggplot(indivs)+ geom_point(aes(x=Dim.1,y=Dim.2))+
+geom_text_repel(aes(x=Dim.1,y=Dim.2,label=rownames(indivs)))+
+geom_hline(yintercept=0)+geom_vline(xintercept=0)+theme_light()
+
+```
+
+::: 
+::: {.column width="40%"}
+
+```{r eval=T}
+plot(OzoneFull[c(63,27,21,68),],type="DENS")
+
+```
+:::
+:::
+
+---------------
+
+![](figures/individuals1.svg)
+
+
+
+-----------------
+
+### The plot(s) of variables on the first plane: the spanish fun plots
+
+```{r, eval=T, fig.show='hide'}
+p1<-WH.plot_multiple_Spanish.funs(OZ_PCA,var = 1)
+p2<-WH.plot_multiple_Spanish.funs(OZ_PCA,var = 2)
+p3<-WH.plot_multiple_Spanish.funs(OZ_PCA,var = 3)
+p4<-WH.plot_multiple_Spanish.funs(OZ_PCA,var = 4)
+```
+
+::: columns
+::: {.column width="60%"}
+
+```{r eval=T,fig.dim=c(12,8)}
+library(patchwork)
+p1+p2+p3+p4
+```
+
+::: 
+::: {.column style="width: 40%; font-size: 75%;"}
+__Some comments__:
+
+- The horizontal direction is highly correlated with the Ozone and solar radiation. And both, Ozone and Solar Radiation, are highly and positively correlated. 
+- The vertical dimension is more related to the Temperature.
+- Temperature is rather uncorrelated to the Wind Speed (The two fans are almost at 90 degrees).
+- Wind Speed is moderately and positively correlated with the Ozone, but the correlation decrease from the minimum of the wind speed to the maximum. 
+
+:::
+:::
+
+## The plot of distributions for each variable 1
+::: columns
+::: {.column width="50%"}
+![](figures/ALL_PC_V1.svg)
+::: 
+::: {.column width="50%"}
+![](figures/ALL_PC_V2.svg)
+:::
+:::
+
+## The plot of distributions for each variable 2
+::: columns
+::: {.column width="50%"}
+![](figures/ALL_PC_V3.svg)
+::: 
+::: {.column width="50%"}
+![](figures/ALL_PC_V4.svg)
+:::
+:::
+
+----------------
+
+#### Tools for the interpretation of axes: plots of COS2 and correlations
+
+```{r, fig.align='center',fig.height=6,fig.width=15}
+COS2<-as.data.frame(OZ_PCA$quanti.var$cos2) %>% mutate(Variable=rep(get.MatH.varnames(OzoneFull),each=21),p=rep(c(0:20)/20,4))
+CORR<-as.data.frame(OZ_PCA$quanti.var$cor) %>% mutate(Variable=rep(get.MatH.varnames(OzoneFull),each=21),p=rep(c(0:20)/20,4))
+
+p1<-ggplot(COS2)+theme_light()+geom_hline(yintercept=0,linewidth=2)+geom_hline(yintercept=1,linewidth=2)+geom_line(aes(x=p,y=Dim.1, group=Variable,color=Variable),linewidth=1.5)+ylim(c(0,1))+ggtitle("Squared Cosines wrt the first dimension")
+
+p2<-ggplot(COS2)+theme_light()+geom_hline(yintercept=0,linewidth=2)+geom_hline(yintercept=1,linewidth=2)+geom_line(aes(x=p,y=Dim.2, group=Variable,color=Variable),linewidth=1.5)+ylim(c(0,1))+ggtitle("Squared Cosines wrt the second dimension")
+
+p3<-ggplot(CORR)+theme_light()+
+geom_hline(yintercept=0,linewidth=1)+
+geom_hline(yintercept=1,linewidth=2)+
+geom_hline(yintercept=-1,linewidth=2)+
+geom_line(aes(x=p,y=Dim.1, group=Variable,color=Variable),linewidth=1.5)+ylim(c(-1,1))+ggtitle("Correlations wrt the first dimension")
+p4<-ggplot(CORR)+theme_light()+
+geom_hline(yintercept=0,linewidth=1)+
+geom_hline(yintercept=1,linewidth=2)+
+geom_hline(yintercept=-1,linewidth=2)+geom_line(aes(x=p,y=Dim.2, group=Variable,color=Variable),linewidth=1.5)+ylim(c(-1,1))+ggtitle("Correlation wrt the second dimension")
+
+p1+p2+p3+p4
+```
+
+------------
+
+### The quality of representation of individuals
+
+__The size of the balls is proportional to the quality of representation of points on the plane__
+
+```{r eval=T, fig.align='center',fig.height=6,fig.width=15}
+cos2_ind_12<-rowSums(OZ_PCA$ind$cos2[,1:2])
+
+indivs<-as.data.frame(OZ_PCA$ind$coord) %>% mutate(QOR=cos2_ind_12)
+#ggplotly(
+ggplot(indivs)+ geom_point(aes(x=Dim.1,y=Dim.2,size=QOR,color=QOR),alpha=0.5)+
+scale_size(range = c(0, 25))+
+geom_text_repel(aes(x=Dim.1,y=Dim.2,label=rownames(indivs)))+
+geom_hline(yintercept=0)+geom_vline(xintercept=0)+theme_light()+
+scale_colour_continuous(guide = "none")
+#)
+
+```
+
+
+
+## Conclusions
+
+- PCA for distributional data allows to discover more patterns in the data with recpect to the PCA on points;
+- If data are intervals, you can consider them as uniform distributions, namely, a histogram with just one bin;
+- If distributions have a discrete domain, it is easy to generalize the method.
+- If distributions has a nomimal support, you can't use PCA (other methods are available).

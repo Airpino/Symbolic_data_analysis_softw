@@ -1,25 +1,451 @@
 ---
-title: "Software for multivariade analysis od SD"
-author: "A. Irpino"
-format: revealjs
+title: "Software for multivariade regression of Distributional SD"
+author: "A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024"
+format: 
+  revealjs: 
+    theme: [dark, custom.scss]
+    width: 1280
+    height: 500
+    fontsize: 2em
+    linestretch: 1.1
+    footer: "Software for multivariade regression of Distributional SD, ESTP Cologne 14-16 May 2024"
+    slideNumber: true
+filters:
+  - "parse-latex.lua"
+title-slide-attributes:
+  data-background-image: "images/main.svg"
+  data-background-color: white
+  data-background-size: contain
+bibliography: biblio.bib
+link-citations: true
 editor: visual
 ---
 
-## Quarto
+# Regression models
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+This is an [R Markdown](http://rmarkdown.rstudio.com) presentation showing an application of the two-components regression model [@Irp_reg_15] on the `OzoneFull` dataset which is available in the `HistDAWass` package. We used the `HistDAWass` package and the therein build functions for the regression analysis.
 
-## Bullets
+# Install and load the package
 
-When you click the **Render** button a document will be generated that includes:
+For installing and loading the package in your environment launch the following code:
 
--   Content authored with markdown
--   Output from executable code
+```{r install_and_load, message=FALSE, warning=FALSE, echo=T}
+## if not installed in your environment
+#  install.packages("HistDAWass")
+library(HistDAWass) #load the package
+#other useful packages
+library(tidyverse)
+library(plotly)
+library(patchwork)
+```
 
-## Code
+# Data description
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+The `OzoneFull` dataset is a `MatH` object, namely, a table of histogram-valued data, representing aggregate raw data downloaded from the Clean Air Status and Trends Network (CASTNET) ([\<http://java.epa.gov/castnet/\>](http://java.epa.gov/castnet/%7D,)), an air-quality monitoring network of the United States, designed to provide data to assess trends in air quality, atmospheric deposition and ecological effects due to changes in air pollutant emissions.
+
+---------------------------
+
+We selected data on the ozone concentration in 78 USA sites among those depicted in Fig for which the monitored data were complete (i.e., without missing values for each of the selected characteristics).
+
+```{r map, echo=FALSE, fig.cap="CASTNET network sites map", out.width = '40%'}
+knitr::include_graphics("figures/site_map_ozone.png")
+```
+
+-----------------------------
+
+Ozone is a gas that can cause respiratory diseases. In the literature, several studies reported evidence of the relation between the ozone concentration level and temperature, wind speed and the solar radiation (see, for example,[@Duenas2002]).
+
+Given the distribution of \emph{temperature} ($X_{1}$) (degrees Celsius), the distribution of \emph{solar radiation} ($X_{2}$) (Watts per square meter) and the distribution of \emph{wind speed} ($X_{3}$) (meters per second), the main objective is to predict the distribution of \emph{ozone concentration} ($Y$) (Particles per billion) using a linear model. CASTNET collects hourly data and, as the period of observation, we chose the summer season of 2010 and the central hours of the days (10 a.m.--5 p.m.).
+
+--------------------
+
+We collected the histograms of the values of each site observed for the four variables. The histograms were constructed using 100 equi-frequent bins, namely, we have bins of different widths but of constant frequency. The histogram representation of varying bin-width histograms in not always pleasant, we plot the data using only ten equi-frequent bins. We show the first 5 of 78 sites.
+
+```{r include=FALSE}
+n<-get.MatH.nrows(OzoneFull)
+p<-get.MatH.ncols(OzoneFull)
+New_OZ<-OzoneFull
+for (i in 1:n){
+  for (j in 1:p){
+    New_OZ@M[i,j][[1]]@x<-New_OZ@M[i,j][[1]]@x[seq(1,101,by=10)]
+    New_OZ@M[i,j][[1]]@p<-New_OZ@M[i,j][[1]]@p[seq(1,101,by=10)]
+  }
+}
+
+```
+
+```{r HIST_MAT_PLOT, echo=TRUE, message=FALSE, warning=FALSE, fig.align='center'}
+plot(New_OZ[1:10,])+theme_bw()+xlab("")+ylab("")+theme(legend.position = "none")
+```
+
+------------------
+
+## The data table{.smaller}
+
+Each cell of the data table contains a histogram. We see the first three rows of the matrix
+
+```{r Tab_of_hist, echo=FALSE, message=FALSE, warning=FALSE}
+els<-list()
+cc<-0
+for (i in 1:3){
+  for (j in 1:p){
+    tmp<-tibble(
+      Bin=paste(
+        c(format(round(OzoneFull@M[i,j][[1]]@x[1:4],2),nsmall = 2),
+                  "...",
+          format(round(OzoneFull@M[i,j][[1]]@x[99:100],2),nsmall = 2)),
+        c(format(round(OzoneFull@M[i,j][[1]]@x[2:5],2),nsmall = 2),
+          "...",
+          format(round(OzoneFull@M[i,j][[1]]@x[100:101],2),nsmall = 2)),
+        sep="-"),
+      p=rep(0.01,length(Bin))
+    )
+    cc<-cc+1
+    els[[cc]]<-tmp
+  }
+  
+}
+fin_t<-tibble(ST_ID=c("I1","I2","I3"),
+  V1=els[c(1,5,9)],
+              V2=els[c(2,6,10)],
+              V3=els[c(3,7,11)],
+              V4=els[c(4,8,12)])
+#xtable::xtable(unnest(fin_t)) for latex
+knitr::kable(unnest(fin_t))
+```
+
+## Basic Wasserstein-based statistics
+
+### The Frechét mean distributions of the the four variables
+
+We start computing the Frechét mean of each distributional variable using the $L_2$ Wassertein distance as in [@IrpVer2015]
+
+#### Ozone
+
+```{r barOZ}
+
+mean_Oz<-WH.vec.mean(OzoneFull[,1])
+mean_Oz
+```
+
+----------------------
+
+#### Temperature
+
+```{r barTM}
+
+mean_Temp<-WH.vec.mean(OzoneFull[,2])
+mean_Temp
+```
+
+------------------------
+
+#### Solar Radiation
+
+```{r barSR}
+
+mean_SR<-WH.vec.mean(OzoneFull[,3])
+mean_SR
+```
+
+-----------------------
+
+#### Wind Speed
+
+```{r barWS}
+
+mean_WS<-WH.vec.mean(OzoneFull[,4])
+mean_WS
+```
+
+-----------------------
+
+
+### The plot of the four barycenters
+
+```{r Four_baric}
+#| fig-cap: "The mean distributions for each variable"
+#| fig.align: 'center'
+
+p_oz<-plot(mean_Oz,col="black")+ggtitle("Ozone conc.")+theme_bw()
+p_Temp<-plot(mean_Temp,col="grey50", border="grey50")+ggtitle("Temperature")+theme_bw()
+p_SR<-plot(mean_SR,col="grey50", border="grey50")+ggtitle("Solar Radiation")+theme_bw()
+p_WS<-plot(mean_WS,col="grey50", border="grey50")+ggtitle("Wind speed")+theme_bw()
+
+
+p_oz+p_Temp+p_SR+p_WS
+```
+
+------------------------------
+
+In Table \ref{TAB:OZO_summarystat}, we report the main summary statistics for the four histogram variables, while in Fig. \ref{Fig: OZO_barycenters}, we provide the four barycenters of the 78 sites for each variable. We note, for example, the different skewness of the barycenters. In general, when the barycenter is skewed, the observed distributions are in general skewed in the same direction. This is not in general true for symmetric barycenters, which can be generated both from left- and right-skewed distributions.
+
+```{r basic_baricenters_stats}
+# mean values of the Frechet means
+aver<-c(meanH(mean_Oz),meanH(mean_Temp),meanH(mean_SR),meanH(mean_WS))
+# standard deviations values of the Frechet means
+std<-c(stdH(mean_Oz),stdH(mean_Temp),stdH(mean_SR),stdH(mean_WS))
+# first quartiles of the Frechet means
+Q1s<-c(compQ(mean_Oz,p = 0.25),compQ(mean_Temp,p = 0.25),
+       compQ(mean_SR,p = 0.25),compQ(mean_WS,  p = 0.25))
+# medians of the Frechet means
+meds<-c(compQ(mean_Oz,p = 0.5),compQ(mean_Temp,p = 0.5),
+        compQ(mean_SR,p = 0.5),compQ(mean_WS,  p = 0.5))
+# third quartiles of the Frechet means
+Q3s<-c(compQ(mean_Oz,p = 0.75),compQ(mean_Temp,p = 0.75),
+       compQ(mean_SR,p = 0.75),compQ(mean_WS, p = 0.75))
+
+# skewness measures values of the Frechet means
+ske<-c(skewH(mean_Oz),skewH(mean_Temp),skewH(mean_SR),skewH(mean_WS))
+# kurtosis measures values of the Frechet means
+kur<-c(kurtH(mean_Oz),kurtH(mean_Temp),kurtH(mean_SR),kurtH(mean_WS))
+
+# Let's put all in a table
+
+FR_means_stats<-tibble(
+  Variable=c("Ozone", "Temperature","Solar Radiation","Wind Speed"),
+  Mean=round(aver,2),
+  Std=round(std,2),
+  First_Q=round(Q1s,2),
+  Median=round(meds,2),
+  Third_Q=round(Q3s,2),
+  Skewness=round(ske,3),
+  Kurtosis=round(kur,3)
+)
+
+knitr::kable(FR_means_stats,caption = "Basic statistics of barycenters")
+```
+
+------------------------
+
+## {.smaller}
+
+We show the covariances and correlations of the variables in the next two tables, and the standard deviations of the variables computed according to what is proposed in [@IrpVer2015] :
+
+```{r covariances_correlations, echo=T}
+# Covariance matrix
+Cov_M<-WH.var.covar(OzoneFull)
+knitr::kable(round(Cov_M,2), caption="Covariance matrix")
+```
+
+## {.smaller}
+
+
+```{r covariances_correlations2}
+# Standard deviation of variables
+Std_vars<-sqrt(diag(Cov_M))
+```
+
+
+```{r covariances_correlations3}
+#Correlation matrix
+Corr_M<-round(WH.correlation(OzoneFull),3)
+
+
+
+
+knitr::kable(round(Std_vars,2), caption="Standard deviations")
+
+knitr::kable(Corr_M, caption="Correlation matrix")
+
+
+```
+
+## Two-components regression model{.smaller}
+
+Now we estimate the model
+
+$$
+Y=\beta_0+\beta_1\mu_{X_1}+\beta_2\mu_{X_2}+\beta_3\mu_{X_3}+
+\gamma_1{X^c_1}+\gamma_2{X^c_2}+\gamma_3{X^c_3}+\varepsilon
+$$
+
+```{r two_c_reg, echo=T}
+results<-WH.regression.two.components(OzoneFull,1,c(2:4))
+knitr::kable(data.frame(Coeff.est.=round(results,3)),
+             caption="regression parameters")
+```
+
+------------------------
+
+We compute the goodness of fit statistics
+
+```{r GOF, echo=T}
+# we compute the expected distributions
+expected<-WH.regression.two.components.predict(OzoneFull[,2:4],results)
+
+# we compute the GOF measures
+
+GOFS<- WH.regression.GOF(OzoneFull[,1],expected)
+GOFS
+```
+
+## Bootstrap confidence intervals for the model parameters{.smaller}
+
+We perform a bootstrap estimates of the confidence intervals of the parameters using 1,000 replications
+
+```{r cache=TRUE}
+set.seed(12345)
+DATA<-OzoneFull
+
+n<-get.MatH.nrows(DATA)
+repl<-1000
+for (r in 1:repl){
+  els<-sample(c(1:n),n,replace = T)
+  par<-WH.regression.two.components(DATA[els,],1,2:4)
+  if (r>1){
+  WH_BOOT=rbind(WH_BOOT,par)
+  }else{
+    WH_BOOT=par  
+  }
+  #if ((r%%100)==0){print(r)}
+}
+
+```
 
 ```{r}
-1 + 1
+
+Boot_results<-data.frame(model.est.=results,
+                         boot.mean.est.=colMeans(WH_BOOT),
+                         bias=results-colMeans(WH_BOOT),
+                         q.2.5=t(data.frame(WH_BOOT) %>% summarise(across(1:7, ~quantile(.,probs=c(0.025))))),
+                         q.97.5=t(data.frame(WH_BOOT) %>% summarise(across(1:7, ~quantile(.,probs=c(0.975)))))
+)
+
+knitr::kable(round(Boot_results,3), caption="Bootstrap results")
 ```
+
+----------------
+
+Reading the bootstrap results, we may assert that the ozone concentration distribution of a site depends on the mean \emph{solar
+radiation}, where for each $\Delta Watt/m^{2}$ a $0.070\;(ppb)$ variation of the \emph{ozone concentration} mean level is expected, while in general we cannot say that the mean levels of \emph{temperature} and \emph{wind
+speed} induce a significant variation of the \emph{ozone concentration
+level }($95\%$ bootstrap confidence intervals include the zero). Furthermore, the variability of the \emph{ozone concentration} is almost the same of the \emph{temperature }($0.928$); a unitary variation in the variability of the \emph{solar radiation} induces a variation of $0.018\;(ppb)$ and a variation in the variability of the \emph{wind speed} causes an increase in the variability of $1.958\;(ppb)$.
+
+## Residual analysis
+
+```{r, echo=T}
+Res<-matrix(0,n,length(expected@M[1,1][[1]]@x))
+C<-matrix(0,n,length(expected@M[1,1][[1]]@x)-1)
+R<-matrix(0,n,length(expected@M[1,1][[1]]@x)-1)
+for(i in 1:n){
+  Res[i,]<-expected@M[i,1][[1]]@x-OzoneFull@M[i,1][[1]]@x
+  R[i,]<-diff(expected@M[i,1][[1]]@x-OzoneFull@M[i,1][[1]]@x)/2
+  C[i,]<-(Res[i,1:(length(Res[i,])-1)]+
+            Res[i,2:(length(Res[i,]))])/2
+}
+
+SDRES<-sqrt((0.01*(sum(C^2)-sum(colMeans(C)^2)+
+                    1/3*(sum(R^2)-sum(colMeans(R)^2))))/n)
+
+Res_st<-data.frame(ID=c(1:n),Res/SDRES)
+Res<-data.frame(ID=c(1:n),Res)
+```
+
+```{r, echo=T}
+MyL<-Res %>% pivot_longer(-ID,names_to = "var",values_to = "val")%>% mutate(Q=rep(0:100,78)/100)
+MyL_st<-Res_st %>% pivot_longer(-ID,names_to = "var",values_to = "val")%>% mutate(Q=rep(0:100,78)/100)
+
+```
+
+--------------------------------
+
+#### Plot of standardized residual functions
+
+```{r fig.align='center'}
+res_pl<-#ggplotly(
+  ggplot(MyL_st,aes(x=Q,y=val,color=as.factor(ID)))+
+    geom_line(aes(group=as.factor(ID)),alpha=0.4)+
+    geom_line(inherit.aes = FALSE,
+              data=(MyL_st %>% group_by(Q) %>% summarize(v=mean(val))),aes(x=Q,y=v))+
+    geom_line(inherit.aes = FALSE,
+              data=MyL_st %>% filter(ID%in%c(22,37,63)) ,
+              aes(x=Q,y=val,group=as.factor(ID)),
+              linetype = 2,color="black")+
+    xlab("p")+ylab("Standardized residuals")+
+    theme_bw()
+    #)
+
+res_pl
+
+```
+
+-------------------------
+
+## Boxplot of residual functions
+
+```{r fig.align='center'}
+
+plo_hist<-ggplot(MyL_st,aes(x=as.factor(Q),y=val,color=ID))+geom_boxplot()+xlab("p")
+plo_hist
+```
+
+## Observe that:
+
+In general the standardized error functions are inside the $\pm2\sigma$ band. Looking at the point-wise boxplots, we see that in general the average error function is close to the zero line, suggesting that the process generating the error functions has zero mean. Also the boxplots seem to suggest that the process have constant variance in $[0;1]$.
+
+We note that stations $I23$, $I41$, and $I69$ present error functions which have the most part of the values far more than $\pm2\sigma$.
+
+-----------------
+
+### Worst and best predictions
+
+```{r fig.align='center', echo=T}
+HistDAWass::plotPredVsObs(expected[c(22,61,37,66,63,73),],OzoneFull[c(22,61,37,66,63,73),1],type="DENS")
+
+```
+
+---------------------
+
+### Pointwise testing for normality 
+
+We compute the Shapiro test for each percentile with and without outliers.
+
+```{r fig.align='center'}
+full<-numeric()
+red<-numeric()
+for (i in 2:102){
+  full<-c(full,shapiro.test(Res[,i])$p.value)
+  red<-c(red,shapiro.test(Res[-c(22,37,63),i])$p.value)
+}
+p1<-ggplot(data.frame(p=round(c(0:100)/100,2),full=full),aes(x=p,y=full))+geom_point()+geom_hline(yintercept=0.05)+ggtitle("pvalues of Shapiro test for each percentile, all the data")
+
+p2<-ggplot(data.frame(p=round(c(0:100)/100,2),red=red),aes(x=p,y=red))+geom_point()+geom_hline(yintercept=0.05)+ggtitle("pvalues of Shapiro test for each percentile, after removing the three outliers")
+p1
+```
+
+------------------------
+
+```{r fig.align='center'}
+p2
+
+```
+
+It seems that removing the outliers the process is almost Gaussian after $p=0.07$.
+
+
+<!-- ### Best and worst predictions -->
+
+<!-- ```{r, caption="Worst and best predictions"} -->
+<!-- tmp_e<-expected[c(22,61,37,66,63,73),] -->
+<!-- tmp_o<-OzoneFull[c(22,61,37,66,63,73),1] -->
+
+<!-- for (i in 1:6){ -->
+<!--    tmp_e@M[i,1][[1]]@x<-tmp_e@M[i,1][[1]]@x[seq(1,101,by=10)] -->
+<!--     tmp_e@M[i,1][[1]]@p<-tmp_e@M[i,1][[1]]@p[seq(1,101,by=10)] -->
+<!--        tmp_o@M[i,1][[1]]@x<-tmp_o@M[i,1][[1]]@x[seq(1,101,by=10)] -->
+<!--     tmp_o@M[i,1][[1]]@p<-tmp_o@M[i,1][[1]]@p[seq(1,101,by=10)] -->
+<!-- } -->
+<!-- HistDAWass::plotPredVsObs(tmp_e,tmp_o) -->
+<!-- ``` -->
+
+## Conclusions
+
+- The two-components regression for distributional data shows interesting patterns related to the position and the internal variability of distributional data.
+- If data are intervals, we can consider a interval as a uniform distributions or a one-bin histograms.
+- You can use histograms with different binning thanks to Wasserstein.
+- If the domain of distribution is discrete, it is easy to generalize the method (Actually we are developing that).
+- The use of scalar parameters helps interpretation, but the final fitting can be biased. We are developing some _correction_ tools for that.
+
+
+# References

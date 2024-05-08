@@ -1,0 +1,94 @@
+---
+title: "American Community Survey explanation"
+author: "Antonio Irpino"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Distinguishing features of ACS 1-year, 1-year supplemental, 3-year, and 5-year estimates
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<table cellspacing="0" cellpadding="5" border="1">
+<tbody><tr><th><h5>1-year estimates</h5>
+</th>
+<th><h5>1-year supplemental estimates</h5>
+</th>
+<th><h5>3-year estimates<a href="/programs-surveys/acs/guidance/estimates.html#par_textimage_0">*</a></h5>
+</th>
+<th><h5>5-year estimates</h5>
+</th>
+</tr><tr><td>12 months of collected data <i>Example:</i> 2022 ACS 1-year estimates <i>Date collected between:</i> January 1, 2022 and<br />
+December 31, 2022</td>
+<td>12 months of collected data <i>Example:</i> 2022 ACS 1-year supplemental estimates <i>Date collected between:</i> January 1, 2022 and<br />
+December 31, 2022<br />
+</td>
+<td>36 months of collected data <i>Example:</i> 2011-2013 ACS 3-year estimates <i>Date collected between:</i> January 1, 2011 and<br />
+December 31, 2013<br />
+</td>
+<td>60 months of collected data <i>Example:</i> 2018-2022 ACS 5-year estimates <i>Date collected between:</i> January 1, 2018 and<br />
+December 31, 2022<br />
+</td>
+</tr><tr><td>Data for areas with populations of 65,000+<br />
+</td>
+<td>Data for areas with populations of 20,000+</td>
+<td>Data for areas with populations of 20,000+<br />
+</td>
+<td>Data for all areas<br />
+</td>
+</tr><tr><td>Smallest sample size</td>
+<td>Smallest sample size</td>
+<td>Larger sample size than 1-year</td>
+<td>Largest sample size</td>
+</tr><tr><td>Less reliable than 3-year or 5-year</td>
+<td>Less reliable than 5-year</td>
+<td>More reliable than 1-year; less reliable than 5-year</td>
+<td>Most reliable</td>
+</tr><tr><td>Most current data</td>
+<td>Most current data</td>
+<td>Less current than 1-year estimates; more current than 5-year</td>
+<td>Least current</td>
+</tr><tr><td>Annually released: 2005-present<br />
+</td>
+<td>Annually released: 2014-present</td>
+<td>Annually released: 2007-2013</td>
+<td>Annually released: 2009-present</td>
+</tr><tr><th><h5>Best used when</h5>
+</th>
+<th><h5>Best used when</h5>
+</th>
+<th><h5>Best used when</h5>
+</th>
+<th><h5>Best used when</h5>
+</th>
+</tr><tr><td>Currency is more important than precision Analyzing large populations</td>
+<td>Currency is more important than precision Analyzing smaller populations Examining smaller geographies because the standard 1-year estimates are not available</td>
+<td>More precise than 1-year, spans fewer years than 5-year Analyzing smaller populations Examining smaller geographies because the standard 1-year estimates are not available</td>
+<td>Precision is more important than currency Analyzing very small populations Examining tracts and other smaller geographies because 1-year estimates are not available</td>
+</tr></tbody></table>
+
+
+
+\* ACS 3-year estimates have been discontinued. The 2005-2007, 2006-2008, 2007-2009, 2008-2010, 2009-2011, 2010-2012 and 2011-2013 ACS 3-year estimates will remain available to data users, but no new 3-year estimates will be produced. Every community in the nation will continue to receive a detailed statistical portrait of its social, economic, housing and demographic characteristics through 1-year and 5-year ACS products.
+

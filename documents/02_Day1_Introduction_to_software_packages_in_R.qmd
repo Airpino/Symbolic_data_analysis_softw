@@ -1,7 +1,20 @@
 ---
-title: "Summary of R software for Symbolic Data Analysis"
+title: "Summary of R software for<br> Symbolic Data Analysis"
 author: "A. Irpino"
-format: revealjs
+format: 
+  revealjs: 
+    theme: [dark, custom.scss]
+    width: 1280
+    height: 720
+    fontsize: 2em
+    linestretch: 1.1
+    margin: 0.1
+    footer: "Summary of R software for Symbolic Data Analysis"
+    slideNumber: true
+title-slide-attributes:
+  data-background-image: "images/main.svg"
+  data-background-color: white
+  data-background-size: contain
 editor: visual
 ---
 
@@ -9,7 +22,18 @@ editor: visual
 library(symbolicDA) #Polish library
 library(HistDAWass)#Histogram Data Analysis using Wasserstein distance
 library(RSDA) #R to Symbolic Data Analysis
+library(DT)
+library(patchwork)
+```
 
+```{r, include = FALSE}
+# knitr::opts_chunk$set(
+#   collapse = TRUE,
+#   comment = "#>",
+#   fig.width = 6,
+#   fig.height = 5
+# )
+# library(RSDA)
 ```
 
 ## Introduction
@@ -34,14 +58,341 @@ Symbolic Data Analysis: Symbolic data analysis methods: importing/exporting data
 
 Histogram data analysis: In the framework of Symbolic Data Analysis, a relatively new approach to the statistical analysis of multi-valued data, we consider histogram-valued data, i.e., data described by univariate histograms. The methods and the basic statistics for histogram-valued data are mainly based on the L2 Wasserstein metric between distributions, i.e., the Euclidean metric between quantile functions. The package contains unsupervised classification techniques, least square regression and tools for histogram-valued data and for histogram time series.
 
+------------------------------------------------------------------------
+
 ### Some packages for download offical statistics microdata
 
--   `OfficialStatistics` install through
+<!-- -   `OfficialStatistics` install through -->
+
+<!-- ```{r echo=TRUE} -->
+
+<!-- # from https://cran.r-project.org/web/views/OfficialStatistics.html -->
+
+<!-- # require(ctv) -->
+
+<!-- # ctv::install.views("OfficialStatistics", coreOnly = TRUE) #main library -->
+
+<!-- # ctv::update.views("OfficialStatistics") #updates -->
+
+<!-- ``` -->
+
+-   `tidycensus` package
+    -   An integrated R interface to several United States Census Bureau APIs (<https://www.census.gov/data/developers/data-sets.html>) and the US Census Bureau's geographic boundary files. Allows R users to return Census and ACS data as tidyverse-ready data frames, and optionally returns a list-column with feature geometry for mapping and spatial analysis.
+-   `ipumsr` package
+    -   An easy way to work with census, survey, and geographic data provided by IPUMS in R. Generate and download data through the IPUMS API and load IPUMS files into R with their associated metadata to make analysis easier. IPUMS data describing 1.4 billion individuals drawn from over 750 censuses and surveys is available free of charge from the IPUMS website <https://www.ipums.org>.
+
+------------------------------------------------------------------------
+
+-   `eurostat` R Tools for Eurostat Open Data
+    -   Tools to download data from the Eurostat database <https://ec.europa.eu/eurostat> together with search and manipulation utilities.
+-   rOpenGov is a community of R package developers on open government data analytics and related topics. See <https://ropengov.github.io/giscoR/>
+    -   `giscoR` is an API package that helps to retrieve data from Eurostat - GISCO (the Geographic Information System of the COmmission). It also provides some lightweight data sets ready to use without downloading.<br> GISCO is a geospatial open data repository including several data sets as countries, coastal lines, labels or NUTS levels. The data sets are usually provided at several resolution levels (60M/20M/10M/03M/01M) and in 3 different projections (4326/3035/3857).<br> Note that the package does not provide metadata on the downloaded files, the information is available on the API webpage.<br> Full site with examples and vignettes on <https://ropengov.github.io/giscoR/>
+
+## `RSDA` R to Symbolic Data Analysis: examples {.smaller}
+
+The package is provided with some datasets for showing some main procedures developed during the SODAS and ASSO project for the application of Symbolic Data Analysis to Official Statistics.
+
+### How to generated a symbolic data table from a classic data table in RSDA?
+
+The `classic.to.sym` function allows to convert a traditional table into a symbolic one, to this we must indicate the following parameters.
+
+-   `x` = a data.frame
+-   `concept` = variables to be used as a concept
+-   `variables` = variables to be used, conceptible with tidyselect options
+-   `default.numeric` = function that will be used by default for numerical values (sym.interval)
+-   `default.categorical` = functions to be used by default for categorical values (sym.model)
+
+## RSDA from classical to Symbolic Data Table<br> (USCrime dataset 1,994 rows an 103 columns) {.smaller}
+
+```{r}
+data(USCrime)
+DT::datatable(USCrime,
+              options = list(initComplete = JS(
+                               "function(settings, json) {",
+                               "$(this.api().table().header()).css({
+    'background-color': '#000', 
+    'color': '#fff',
+    'font-size': '75%' ,
+    });
+    $(this.api().table().body()).css({
+    'background-color': '#000', 
+    'color': '#fff',
+    'font-size': '70%' ,});
+    ",
+    "}")
+              )
+)
+```
+
+## RSDA: the symbolic data table
+
+Each row is a state (46 states are recorded)
+
+```{r}
+result  <- classic.to.sym(x = USCrime,
+                          concept = state, 
+                          variables= c(NumInShelters,
+                                       NumImmig,
+                                       ViolentCrimesPerPop),
+                          ViolentCrimesPerPop_hist = sym.histogram(ViolentCrimesPerPop,                                                                 breaks = pretty(USCrime$ViolentCrimesPerPop,5)))
+result %>% print(n=6)
+```
+
+The first `<hist>` codify
+
+```{r}
+result$ViolentCrimesPerPop_hist[[1]]
+```
+
+------------------------------------------------------------------------
+
+#### Example 
+
+```{r}
+data("ex_mcfa1")
+```
+
+A dataset with `r nrow(ex_mcfa1)` rows and `r ncol(ex_mcfa1)` variables about some suspects.
+
+```{r}
+DT::datatable(ex_mcfa1,
+              options = list(initComplete = JS(
+                               "function(settings, json) {",
+                               "$(this.api().table().header()).css({
+    'background-color': '#000', 
+    'color': '#fff',
+    'font-size': '75%' ,
+    });
+    $(this.api().table().body()).css({
+    'background-color': '#000', 
+    'color': '#fff',
+    'font-size': '70%' ,});
+    ",
+    "}"))
+)
+```
+
+------------------------------------------------------------------------
+
+### The symbolic data table
+
+```{r}
+sym.table <- classic.to.sym(x = ex_mcfa1, 
+                            concept = suspect,
+                            default.categorical = sym.set)
+sym.table
+```
+
+------------------------------------------------------------------------
+
+### Basic statistics
+
+#### Symbolic Mean
 
 ```{r echo=TRUE}
-# from https://cran.r-project.org/web/views/OfficialStatistics.html
-# require(ctv)
-# ctv::install.views("OfficialStatistics", coreOnly = TRUE) #main library
-# ctv::update.views("OfficialStatistics") #updates
-                   
+data(example3) 
+head(example3)
 ```
+
+```{r echo=TRUE}
+mean(example3$F1)#mean(example3[,1])
+```
+
+```{r echo=TRUE}
+mean(example3$F2)#mean(example3[,2])
+
+```
+
+```{r echo=TRUE}
+mean(example3$F2,method = "interval")#mean(example3[,2],method = "interval")
+
+```
+
+------------------------------------------------------------------------
+
+#### Symbolic median
+
+```{r echo=T}
+median(example3$F1) #median(example3[,1])
+median(example3$F2) #median(example3[,2])
+median(example3$F6, method = 'interval')# median(example3[,6], method = 'interval')
+```
+
+------------------------------------------------------------------------
+
+#### Variance and standard deviation
+
+::: columns
+::: {.column width="50%"}
+```{r echo=T}
+var(example3[,1])
+var(example3[,2])
+var(example3$F6)
+var(example3$F6, method = 'interval')
+var(example3$F6, method = 'billard')
+```
+:::
+
+::: {.column width="50%"}
+```{r echo=T}
+sd(example3$F1)
+sd(example3$F2)
+sd(example3$F6)
+sd(example3$F6, method = 'interval')
+sd(example3$F6, method = 'billard')
+```
+:::
+:::
+
+
+------------------------------------------------------------------------
+
+### Symbolic correlation
+
+```{r echo=T}
+cor(example3$F1, example3$F4)#cor(example3[,1], example3[,4])
+cor(example3$F2, example3$F6, method = 'centers')
+cor(example3$F2, example3$F6, method = 'billard')
+```
+
+------------------------------------------------------------------------
+
+### Radar plot for intervals (Oils data)
+
+```{r echo=T}
+library(ggpolypath)
+data(oils)
+oils
+```
+
+-------------------
+
+```{r echo=T}
+oils <- RSDA:::to.v3(RSDA:::to.v2(oils))
+p1<-sym.radar.plot(oils[2:3,])
+p2<-sym.radar.plot(oils[2:5,])
+p1+p2
+```
+
+------------------------------------------------------------------------
+
+### Distances for intervals
+
+#### Gowda-Diday
+
+```{r}
+data("oils")
+DM <- sym.dist.interval(sym.data = oils[,1:4],
+                        method = "Gowda.Diday")
+model <- hclust(DM)
+plot(model, hang = -1)
+```
+
+---------------
+
+#### Ichino
+
+```{r}
+DM <- sym.dist.interval(sym.data= oils[,1:4],
+                        method = "Ichino")
+model <- hclust(DM)
+plot(model, hang = -1)
+```
+
+---------------------
+
+#### Hausdorff
+
+```{r}
+DM <- sym.dist.interval(sym.data = oils[,c(1,2,4)],
+                        gamma = 0.5,
+                        method = "Hausdorff",
+                        normalize = FALSE,
+                        SpanNormalize = TRUE,
+                        euclidea = TRUE,
+                        q = 2)
+model <- hclust(DM)
+plot(model, hang = -1)
+```
+
+
+------------------------
+
+## Linear regression for intervals{.smaller}
+
+The data is an object of class symbolic_tbl with 67 rows and 9 columns.
+
+The data for this example come from a study
+by Stamey et al. (1989) that examined the correlation between the level of prostate specific antigen (PSA) and a number of clinical measures, in 97
+men who were about to receive a radical prostatectomy.
+The goal is to predict the log of PSA (`lpsa`) from a number of measurements
+including log cancer volume (`lcavol`), log prostate weight `lweight`,
+`age`, log of benign prostatic hyperplasia amount `lbph`, seminal vesicle invasion
+`svi`, log of capsular penetration `lcp`, Gleason score `gleason`, and
+percent of Gleason scores 4 or 5 `pgg45`.
+
+```{r}
+data(int_prost_train)
+data(int_prost_test)
+int_prost_train
+```
+
+
+-------------------
+
+#### Training
+
+```{r echo=T}
+data(int_prost_train)
+data(int_prost_test)
+res.cm <- sym.lm(formula = lpsa~., sym.data = int_prost_train, method = 'cm')
+res.cm
+```
+
+---------------------
+
+#### Prediction
+
+```{r echo=T}
+pred.cm <- sym.predict(model = res.cm, new.sym.data = int_prost_test)
+```
+
+#### Testing
+
+```{r echo=T}
+RMSE.L(int_prost_test$lpsa, pred.cm$Fitted)
+RMSE.U(int_prost_test$lpsa, pred.cm$Fitted)
+R2.L(int_prost_test$lpsa, pred.cm$Fitted)
+R2.U(int_prost_test$lpsa, pred.cm$Fitted)
+deter.coefficient(int_prost_test$lpsa, pred.cm$Fitted)
+```
+
+-------------------
+
+## PCA for intervals{.smaller}
+
+::: columns
+::: {.column width="40%"}
+
+#### Example Oils data
+
+```{r echo=T}
+data("oils")
+oils
+res <- sym.pca(oils,'centers')
+
+```
+:::
+::: {.column width="30%"}
+```{r echo=T,fig.dim=c(5,5)}
+plot(res, choix = "ind")
+```
+:::
+::: {.column width="30%"}
+```{r echo=T,,fig.dim=c(5,5)}
+plot(res, choix = "var")
+```
+:::
+:::
+
+

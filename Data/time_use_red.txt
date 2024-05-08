@@ -1,0 +1,1101 @@
+Description: Revision of (time use in 2010 and 2022)
+Samples selected:
+      ATUS 2010
+      ATUS 2022
+File Type:                    rectangular
+Case Selection:               No
+  Variable                         Columns        Len   2010    2022    
+  YEAR                         1   1-5            5     X       X       
+  CASEID                       1   6-19          14     X       X       
+  SERIAL                       1  20-26           7     X       X       
+  STRATA                       1  27-32           6     X       .       
+  PERNUM                       2  33-34           2     X       X       
+  LINENO                       2  35-37           3     X       X       
+  WT06                         2  38-54          17     X       X       
+  AGE                          2  55-57           3     X       X       
+  SEX                          2  58-59           2     X       X       
+  RACE                         2  60-63           4     X       X       
+  AGE_CPS8                     2  64-66           3     X       X       
+  BMI                          2  67-72           6     .       X       
+  EDUC                         2  73-75           3     X       X       
+  OCC2_CPS8                    2  76-79           4     X       X       
+  IND2_CPS8                    2  80-83           4     X       X       
+  EARNWEEK                     2  84-90           7     X       X       
+  ACT_CAREHH                   2  91-94           4     X       X       
+  ACT_CARENHH                  2  95-98           4     X       X       
+  ACT_EDUC                     2  99-102          4     X       X       
+  ACT_FOOD                     2 103-106          4     X       X       
+  ACT_GOVSERV                  2 107-110          4     X       X       
+  ACT_HHACT                    2 111-114          4     X       X       
+  ACT_HHSERV                   2 115-118          4     X       X       
+  ACT_PCARE                    2 119-122          4     X       X       
+  ACT_PHONE                    2 123-126          4     X       X       
+  ACT_PROFSERV                 2 127-130          4     X       X       
+  ACT_PURCH                    2 131-134          4     X       X       
+  ACT_RELIG                    2 135-138          4     X       X       
+  ACT_SOCIAL                   2 139-142          4     X       X       
+  ACT_SPORTS                   2 143-146          4     X       X       
+  ACT_TRAVEL                   2 147-150          4     X       X       
+  ACT_VOL                      2 151-154          4     X       X       
+  ACT_WORK                     2 155-158          4     X       X       
+
+Variable Availability Key:
+All Years X - available in this sample
+All Years . - not available in this sample
+
+Time Use Variables:
+  ACT_CAREHH
+    Activity specifications:
+      030000  Caring for and Helping Household Members
+          030101  Physical care for household children
+          030102  Reading to or with household children
+          030103  Playing with household children, not sports
+          030104  Arts and crafts with household children
+          030105  Playing sports with household children
+          030106  Talking with or listening to household children
+          030107  Helping or teaching household children (not related to education) (2003)
+          030108  Organization and planning for household children
+          030109  Looking after household children (as a primary activity)
+          030110  Attending household children's events
+          030111  Waiting for or with household children
+          030112  Picking up or dropping off household children
+          030199  Caring for and helping household children, n.e.c.
+          030201  Homework (household children)
+          030202  Meetings and school conferences (household children)
+          030203  Home schooling of household children
+          030204  Waiting associated with household children's education
+          030299  Activities related to household child's education, n.e.c.
+          030301  Providing medical care to household children
+          030302  Obtaining medical care for household children
+          030303  Waiting associated with household children's health
+          030399  Activities related to household child's health, n.e.c.
+          030401  Physical care for household adults
+          030402  Looking after household adult (as a primary activity)
+          030403  Providing medical care to household adult
+          030404  Obtaining medical and care services for household adult
+          030405  Waiting associated with caring for household adults
+          030499  Caring for household adults, n.e.c.
+          030501  Helping household adults
+          030502  Organization and planning for household adults
+          030503  Picking up or dropping off household adult
+          030504  Waiting associated with helping household adults
+          030599  Helping household adults, n.e.c.
+          039999  Caring for and helping household members, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_CARENHH
+    Activity specifications:
+      040000  Caring for and Helping Non-Household Members
+          040101  Physical care for non-household children
+          040102  Reading to or with non-household children
+          040103  Playing with non-household children, not sports
+          040104  Arts and crafts with non-household children
+          040105  Playing sports with non-household children
+          040106  Talking with or listening to non-household children
+          040107  Helping or teaching non-household children (not related to education) (2003)
+          040108  Organization and planning for non-household children
+          040109  Looking after non-household children (as primary activity)
+          040110  Attending non-household children's events
+          040111  Waiting for or with non-household children
+          040112  Dropping off or picking up non-household children
+          040199  Caring for and helping non-household children, n.e.c.
+          040201  Homework (non-household children)
+          040202  Meetings and school conferences (non-household children)
+          040203  Home schooling of non-household children
+          040204  Waiting associated with non-household children's education
+          040299  Activities related to non-household child's education, n.e.c.
+          040301  Providing medical care to non-household children
+          040302  Obtaining medical care for non-household children
+          040303  Waiting associated with non-household children's health
+          040399  Activities related to non-household child's health, n.e.c.
+          040401  Physical care for non-household adults
+          040402  Looking after non-household adult (as a primary activity)
+          040403  Providing medical care to non-household adult
+          040404  Obtaining medical and care services for non-household adult
+          040405  Waiting associated with caring for non-household adults
+          040499  Caring for non-household adults, n.e.c.
+          040501  Housework, cooking, and shopping assistance for non-household adults
+          040502  House and lawn maintenance and repair assistance for non-household adults
+          040503  Animal and pet care assistance for non-household adults
+          040504  Vehicle and appliance maintenance or repair assistance for non-household adults
+          040505  Financial management assistance for non-household adults
+          040506  Household management and paperwork assistance for non-household adults
+          040507  Picking up or dropping off non-household adult
+          040508  Waiting associated with helping non-household adults
+          040599  Helping non-household adults, n.e.c.
+          049999  Caring for and helping non-household members, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_EDUC
+    Activity specifications:
+      060000  Education
+          060101  Taking class for degree, certification, or licensure
+          060102  Taking class for personal interest
+          060103  Waiting associated with taking classes
+          060104  Security procedures related to taking classes
+          060199  Taking class, n.e.c.
+          060201  Extracurricular club activities
+          060202  Extracurricular music and performance activities
+          060203  Extracurricular student government activities
+          060204  Waiting associated with extracurricular activities (2004+)
+          060299  Education-related extracurricular activities, n.e.c.
+          060301  Research or homework for class (for degree, certification, or licensure)
+          060302  Research or homework for class (for personal interest)
+          060303  Waiting associated with research or homework
+          060399  Research or homework, n.e.c.
+          060401  Administrative activities: class for degree, certification, or licensure
+          060402  Administrative activities: class for personal interest
+          060403  Waiting associated with administrative activities (education)
+          060499  Administrative for education, n.e.c.
+          069999  Education, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_FOOD
+    Activity specifications:
+      110000  Eating and Drinking
+          110101  Eating and drinking
+          110199  Eating and drinking, n.e.c.
+          110201  Waiting associated with eating and drinking
+          110299  Waiting associated with eating and drinking, n.e.c.
+          119999  Eating and drinking, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_GOVSERV
+    Activity specifications:
+      100000  Government Services and Civic Obligations
+          100101  Using police and fire services
+          100102  Using social services
+          100103  Obtaining licenses and paying fines, fees, or taxes
+          100199  Using government services, n.e.c.
+          100201  Civic obligations and participation
+          100299  Civic obligations and participation, n.e.c.
+          100303  Waiting associated with civic obligations and participation
+          100304  Waiting associated with using government services
+          100399  Waiting associated with government services or civic obligations, n.e.c.
+          100401  Security procedures related to government services or civic obligations
+          100499  Security procedures related to government services or civic obligations, n.e.c.
+          109999  Government services, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_HHACT
+    Activity specifications:
+      020000  Household Activities
+          020101  Interior cleaning
+          020102  Laundry
+          020103  Sewing, repairing, and maintaining textiles
+          020104  Storing interior household items, including food
+          020199  Housework, n.e.c.
+          020201  Food and drink preparation
+          020202  Food presentation
+          020203  Kitchen and food clean-up
+          020299  Food and drink preparation, presentation, and clean-up, n.e.c.
+          020301  Interior arrangement, decoration, and repairs
+          020302  Building and repairing furniture
+          020303  Heating and cooling
+          020399  Interior maintenance, repair, and decoration, n.e.c.
+          020401  Exterior cleaning
+          020402  Exterior repair, improvements, and decoration
+          020499  Exterior maintenance, repair, and decoration, n.e.c.
+          020501  Lawn, garden, and houseplant care
+          020502  Ponds, pools, and hot tubs
+          020599  Lawn and garden, n.e.c.
+          020601  Care for animals and pets (not veterinary care) (2003-2007)
+          020602  Care for animals and pets (not veterinary care) (2008+)
+          020603  Walking, exercising, playing with animals (2008+)
+          020699  Pet and animal care, n.e.c.
+          020701  Vehicle repair and maintenance (by self)
+          020799  Vehicles, n.e.c.
+          020801  Appliance, tool, and toy set-up, repair, and maintenance (by self)
+          020899  Appliances and tools, n.e.c.
+          020901  Financial management
+          020902  Household and personal organization and planning
+          020903  Household and personal mail and messages (except e-mail)
+          020904  Household and personal e-mail and messages
+          020905  Home security
+          020999  Household management, n.e.c.
+          029999  Household activities, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_HHSERV
+    Activity specifications:
+      090000  Household Services
+          090101  Using interior cleaning services
+          090102  Using meal preparation services
+          090103  Using clothing repair and cleaning services
+          090104  Waiting associated with using household services
+          090199  Using household services, n.e.c.
+          090201  Using home maintenance, repair, decoration, or construction services
+          090202  Waiting associated with home maintenance, repair, decoration, or construction
+          090299  Using home maintenance, repair, decoration, or construction services, n.e.c.
+          090301  Using pet services
+          090302  Waiting associated with pet services
+          090399  Using pet services, n.e.c.
+          090401  Using lawn and garden services
+          090402  Waiting associated with using lawn and garden services
+          090499  Using lawn and garden services, n.e.c.
+          090501  Using vehicle maintenance or repair services
+          090502  Waiting associated with vehicle maintenance or repair services
+          090599  Using vehicle maintenance and repair services, n.e.c.
+          099999  Using household services, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_PCARE
+    Activity specifications:
+      010000  Personal Care
+          010101  Sleeping
+          010102  Sleeplessness
+          010199  Sleeping, n.e.c.
+          010201  Washing, dressing, and grooming oneself
+          010299  Grooming, n.e.c.
+          010301  Health-related self care
+          010399  Self care, n.e.c.
+          010401  Personal or private activities
+          010499  Personal activities, n.e.c.
+          010501  Personal emergencies
+          010599  Personal care emergencies, n.e.c.
+          019999  Personal care, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_PHONE
+    Activity specifications:
+      160000  Telephone Calls
+          160101  Telephone calls to or from family members
+          160102  Telephone calls to or from friends, neighbors, or acquaintances
+          160103  Telephone calls to or from education services providers
+          160104  Telephone calls to or from salespeople
+          160105  Telephone calls to or from professional or personal care services providers
+          160106  Telephone calls to or from household services providers
+          160107  Telephone calls to or from paid child or adult care providers
+          160108  Telephone calls to or from government officials
+          160199  Telephone calls (to or from), n.e.c. (2004+)
+          160201  Waiting associated with telephone calls (2004+)
+          160299  Waiting associated with telephone calls, n.e.c. (2004+)
+          169999  Telephone calls, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_PROFSERV
+    Activity specifications:
+      080000  Professional and Personal Care Services
+          080101  Using paid childcare services
+          080102  Waiting associated with purchasing childcare services
+          080199  Using paid childcare services, n.e.c.
+          080201  Banking
+          080202  Using other financial services
+          080203  Waiting associated with banking or financial services
+          080299  Using financial services and banking, n.e.c.
+          080301  Using legal services
+          080302  Waiting associated with legal services
+          080399  Using legal services, n.e.c.
+          080401  Using health and care services outside the home
+          080402  Using in-home health and care services
+          080403  Waiting associated with medical services
+          080499  Using medical services, n.e.c.
+          080501  Using personal care services
+          080502  Waiting associated with personal care services
+          080599  Using personal care services, n.e.c.
+          080601  Activities related to purchasing or selling real estate
+          080602  Waiting associated with purchasing or selling real estate
+          080699  Using real estate services, n.e.c.
+          080701  Using veterinary services
+          080702  Waiting associated with veterinary services
+          080799  Using veterinary services, n.e.c.
+          080801  Security procedures related to professional or personal services
+          080899  Security procedures related to professional or personal services, n.e.c.
+          089999  Professional and personal services, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_PURCH
+    Activity specifications:
+      070000  Consumer Purchases
+          070101  Grocery shopping
+          070102  Purchasing gas
+          070103  Purchasing food (not groceries)
+          070104  Shopping, except groceries, food, and gas
+          070105  Waiting associated with shopping
+          070199  Shopping, n.e.c.
+          070201  Comparison shopping
+          070299  Researching purchases, n.e.c.
+          070301  Security procedures related to consumer purchases
+          070399  Security procedures related to consumer purchases, n.e.c.
+          079999  Consumer purchases, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_RELIG
+    Activity specifications:
+      140000  Religious and Spiritual Activities
+          140101  Attending religious services
+          140102  Participation in religious practices
+          140103  Waiting associated with religious and spiritual activities
+          140104  Security procedures related to religious and spiritual activities
+          140105  Religious education activities (2007+)
+          149999  Religious and spiritual activities, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_SOCIAL
+    Activity specifications:
+      120000  Socializing, Relaxing, and Leisure
+          120101  Socializing and communicating with others
+          120199  Socializing and communicating, n.e.c.
+          120201  Attending or hosting parties, receptions, or ceremonies
+          120202  Attending meetings for personal interest (not volunteering)
+          120299  Attending or hosting social events, n.e.c.
+          120301  Relaxing, thinking
+          120302  Tobacco and drug use
+          120303  Television and movies (not religious)
+          120304  Television (religious)
+          120305  Listening to the radio
+          120306  Listening to or playing music (not radio)
+          120307  Playing games
+          120308  Computer use for leisure (excluding games)
+          120309  Arts and crafts as a hobby
+          120310  Collecting as a hobby
+          120311  Hobbies, except arts and crafts and collecting
+          120312  Reading for personal interest
+          120313  Writing for personal interest
+          120399  Relaxing and leisure, n.e.c.
+          120401  Attending performing arts
+          120402  Attending museums
+          120403  Attending movies or film
+          120404  Attending gambling establishments
+          120405  Security procedures related to arts and entertainment
+          120499  Arts and entertainment, n.e.c.
+          120501  Waiting associated with socializing and communicating
+          120502  Waiting associated with attending or hosting social events
+          120503  Waiting associated with relaxing or leisure
+          120504  Waiting associated with arts and entertainment
+          120599  Waiting associated with socializing, n.e.c.
+          129999  Socializing, relaxing, and leisure, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_SPORTS
+    Activity specifications:
+      130000  Sports, Exercise, and Recreation
+          130101  Doing aerobics
+          130102  Playing baseball
+          130103  Playing basketball
+          130104  Biking
+          130105  Playing billiards
+          130106  Boating
+          130107  Bowling
+          130108  Climbing, spelunking, caving
+          130109  Dancing
+          130110  Participating in equestrian sports
+          130111  Fencing
+          130112  Fishing
+          130113  Playing football
+          130114  Golfing
+          130115  Doing gymnastics
+          130116  Hiking
+          130117  Playing hockey
+          130118  Hunting
+          130119  Participating in martial arts
+          130120  Playing racquet sports
+          130121  Participating in rodeo competitions
+          130122  Rollerblading
+          130123  Playing rugby
+          130124  Running
+          130125  Skiing, ice skating, snowboarding
+          130126  Playing soccer
+          130127  Playing softball
+          130128  Using cardiovascular equipment
+          130129  Vehicle touring or racing
+          130130  Playing volleyball
+          130131  Walking
+          130132  Participating in water sports
+          130133  Weightlifting or strength training
+          130134  Working out, unspecified
+          130135  Wrestling
+          130136  Doing yoga
+          130199  Playing sports, n.e.c.
+          130201  Watching aerobics
+          130202  Watching baseball
+          130203  Watching basketball
+          130204  Watching biking
+          130205  Watching billiards
+          130206  Watching boating
+          130207  Watching bowling
+          130208  Watching climbing, spelunking, caving
+          130209  Watching dancing
+          130210  Watching equestrian sports
+          130211  Watching fencing
+          130212  Watching fishing
+          130213  Watching football
+          130214  Watching golfing
+          130215  Watching gymnastics
+          130216  Watching hockey
+          130217  Watching martial arts
+          130218  Watching racquet sports
+          130219  Watching rodeo competitions
+          130220  Watching rollerblading
+          130221  Watching rugby
+          130222  Watching running
+          130223  Watching skiing, ice skating, snowboarding
+          130224  Watching soccer
+          130225  Watching softball
+          130226  Watching vehicle touring or racing
+          130227  Watching volleyball
+          130228  Watching walking
+          130229  Watching water sports
+          130230  Watching weightlifting or strength training
+          130231  Watching people working out, unspecified
+          130232  Watching wrestling
+          130299  Attending sporting events, n.e.c.
+          130301  Waiting related to playing sports or exercising
+          130302  Waiting related to attending sporting events
+          130399  Waiting associated with sports, exercise, and recreation, n.e.c.
+          130401  Security related to playing sports or exercising
+          130402  Security related to attending sporting events
+          130499  Security related to sports, exercise, and recreation, n.e.c.
+          139999  Sports, exercise, and recreation, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_TRAVEL
+    Activity specifications:
+      180000  Traveling
+          180101  Travel related to personal care
+          180199  Travel related to personal care, n.e.c.
+          180201  Travel related to housework
+          180202  Travel related to food and drink preparation, clean-up, and presentation (2004+)
+          180203  Travel related to interior maintenance, repair, and decoration (2004+)
+          180204  Travel related to exterior maintenance, repair, and decoration (2004+)
+          180205  Travel related to lawn, garden, and houseplant care (2004+)
+          180206  Travel related to care for animals and pets (not veterinary care) (2004+)
+          180207  Travel related to vehicle care and maintenance (by self) (2004+)
+          180208  Travel related to appliance, tool, and toy set-up, repair, and maintenance (by self) (2004+)
+          180209  Travel related to household management
+          180299  Travel related to household activities, n.e.c.
+          180301  Travel related to caring for and helping household children, inclusive (2003, 2004)
+          180302  Travel related to caring for and helping household children (2005+)
+          180303  Travel related to household children's education (2005+)
+          180304  Travel related to household children's health (2005+)
+          180305  Travel related to caring for household adults (2005+)
+          180306  Travel related to helping household adults (2005+)
+          180307  Travel related to caring for and helping household adults (2003, 2004)
+          180399  Travel related to caring for and helping household members, n.e.c.
+          180401  Travel related to caring for and helping non-household children, inclusive (2003, 2004)
+          180402  Travel related to caring for and helping non-household children (2005+)
+          180403  Travel related to non-household children's education (2005+)
+          180404  Travel related to non-household children's health (2005+)
+          180405  Travel related to caring for non-household adults (2005+)
+          180406  Travel related to helping non-household adults (2005+)
+          180407  Travel related to caring for and helping non-household adults (2003, 2004)
+          180499  Travel related to caring for and helping non-household members, n.e.c.
+          180501  Travel related to working
+          180502  Travel related to work-related activities
+          180503  Travel related to income-generating activities (2004+)
+          180504  Travel related to job search and interviewing (2004+)
+          180599  Travel related to work, n.e.c.
+          180601  Travel related to taking class
+          180602  Travel related to extracurricular activities (ex. sports) (2005+)
+          180603  Travel related to research or homework (2005+)
+          180604  Travel related to registration or administrative activities (2005+)
+          180605  Education-related travel, not commuting (2003, 2004)
+          180699  Travel related to education, n.e.c.
+          180701  Travel related to grocery shopping
+          180702  Travel related to other shopping, inclusive (2003, 2004)
+          180703  Travel related to purchasing food (not groceries) (2005+)
+          180704  Travel related to shopping, ex groceries, food, and gas (2005+)
+          180705  Travel related to purchasing gas (2004+)
+          180799  Travel related to consumer purchases, n.e.c.
+          180801  Travel related to using childcare services
+          180802  Travel related to using financial services and banking
+          180803  Travel related to using legal services
+          180804  Travel related to using medical services
+          180805  Travel related to using personal care services
+          180806  Travel related to using real estate services
+          180807  Travel related to using veterinary services
+          180899  Travel related to using professional and personal care services, n.e.c.
+          180901  Travel related to using household services
+          180902  Travel related to using home maintenance, repair, decoration, or construction services
+          180903  Travel related to using pet services (not veterinary care)
+          180904  Travel related to using lawn and garden services
+          180905  Travel related to using vehicle maintenance and repair services
+          180999  Travel related to using household services, n.e.c.
+          181001  Travel related to using government services
+          181002  Travel related to civic obligations and participation
+          181099  Travel related to government services and civic obligations, n.e.c.
+          181101  Travel related to eating and drinking
+          181199  Travel related to eating and drinking, n.e.c.
+          181201  Travel related to socializing and communicating
+          181202  Travel related to attending or hosting social events
+          181203  Travel related to relaxing and leisure (2003, 2004)
+          181204  Travel related to arts and entertainment
+          181205  Travel as a form of entertainment (2005+)
+          181206  Travel related to relaxing and leisure (2005+)
+          181299  Travel related to socializing, relaxing, and leisure, n.e.c.
+          181301  Travel related to participating in sports, exercise, or recreation
+          181302  Travel related to attending sporting or recreational events
+          181399  Travel related to sports, exercise, and recreation, n.e.c.
+          181401  Travel related to religious or spiritual practices
+          181499  Travel related to religious or spiritual activities, n.e.c.
+          181501  Travel related to volunteering
+          181599  Travel related to volunteer activities, n.e.c.
+          181601  Travel related to phone calls
+          181699  Travel related to phone calls, n.e.c.
+          181801  Security procedures related to traveling
+          181899  Security procedures related to traveling, n.e.c.
+          189999  Traveling, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_VOL
+    Activity specifications:
+      150000  Volunteer Activities
+          150101  Computer use
+          150102  Organizing and preparing
+          150103  Reading
+          150104  Telephone calls (except hotline counseling)
+          150105  Writing
+          150106  Fundraising
+          150199  Administrative and support activities, n.e.c.
+          150201  Food preparation, presentation, clean-up
+          150202  Collecting and delivering clothing and other goods
+          150203  Providing care
+          150204  Teaching, leading, counseling, mentoring
+          150299  Social service and care activities, n.e.c.
+          150301  Building houses, wildlife sites, and other structures
+          150302  Indoor and outdoor maintenance, repair, and clean-up
+          150399  Indoor and outdoor maintenance, building, and clean-up activities, n.e.c.
+          150401  Performing
+          150402  Serving at volunteer events and cultural activities
+          150499  Participating in performance and cultural activities, n.e.c.
+          150501  Attending meetings, conferences, and training
+          150599  Attending meetings, conferences, and training, n.e.c.
+          150601  Public health activities
+          150602  Public safety activities
+          150699  Public health and safety activities, n.e.c.
+          150701  Waiting associated with volunteer activities (2004+)
+          150799  Waiting associated with volunteer activities, n.e.c. (2004+)
+          150801  Security procedures related to volunteer activities (2007+)
+          150899  Security proecdures related to voluteer activities, n.e.c. (2007+)
+          159999  Volunteer activities, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+  ACT_WORK
+    Activity specifications:
+      050000  Work and Work-Related Activities
+          050101  Work, main job
+          050102  Work, other job(s)
+          050103  Security procedures related to work
+          050104  Waiting associated with working (2004+)
+          050199  Working, n.e.c.
+          050201  Socializing, relaxing, and leisure as part of job
+          050202  Eating and drinking as part of job
+          050203  Sports and exercise as part of job
+          050204  Security procedures as part of job
+          050205  Waiting associated with work-related activities (2004+)
+          050299  Work-related activities, n.e.c.
+          050301  Income-generating hobbies, crafts, and food
+          050302  Income-generating performances
+          050303  Income-generating services
+          050304  Income-generating rental property activities
+          050305  Waiting associated with other income-generating activities (2004+)
+          050399  Other income-generating activities, n.e.c.
+          050401  Job search activities
+          050403  Job interviewing
+          050404  Waiting associated with job search or interview
+          050405  Security procedures related to job search or interviewing
+          050499  Job search and interviewing, n.e.c.
+          059999  Work and work-related activities, n.e.c.
+
+
+    Time specifications:
+      4:00 am - 16:00 pm
+
+    Secondary activity specifications: 
+      None specified
+
+    Location specifications:
+      None specified
+
+    With whom specifications:
+      None specified
+
+RECTYPE   Record type
+1         Household
+2         Person
+3         Activity
+4         Who
+5         Eldercare
+
+STRATA              Scrambled pseudo primary sampling unit (PSU) collapsed stratum 
+009999              Not generated
+
+PERNUM              Person number (general)
+01                  1
+02                  2
+03                  3
+04                  4
+05                  5
+06                  6
+07                  7
+08                  8
+09                  9
+10                  10
+11                  11
+12                  12
+13                  13
+14                  14
+15                  15
+16                  16
+
+LINENO              Person line number
+001                 1
+002                 2
+003                 3
+004                 4
+005                 5
+006                 6
+007                 7
+008                 8
+009                 9
+010                 10
+011                 11
+012                 12
+013                 13
+014                 14
+015                 15
+016                 16
+017                 17
+018                 18
+019                 19
+999                 NIU (Not in universe)
+
+SEX                 Sex
+01                  Male
+02                  Female
+99                  NIU (Not in universe)
+
+RACE                Race
+                    uber
+0100                White only
+0110                Black only
+0120                American Indian, Alaskan Native
+0130                Asian or Pacific Islander
+0131                Asian only
+0132                Hawaiian Pacific Islander only
+                    uber
+0200                White-Black
+0201                White-American Indian
+0202                White-Asian
+0203                White-Hawaiian
+0210                Black-American Indian
+0211                Black-Asian
+0212                Black-Hawaiian
+0220                American Indian-Asian
+0221                American Indian-Hawaiian
+0230                Asian-Hawaiian
+0300                White-Black-American Indian
+0301                White-Black-Asian
+0302                White-Black-Hawaiian
+0310                White-American Indian-Asian
+0311                White-American Indian-Hawaiian
+0320                White-Asian-Hawaiian
+0330                Black-American Indian-Asian
+0331                Black-American Indian-Hawaiian
+0340                Black-Asian-Hawaiian
+0350                American Indian-Asian-Hawaiian
+0398                Other 3 race combinations
+0399                2 or 3 races, unspecified
+0400                White-Black-American Indian-Asian
+0401                White-Black-American Indian-Hawaiian
+0402                White-Black-Asian-Hawaiian
+0403                Black-American Indian-Asian-Hawaiian
+0404                White-American Indian-Asian-Hawaiian
+0500                White-Black-American Indian-Asian-Hawaiian
+0599                4 or 5 races, unspecified
+9999                NIU (Not in universe)
+
+AGE_CPS8            Age (CPS)
+000                 0
+001                 1
+002                 2
+003                 3
+004                 4
+005                 5
+006                 6
+007                 7
+008                 8
+009                 9
+010                 10
+011                 11
+012                 12
+013                 13
+014                 14
+015                 15
+016                 16
+017                 17
+018                 18
+019                 19
+020                 20
+021                 21
+022                 22
+023                 23
+024                 24
+025                 25
+026                 26
+027                 27
+028                 28
+029                 29
+030                 30
+031                 31
+032                 32
+033                 33
+034                 34
+035                 35
+036                 36
+037                 37
+038                 38
+039                 39
+040                 40
+041                 41
+042                 42
+043                 43
+044                 44
+045                 45
+046                 46
+047                 47
+048                 48
+049                 49
+050                 50
+051                 51
+052                 52
+053                 53
+054                 54
+055                 55
+056                 56
+057                 57
+058                 58
+059                 59
+060                 60
+061                 61
+062                 62
+063                 63
+064                 64
+065                 65
+066                 66
+067                 67
+068                 68
+069                 69
+070                 70
+071                 71
+072                 72
+073                 73
+074                 74
+075                 75
+076                 76
+077                 77
+078                 78
+079                 79
+080                 80
+085                 85
+999                 NIU (Not in universe)
+
+EDUC                Highest level of school completed
+                    Less than HS diploma
+010                 Less than 1st grade
+011                 1st, 2nd, 3rd, or 4th grade
+012                 5th or 6th grade
+013                 7th or 8th grade
+014                 9th grade
+015                 10th grade
+016                 11th grade
+017                 12th grade - no diploma
+                    HS diploma, no college
+020                 High school graduate - GED
+021                 High school graduate - diploma
+                    Some college
+030                 Some college but no degree
+031                 Associate degree - occupational vocational
+032                 Associate degree - academic program
+                    College degree +
+040                 Bachelor's degree (BA, AB, BS, etc.)
+041                 Master's degree (MA, MS, MEng, MEd, MSW, etc.)
+042                 Professional school degree (MD, DDS, DVM, etc.)
+043                 Doctoral degree (PhD, EdD, etc.)
+999                 NIU (Not in universe)
+
+OCC2_CPS8           General occupation category, main job (CPS)
+                    Management, business, and financial occupations
+0110                Management occupations
+0111                Business and financial operations occupations
+                    Professional and related occupations
+0120                Computer and mathematical science occupations
+0121                Architecture and engineering occupations
+0122                Life, physical, and social science occupations
+0123                Community and social service occupations
+0124                Legal occupations
+0125                Education, training, and library occupations
+0126                Arts, design, entertainment, sports, and media occupations
+0127                Healthcare practitioner and technical occupations
+                    Service Occupations
+0130                Healthcare support occupations
+0131                Protective service occupations
+0132                Food preparation and serving related occupations
+0133                Building and grounds cleaning and maintenance occupations
+0134                Personal care and service occupations
+0140                Sales and related occupations
+0150                Office and administrative support occupations
+0160                Farming, fishing, and forestry occupations
+0170                Construction and extraction occupations
+0180                Installation, maintenance, and repair occupations
+0190                Production occupations
+0200                Transportation and material moving occupations
+0210                Armed Forces
+9999                NIU (Not in universe)
+
+IND2_CPS8           General industry classification, main job (CPS)
+                    Agriculture, forestry, fishing, and hunting
+0100                Agriculture
+0101                Forestry, logging, fishing, hunting, and trapping
+0110                Mining
+0120                Construction
+                    Manufacturing - durable goods
+0130                Nonmetallic mineral product manufacturing
+0131                Primary metals and fabricated metal products
+0132                Machinery manufacturing
+0133                Computer and electronic product manufacturing
+0134                Electrical equipment, appliance manufacturing
+0135                Transportation equipment manufacturing
+0136                Wood product manufacturing
+0137                Furniture and fixtures manufacturing
+0138                Miscellaneous and not specified manufacturing
+                    Manufacturing - non-durable goods
+0140                Food manufacturing
+0141                Beverage and tobacco product manufacturing
+0142                Textile, apparel, and leather manufacturing
+0143                Paper manufacturing and printing
+0144                Petroleum and coal products manufacturing
+0145                Chemical manufacturing
+0146                Plastics and rubber products manufacturing
+0150                Wholesale trade
+0160                Retail trade
+0170                Transportation and warehousing
+0180                Utilities
+                    Information
+0190                Publishing industries (except internet)
+0191                Motion picture and sound recording industries
+0192                Broadcasting (except internet)
+0193                Internet publishing and broadcasting
+0194                Telecommunications
+0195                Internet service providers and data processing services
+0196                Other information services
+                    Finance and insurance
+0200                Finance
+0201                Insurance
+                    Real estate and rental and leasing
+0210                Real estate
+0211                Rental and leasing services
+0220                Professional, scientific, and technical services
+                    Management, administrative and waste management services
+0230                Management of companies and enterprises
+0231                Administrative and support services
+0232                Waste management and remediation services
+0240                Educational services
+                    Health care and social services
+0250                Hospitals
+0251                Health care services, except hospitals
+0252                Social assistance
+0260                Arts, entertainment, and recreation
+                    Accomodation and food services
+0270                Traveler accommodation
+0271                Food services and drinking places
+0280                Private households
+                    Other services, except private households
+0290                Repair and maintenance
+0291                Personal and laundry services
+0292                Membership associations and organizations
+0300                Public administration
+0310                Armed Forces
+9999                NIU (Not in universe)

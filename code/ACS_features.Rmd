@@ -1,0 +1,31 @@
+---
+title: "ACS 5 features"
+author: "Antonio Irpino"
+date: "2024-05-01"
+header-includes:
+   -  \usepackage{colortbl} 
+   -  \usepackage{color} 
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+```
+
+## acs5 vars
+```{r echo=FALSE}
+load("../Pums2.RData")
+#mini_vars$level = cell_spec(mini_vars$level, color = ifelse(grepl("housing",mini_vars$level), "red", "blue"))
+kableExtra::kbl(mini_vars %>% filter(!(var_code%in%paste0("WGTP",c(1:80))),!(var_code%in%paste0("PWGTP",c(1:80)))),
+                                     longtable = T, booktabs = T, caption = "Acs5 variables") %>%
+#add_header_above(c(" ", "Group 1" = 5, "Group 2" = 6)) %>%
+  column_spec(5, width = "20em") %>% 
+kable_styling(latex_options = c("repeat_header"))
+```
+
+
+

@@ -1,10 +1,6 @@
 ---
 title: "How to use RSDA 3.2.1"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Instroduction to RSDA packages}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: html_document
 ---
 
 ```{r, include = FALSE}

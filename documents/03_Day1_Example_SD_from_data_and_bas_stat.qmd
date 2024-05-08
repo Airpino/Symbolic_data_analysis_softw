@@ -1,25 +1,606 @@
 ---
-title: "SD from classical data and basic stats"
-author: "A. Irpino"
-format: revealjs
+title: "Symbolic Data from classical data<br> and basic stats for distributional data"
+author: "A. Irpino, R. Verde"
+format: 
+  revealjs: 
+    theme: [dark, custom.scss]
+    width: 1280
+    height: 500
+    fontsize: 2em
+    linestretch: 1.1
+    footer: "Symbolic Data from classical data and basic stats"
+    slideNumber: true
+filters:
+  - "parse-latex.lua"
+title-slide-attributes:
+  data-background-image: "images/main.svg"
+  data-background-color: white
+  data-background-size: contain
+bibliography: biblio.bib
 editor: visual
 ---
 
-## Quarto
+## Outline
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+-   The `HistDAWass` package and how to install it
+-   Main classes and methods
+-   From raw data to histograms
+-   Histogram-valued data table
+-   Distances for histogram-valued data: the $L_2$ Wasserstein distance
+-   Basic univariate statistics for histogram variables
+-   Association measure for histogram variables
 
-## Bullets
+## HistDAWass Package
 
-When you click the **Render** button a document will be generated that includes:
+-   `Hist`ogram
+-   `D`ata
+-   `A`nalysis
+-   using `Wass`erstein distance
 
--   Content authored with markdown
--   Output from executable code
+The package can be downloaded from CRAN and charged as usually(in R):
 
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
+```{r install_and_launch, eval=FALSE, echo=T}
+install.packages("HistDAWass")
+library("HistDAWass")
 ```
+
+## Classes of `HistDAWass`
+
+#### Classes and methods were implemented in the package using S4
+
+The main motivation is that the S4 paradigm is object-oriented, while S3 does not.
+
+#### Main classes of the package
+
+-   `distributionH` -- the class representing a histogram-valued data (HD);
+-   `MatH` -- a matrix of HD, it is symilar to a symbolic table, but containing only histograms;
+-   `TdistributionH` -- an HD with a timestamp, or a time interval (useful for the analysis of histogram time series)
+-   `TMatH` -- a matrix of HD's with a timestamp, or a time interval;
+-   `HTS` -- a Histogram Time Series (an ordered list of TdistributionH);
+
+# The `distributionH` class: a class for describing and manipulating histogram-valued data
+
+## A class describing a 1-d histogram
+
+We want to create a new object containing the following histogram:
+
+::: columns
+::: {.column width="50%"}
+```{=tex}
+\begin{center}
+\begin{tabular}{|c|r|r|}
+\hline 
+\textbf{Bin} & \textbf{Rel.freq.} & \textbf{CDF} \\ 
+\hline 
+$\text{[1;2)}$ & 0.4 & 0.4 \\ 
+$\text{(2;3]}$ & 0.6 & 1 \\ 
+\hline 
+Tot. & 1.0 &  \\ 
+\hline 
+\end{tabular}
+\end{center}
+```
+```{r charge_silently, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+library("HistDAWass")
+```
+:::
+
+::: {.column width="50%"}
+```{r distributionH_initialize, eval=TRUE, echo=T}
+mydist=distributionH(x=c(1,2,3),p=c(0,0.4, 1))
+str(mydist)
+```
+:::
+:::
+
+## Show function
+
+```{r distribution_show, eval=TRUE, echo=T}
+mydist 
+```
+
+## Plot functions
+
+```{r distribution_plot, eval=TRUE, fig.height=2, fig.width=4,fig.keep='first', echo=T}
+mydist<-distributionH(x=c(7,8,10,15),p=c(0, 0.2, 0.7, 1))
+plot(mydist) #plots mydist
+```
+
+## Some options for plotting a distributionH object
+
+::: columns
+::: {.column width="40%"}
+```{r plots_of_distributions,  eval=TRUE, echo=T}
+p1<-plot(mydist, type="HISTO", col="red",
+        border="blue")
+#plots a density approximation for mydist
+p2<-plot(mydist, type="DENS", col="red", 
+         border="blue") 
+#plots a horizontal boxplot for mydist
+p3<-plot(mydist, type="HBOXPLOT") 
+
+#plots a vertical boxplot for mydist
+p4<-plot(mydist, type="VBOXPLOT") 
+
+#plots the cumulative distr. func. of mydist
+p5<-plot(mydist, type="CDF") 
+
+#plots the quantile function of mydist
+p6<-plot(mydist, type="QF")
+```
+:::
+
+::: {.column width="60%"}
+```{r echo=F}
+library(patchwork)
+p1+p2+p3+p4+p5+p6
+```
+:::
+:::
+
+## Obtainning the histogram and the CDF of a distributionH object
+
+```{r distribution_histo_cdf, echo=T}
+mydist.histo<-get.histo(mydist) #this returns the histogram
+mydist.cdf<-get.distr(mydist) #this returns the CDF
+#into data.frame objects
+mydist.histo
+mydist.cdf
+```
+
+## Obtaining a single quantile or a probability from a distributionH object
+
+```{r compute_quatiles_or_probabilities, echo=T}
+# computes the CDF value for x=9.5
+compP(object = mydist,q = 9.5) 
+# computes the quantile  for p=0.1
+compQ(object = mydist,p = 0.1) 
+```
+
+## Other basic statistics for distributionH objects {.smaller}
+
+```{r basic_stats_histo, eval=FALSE, echo=T}
+mydist.mean=meanH(mydist) #computes the mean
+mydist.std=stdH(mydist) #computes the standard deviation
+mydist.skew=skewH(mydist) #computes the 3rd stand. centr. moment
+mydist.kurt=kurtH(mydist) #computes the 4th stand. centr. moment
+```
+
+Being $Q(p)$ a quantile function the four measures are, respectively, the histogram version of the following formulas [@Gilch2000]:\
+$$\boxed{\color{orange}{\mu=\int\limits_0^1Q(p)dp}},\;\;\boxed{\color{lime}{\sigma=\sqrt{\int\limits_0^1Q(p)^2dp-\mu^2}}},$$
+
+$$\boxed{\color{yellow}{sk=\int\limits_0^1\left(\frac{Q(p)-\mu}{\sigma}\right)^3dp}},\;\;\boxed{\color{pink}{ku=\int\limits_0^1\left(\frac{Q(p)-\mu}{\sigma}\right)^4dp}}.$$
+
+## The histogram trick (1) {.smaller}
+
+We can consider the histogram as a weighted mixture of $b$ (the number of classes or bins of a histogram) disjointed uniform \emph{pdf}s. Thus, if we consider the trivial histogram as the histogram with one bin (namely, a uniform distribution), and that it is defined as $X\sim U(a,b)$ having \emph{qf} $Q(p)=a+p\cdot(b-a)$ we have: $$\boxed{\color{orange}{\mu=\int\limits_0^1Q(p)dp=\int\limits_0^1[a+p\cdot(b-a)]dp=\frac{a+b}{2}}}$$ or if we consider the center (midpoint) $c=\frac{a+b}{2}$ and the radius (half-width) $r=\frac{b-a}{2}$, the $Q(p)=c-r + 2pr=c+r(2p-1)$ we have $$\boxed{\color{orange}{\mu=\int\limits_0^1Q(p)dp=\int\limits_0^1[c+r(2p-1)]dp=c}}$$
+
+## The histogram trick: the mean (2)
+
+If we consider the histogram with $k$ bins a collection of weighted uniform: $$H=\{([a_1,b_1],\pi_1),\ldots,([a_k,b_k],\pi_k)\}.$$ Let's consider $F_{\ell}=\sum\limits_{s=1}^{\ell}\pi_{s}$ and $F_0=0$, then the $Q(p)$ is a piece wise linear function then: $$\boxed{\color{orange}{\mu=\int\limits_0^1Q(p)dp=\sum\limits_{\ell=1}^k\int\limits_{F_{\ell-1}}^{F_\ell}Q(p)dp=\sum\limits_{\ell=1}^k\pi_{\ell}\frac{a_{\ell}+b_{\ell}}{2} =\sum\limits_{\ell=1}^k\pi_{\ell}c_{\ell}}} $$
+
+## The histogram trick, plus the center-radii transformation: standard deviation (3)
+
+We have the distribution \colorbox{grey}{$H=\{([a_1,b_1],\pi_1),\ldots,([a_k,b_k],\pi_k)\}$}. Each bin can be described in terms of center and radii: \colorbox{grey}{$c_{\ell}=\frac{a_{\ell}+b_{\ell}}{2}$} and \colorbox{grey}{$r_{\ell}=\frac{b_{\ell}-a_{\ell}}{2}$}. The standard deviation of a histogram is computed as follows: $$\boxed{\color{lime}{\sigma=\sqrt{\int\limits_0^1Q(p)^2dp-\mu^2}=\sqrt{\sum\limits_{\ell=1}^k\int\limits_{F_{\ell-1}}^{F_\ell}Q(p)^2dp-\mu^2}=
+\sqrt{\sum\limits_{\ell=1}^k\pi_{\ell}\left[c_{\ell}^2+\frac{1}{3}r_{\ell}^2\right] -\mu^2}}}
+$$
+
+## The histogram trick, the center-radii transformation and standardization: skweness and the kurtosis (4) {.smaller}
+
+The skewness and the kurtosis indices are computed as the third and the fourth standardized moments of the histogram. Using a centered histogram (i.e. a histogram shifted to their mean value), the corresponding \emph{centered quantile function} \colorbox{grey}{$Q^c(p)=Q(p)-\mu$} and some well-known simplifications, it is possible to prove that we can compute exactly the indices into a finite number of operations (avoiding the numerical problems related to the numeric computation of the integrals). Let's consider \colorbox{grey}{$_sc_{\ell}=\frac{c_{\ell}-\mu}{\sigma}$} and \colorbox{grey}{$_sr_{\ell}=\frac{r_{\ell}}{\sigma}$}, the standardized midpoints and the normalized radii of the bins, the two shape indices are computed (exactly) as follows: $$\boxed{\color{yellow}{sk=\frac{\int\limits_0^1\left[Q^c(p)\right]^3dp}{\sigma^3}=\sum\limits_{\ell=1}^k\pi_{\ell}\cdot {_sc}_{\ell}\cdot \left[ \,_sc_{\ell}^2+\,_sr_{\ell}^2\right]}},\;\;\boxed{\color{pink}{ ku=\frac{\int\limits_0^1\left[Q^c(p)\right]^4dp}{\sigma^4}=\sum\limits_{\ell=1}^k\frac{\pi_{\ell}}{5}\left[5{_sc}_{\ell}^4+10{_sc}^2_{\ell}{_sr}^2_{\ell}+{_sr}^4_{\ell}\right]}}$$
+
+## How to obtain midponts and radii (1)
+
+```{r center_raddi_transform, collapse=TRUE}
+get.histo(mydist)
+crwtransform(mydist) #return a list with three slots
+```
+
+## $L_2$ Wasserstein distance between distributionH objects {.smaller}
+
+Given two distributions having $f$ and $g$ as \emph{pdf}s and, respectively, $Q_f(p)$ and $Q_g(p)$ as quantile functions, the (squared) $L_2$ Wasserstein distance is: $$\boxed{\color{orange}{d_W^2(f,g)=\int\limits_0^1\left[Q_f(p)-Q_g(p)\right]^2dp}}$$ [@DBLP:conf/f-egc/2007] and [@IrpVer2015] showed that $$\boxed{\color{yellow}{d_W^2(f,g)=\left(\mu_f-\mu_g\right)^2+\left(\sigma_f-\sigma_g\right)^2+2\sigma_f\sigma_g\left[1-\rho_{QQ}(f,g)\right]}}$$ where $\rho_{QQ}(f,g)$ is the Pearson correlation between two \emph{qf}s: $$\rho_{QQ}(f,s)=\frac{\int\limits_0^1Q_f(p)Q_g(p)dp-\mu_f\mu_g}{\sigma_f\sigma_g} $$
+
+## Computing the dot product between two quantile functions of histograms
+
+If two histograms $H_1$ and $H_2$ have a same number of bins, say $k$, and such bins contain respectively the same mass, namely, $\pi_{\ell,1}=\pi_{\ell,2}$ $\forall \ell \in k$ the dot product can be computed using the histogram trick as follows: $$\int\limits_0^1Q_f(p)Q_g(p)dp=\sum\limits_{\ell=1}^k\left( c_{\ell,1}c_{\ell,2}+\frac{1}{3}r_{\ell,1}r_{\ell,2}\right)$$
+
+------------------------------------------------------------------------
+
+### How to recode two hstograms such that thay have the same number of bins and the same masses?
+
+```{r register1,eval=FALSE,echo=T}
+registered=register(dist1, dist2) 
+#returns a list with 2 registered distributionH objects
+```
+
+## The `register` method in action
+
+```{r register, echo=T}
+ dist1=distributionH(c(1,2,3),c(0, 0.4, 1))
+ dist2=distributionH(c(7,8,10,15),c(0, 0.2, 0.7, 1))
+ registered=register(dist1,dist2) ## register the two distributions
+```
+
+![](figures/PLOT2.svg){fig-align="center"}
+
+## Returning on $L_2$ Wasserstein distance
+
+Using `register` method, the (Squared) $L_2$ Wasserstein distance between two histograms exactly:
+
+```{r Wasserstein_distance, collapse=TRUE}
+WassSqDistH(dist1,dist2) #computes the squared L2 Wass. distance
+WassSqDistH(dist1,dist2,details=TRUE) #computes with details
+```
+
+$$d_W^2(f,g)=\underbrace{\left(\mu_f-\mu_g\right)^2}_{Position}+\underbrace{\underbrace{\left(\sigma_f-\sigma_g\right)^2}_{Size}+\underbrace{2\sigma_f\sigma_g\left[1-\rho_{QQ}(f,g)\right]}_{Shape}}_{Variability}$$
+
+## A bit more on `rQQ`
+
+::: columns
+::: {.column width="40%"}
+The method `rQQ` computes the Pearson correlation index of two quantile functions. It is equal to $1$ when the distributions have the same shape (except for the means and the standard deviations).
+:::
+
+::: {.column width="60%"}
+![](figures/PLOT3.svg){fig-align="center"}
+:::
+:::
+
+## Operations between distributionH objects
+
+::: columns
+::: {.column width="30%"}
+-   Sum (Between two \emph{qf}s, or a \emph{qf} and a number)
+
+-   Multiplication (Between a \emph{qf} and a positive number)
+
+-   Difference (When admissible, namely the result is a \emph{qf}, between two \emph{qf}s, or a \emph{qf} and a number)
+:::
+
+::: {.column width="60%"}
+![](figures/Sum_Prod_Diff.png)
+:::
+:::
+
+## From raw data to `distributionH` objects
+
+::: columns
+::: {.column width="20%"}
+`data2hist`, a function for converting raw data to histogram-valued one.
+:::
+
+::: {.column width="80%"}
+![](figures/data_to_hist.svg)
+:::
+:::
+
+# The `MatH`class: a histogram-valued data table
+
+## A data table of HD: the `MatH` object {.smaller}
+
+A `MatH` object is a table (a matrix): each row is an individual each column is a histogram variable.
+
+::: columns
+::: {.column width="50%"}
+```{r}
+BLOOD
+```
+:::
+
+::: {.column width="50%"}
+```{r plot_BLOOD, eval=T,fig.align='center',fig.dim=c(5,4)}
+plot(BLOOD)
+```
+:::
+:::
+
+## The `MatH` class and its initialization
+
+```{r MatH_init, eval=FALSE}
+MatH(x = list(new("distributionH")), nrows = 1, ncols = 1,
+  rownames = NULL, varnames = NULL, by.row = FALSE)
+```
+
+-   `x` is a list of `distributionH` objects
+-   `nrows` is the number of rows (the individuals)
+-   `ncols` is the number of columns (the variables)
+-   `rownames` is a vector of strings with the labels of the individuals
+-   `varnames` is a vector of strings with the labels of variables
+-   `by.row` indicates if the matrix must be filled by row (TRUE) or by column (FALSE this is the default)
+
+## An example of creation of a new `MatH` object
+
+```{r, echo=T}
+##---- create a list of six distributionH objects
+ListOfDist<-vector("list",6)
+ListOfDist[[1]]<-distributionH(c(1,2,3),c(0, 0.4, 1))
+ListOfDist[[2]]<-distributionH(c(7,8,10,15),c(0, 0.2, 0.7, 1))
+ListOfDist[[3]]<-distributionH(c(9,11,20),c(0, 0.5, 1))
+ListOfDist[[4]]<-distributionH(c(2,5,8),c(0, 0.3, 1))
+ListOfDist[[5]]<-distributionH(c(8,10,15),c(0,  0.75, 1))
+ListOfDist[[6]]<-distributionH(c(20,22,24),c(0, 0.12, 1))
+
+## create a MatH object filling it by columns
+MyMAT=MatH(x=ListOfDist,nrows=3,ncols=2,
+  rownames=c("I1","I2","I3"), varnames=c("Var1","Var2"),by.row=FALSE)
+
+#bulding an empty 10 by 4 matrix of histograms
+empty.MAT=MatH(nrows=10,ncols=4)
+```
+
+## `show` method
+
+```{r, echo=T}
+show(MyMAT) #or simply type MyMAT
+```
+
+## `plot` method
+
+```{r, eval=T,echo=T,fig.align='center'}
+plot(MyMAT)
+```
+
+## More on `plot`ing a `MatH` (1/3): basic plot
+
+```{r, eval=T, echo=T, fig.height=5.5, fig.align='center',fig.keep='last'}
+plot(BLOOD, type="HISTO",  border="blue") #plots a matrix of histograms
+```
+
+## More on `plot`ing a `MatH` (2/3): density plot
+
+```{r, eval=T, echo=T,fig.height=5.5, fig.align='center',}
+ plot(BLOOD, type="DENS",  border="blue") #plots a matrix of densities
+```
+
+## More on `plot`ing a `MatH` (3/3): boxplots
+
+```{r, eval=T,echo=T, fig.align='center',fig.dim=c(12,4)}
+ plot(BLOOD, type="BOXPLOT") #plots a  boxplots
+```
+
+## Main methods for the `MatH` class
+
+### For accessing to some basic information
+
+-   `get.MatH.ncols` returns the number of columns\
+-   `get.MatH.nrows` returns the number of rows\
+-   `get.MatH.rownames` returns the list of the row-labels
+-   `get.MatH.varnames` return the list of labels of thevariables (the columns)
+-   `get.MatH.stats` return a matrix of a basic statistic computed for each cell of the matrix (some examples follow).
+
+## An example of `get.MatH.stats` method
+
+The `get.MatH.stats` returns a list containing the name of the basic statistics computed and a `$mat` containing a matrix of numbers with the same size of the `MatH` object
+
+```{r, eval=FALSE, echo=T}
+get.MatH.stats(BLOOD) # the means of the distributions in BLOOD dataset 
+get.MatH.stats(BLOOD,stat='median') # the medians of the distributions
+get.MatH.stats(BLOOD,stat='quantile', prob=0.5) #the same as median
+get.MatH.stats(BLOOD,stat='min') # minima of the distributions 
+get.MatH.stats(BLOOD,stat='quantile', prob=0) #the same as min
+get.MatH.stats(BLOOD,stat='max') # maxima of the distributions 
+get.MatH.stats(BLOOD,stat='quantile', prob=1) #the same as max
+get.MatH.stats(BLOOD,stat='std') # standard deviations 
+get.MatH.stats(BLOOD,stat='skewness') #skewness indices
+get.MatH.stats(BLOOD,stat='kurtosis') #kurtosis indices
+get.MatH.stats(BLOOD,stat='quantile',prob=0.05)
+```
+
+## Functions useful for manipulating {.smaller}
+
+### Useful for the histogram trick
+
+-   `registerMH(MyMat)`, returns a new `MatH` object with all the distributions transformed. All the distributions have the same number of bins each one containing the same mass (It is useful for computing exactly the basic statistics based on $L_2$ Wasserstein metric)
+
+### Fuctions for subsetting of for binding `MatH` objects
+
+-   `WH.bind(MAT1, MAT2, byrow=TRUE)` attaches MAT2 on the right of MAT1. The two `MatH` objects must have the same number of rows;\
+-   `WH.bind(MAT1, MAT2, byrow=FALSE)` attaches MAT2 under MAT1. The two `MatH` objects must have the same number of columns;\
+-   `[,]` an overloaded method for sub-setting a matrix. It returns a new `MatH` object.
+
+## Subsetting example
+
+```{r, collapse=TRUE,echo=T}
+BLOOD[10:14,1:2] 
+
+BLOOD[2,3] #ATTENTION: returns a 1x1 MatH, and not a distributionH
+```
+
+## Extracting a `distributionH` from a `MatH`: how to do it?
+
+```{r, collapse=TRUE, echo=T}
+# instead of BLOOD[2,3]
+# you must use 
+
+BLOOD@M[2,3][[1]] #Not attractive, it needs improvements! 
+```
+
+## Matrix operation between `MatH` objects {.smaller}
+
+### Methods based on $L_2$ Wasserstein norm for summing and multiplying matrices
+
+-   `WH.mat.sum` performs a classic cell by cell sum. In particular, the result is a new `MatH` object having in each cell a distribution associated with the quantile function resulting from the sum of the corresponding quantile functions (It is a sum consistent with the Wasserstein metric). As usual, the matrix must have the same dimensions.
+
+```{r, eval=FALSE,echo=T}
+MAT.sum=WH.mat.sum(MyMAT1,MyMAT2)
+```
+
+-   `WH.mat.prod` performs the matrix multiplication of two `MatH` objects. It returns a **matrix of numbers** according to the dot product defined for two distributions and associated with the $L_2$ Wasserstein metric. It is possible also to consider trasposition of matrices.
+
+```{r, eval=FALSE,echo=T}
+MAT.prod=WH.mat.prod(MyMAT1,MyMAT2, traspose1=FALSE, traspose2=FALSE)
+MAT.prod=WH.mat.prod(MyMAT1,MyMAT2, traspose1=TRUE, traspose2=FALSE)
+MAT.prod=WH.mat.prod(MyMAT1,MyMAT2, traspose1=FALSE, traspose2=TRUE)
+```
+
+## Methods for univariate and bivariate statistics of histogram variables: the mean distribution {.smaller}
+
+-   `WH.vec.mean` computes a `distributionH` that is the mean distribution of a vector or a matrix of distributions (a `MatH` object). The mean distribution is computed accordingly to the sum based on the $L_2$ Wasserstein distance, namely, it is the distribution associated with the average *quantile function* of the *quantile functions* of the vector of distributions. It is possible also to assign weights to the elements of vetor in order to obtain a weighted mean.\
+-   `WH.vec.sum` same as `WH.vec.mean`, but computes only the sum.
+
+```{r eval=FALSE, echo=T}
+WH.vec.mean(BLOOD[,1]) #returns the average distribution of 
+# the first variable
+WH.vec.mean(BLOOD[,1], w = runif(get.MatH.nrows(MyMAT)))
+# returns a random weighted average
+```
+
+## A graphic example of `WH.vec.mean`
+
+![](figures/Mean_BLOOD.png){fig-align="center"}
+
+## Methods for univariate and bivariate statistics of histogram variables: the variability and the association indexes {.smaller}
+
+These methods returns a matrix of numbers accordingly to the number of the compared variables. The formulas are those presented in [@IrpVer2015].
+
+### **Sum of squares**
+
+-   **`WH.SSQ(MyMAT, w=w)`** computes the wheighted Sum of Squares and the Sum of products of the deviations from the means of a `MatH` object. The weights are associated to the rows, if missing, the weights are considered equal. The result is square matrix of dimension equal to the number of variables of the `MatH` object.
+-   **`WH.SSQ2(MyMAT1, MyMAT2, w=w)`** computes the wheighted Sum of products of the deviations from the means of two `MatH` objects. The two matrices must have the same number of rows. The result is rectangular matrix with rows equal to the number of variables of the first `MatH` object and columns the number of variables of the first `MatH` object.
+
+Using these it is possible to compute covariances and correlations.
+
+## Covariance and correlation indexes {.smaller}
+
+### **Variance, covariance and correlation**
+
+-   **`WH.var.covar(MyMAT, w=w)`** computes the variance-covariance matrix of a `MatH` object.
+-   **`WH.var.covar2(MyMAT1, MyMAT2, w=w)`** computes a covariance matrix between two `MatH` objects.
+-   **`WH.correlation(MyMAT, w=w)`** computes the correlation matrix of a `MatH` object.
+-   **`WH.correlation2(MyMAT1, MyMAT2, w=w)`** computes the correlation matrix of two `MatH` objects.
+
+```{r, collapse=TRUE, echo=T}
+WH.var.covar(BLOOD)
+WH.correlation(BLOOD)
+```
+
+## Examples of how to compute basic statistics of variability for a single variable
+
+```{r, collapse=TRUE,echo=T}
+# the variance of a histogram variable
+VAR.Choresterol=WH.var.covar(BLOOD[,1])
+as.numeric(VAR.Choresterol)
+# the standard deviation
+STD.Choresterol=sqrt(VAR.Choresterol)
+as.numeric(STD.Choresterol)
+```
+
+# The `TdistributionH` class: a class for a histogram-valued data observed along time
+
+## `TdistributionH` class (Not completely developed!!)
+
+It is essentially a specilized class of `distributionH` equipped with a time-related information. Being a distribution, we considered to specialize the class such that it can contains
+
+-   a `tstamp`, a numeric value that represents a time stamp, or;
+-   a `period`, a list containing two slots `start` and `end`, two numbers (for now, a time/date dormat will be chosen in the future), indicating the initial and the final period of observation. Indeed, we imagine that a histogram (or a distribution) is the set of values observed during a time period.
+
+```{r,eval=FALSE, echo=T}
+My.Time.histo  = new('TdistributionH',tstamp=1, 
+                      x=dist1@x, p=dist1@p)
+My.Period.histo= new('TdistributionH',period=list(start=1,end=3),
+                      x=dist1@x, p=dist1@p)
+```
+
+# The `HTS` class: a class for histogram time series
+
+## A `HTS` is a list of `TdistributionH`{.smaller}
+
+**Initializing a `HTS`**
+
+```{r, eval=FALSE}
+MyHTS=new('HTS', epocs=10, ListOfTimedElements = ListOfTdistributions)
+```
+
+The list of `TdistributionH` objects are organized into a vector of dimension equal to `epoc`. The slot containing the vector is called `data`. If we need to see what is in the HTS we need to call elements from `@data` slot.
+
+```{r, collapse=TRUE, echo=T}
+# RetHTS is a HTS of the returns five-minutes returns of DOLL/YEN changes 
+# rates observed along 108 days (it is one of the dataset available in the pkg)
+RetHTS@data[2]
+```
+
+------------------------------------------------------------------------
+
+### Main methods
+
+-   `subsetHTS(HTS, from, to)` extracts a piece (in the time sense) of HTS
+-   `show(HTS)` returns a list of valuesand basic statistics related to the distributions in the HTS (wee see the results in the next slide)
+-   `plot(HTS,...)` shows a plot of the HTS, (we see examples in the next slides)
+
+## The `show` method
+
+```{r, collapse=TRUE}
+# RetHTS is a HTS of the returns five-minutes returns of DOLL/YEN changes 
+# rates observed along 108 days (it is one of the dataset available in the pkg)
+show(RetHTS)
+```
+
+## The `plot` method (1/4)
+
+```{r, eval=FALSE, echo=T}
+#plots the first 20 elements RetHTS dataset
+plot(subsetHTS(RetHTS,from=1,to=20)) 
+```
+
+![](figures/HTS1.png){fig-align="center"}
+
+## The `plot` method (2/4)
+
+```{r, eval=FALSE, echo=T}
+# plots the first 60 elements RetHTS dataset divided in 
+# pieces of 30 epocs
+plot(subsetHTS(RetHTS,from=1,to=60), maxno.perplot=30) 
+```
+
+![](figures/HTS2.png){fig-align="center"}
+
+## The `plot` method (3/4)
+
+```{r, eval=FALSE, echo=T}
+# plots HTS elements RetHTS dataset divided in 
+# pieces of 36 epocs
+plot(RetHTS, maxno.perplot=36) 
+```
+
+![](figures/HTS3.png){fig-align="center"}
+
+## The `plot` method (4/4): plotting using boxplots
+
+```{r, eval=FALSE, echo=T}
+# plots HTS elements RetHTS dataset divided in 
+# pieces of 54 epocs
+plot(RetHTS, type="BOXPLOT", maxno.perplot=54) 
+```
+
+![](figures/HTS4.png){fig-align="center"}
+
+## In the next presentations {.smaller}
+
+### Implementation of methods for data analysis of histogram-valued data tables
+
+::: columns
+::: {.column width="50%"}
+-   Principal component analysis
+    -   of a single Histogram variable
+    -   of several histogram variables
+
+-   Regression
+    -   Two components regression analysis
+
+
+:::
+
+::: {.column width="50%"}
+
+-   Clustering methods
+    -   Dynamic clustering (a generalization of k-means algorithm)
+    -   Adaptive distances-based dynamic clustering
+    -   Hierarchical clustering
+    -   Kohonen Self Organizing Maps
+    -   Fuzzy c-means
+    -   Adaptive distances-based Fuzzy c-means
+
+:::
+:::
+
+## References
