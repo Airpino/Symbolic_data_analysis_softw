@@ -7,7 +7,9 @@ library(ipumsr)
 # https://doi.org/10.18128/D060.V3.2
 
 if (!require("ipumsr")) stop("Reading IPUMS data into R requires the ipumsr package. It can be installed using the following command: install.packages('ipumsr')")
-
+library(readr)
+library(tidyverse)
+library(HistDAWass)
 atus_00002 <- read_csv("Data/atus_00002.csv", 
                            col_types = cols(CASEID = col_character(), 
                                                       STRATA = col_character(), AGE_CPS8 = col_character(), 
