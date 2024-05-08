@@ -1,24 +1,23 @@
 ---
-title: "Software demonstration for clustering"
-format: revealjs
+title: "Software demonstration for clustering of distributional SD"
+author: "A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024"
+format: 
+  revealjs: 
+    theme: [dark, custom.scss]
+    width: 1280
+    height: 500
+    fontsize: 2em
+    linestretch: 1.1
+    footer: "Software demonstration for clustering of distributional SD, ESTP Cologne 14-16 May 2024"
+    slideNumber: true
+filters:
+  - "parse-latex.lua"
+title-slide-attributes:
+  data-background-image: "images/main.svg"
+  data-background-color: white
+  data-background-size: contain
+bibliography: biblio.bib
+link-citations: true
 editor: visual
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
-
-## Bullets
-
-When you click the **Render** button a document will be generated that includes:
-
--   Content authored with markdown
--   Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
