@@ -49,7 +49,29 @@ data<- data %>%mutate(age_cl=cut(AGE,breaks = c(0,25,35,50,65,100)),
                         SEX==1 ~ "Male",
                         SEX==2 ~ "Female"
                       ),
-                      key_G=paste0(age_cl,"_",SEX,"_",OCCU_sect)
+                      key_G=paste0(YEAR,"_",age_cl,"_",SEX,"_",OCCU_sect),
+                      key_G2=paste0(YEAR,"_",SEX,"_",OCCU_sect)
                       )
   
-data2<-data %>% filter(YEAR==2022) %>% group_by(OCCU_sect,SEX,age_cl) %>% summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  group_split()
+data<-data %>% rowwise() %>% mutate(ST = sum(c_across(ACT_CAREHH:ACT_WORK)))
+data_rid<-data %>% filter(ST>1439) %>% mutate(WST=if_else(ACT_WORK>0,"Worker","No Work")) %>% filter(WST=="Worker")
+
+# data2<-data_rid %>% filter(YEAR==2022) %>% group_by(OCCU_sect,SEX,age_cl) %>% #summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  
+#   group_split()
+
+data3<-data_rid %>% group_by(YEAR,OCCU_sect,SEX) %>% #summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  
+  group_split()
+
+
+
+# uno<-sapply(data2,FUN=function(data){round(sapply(data %>% select(ACT_CAREHH:ACT_WORK), FUN=function(x){sum(x==0)/length(x)})*100,3)})
+# 
+# due<-sapply(data2,FUN=function(data){nrow(data)})
+# tre<-t(uno[,due>50])
+
+uno<-sapply(data3,FUN=function(data){round(sapply(data %>% select(ACT_CAREHH:ACT_WORK), FUN=function(x){sum(x==0)/length(x)})*100,3)})
+
+due<-sapply(data3,FUN=function(data){nrow(data)})
+tre<-t(uno[,due>50])
+labs<-sapply(data3,FUN=function(x) {x$key_G2[1]})[due>50]
+tre<-as.data.frame(tre) %>% mutate(labs=labs)

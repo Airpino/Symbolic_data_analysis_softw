@@ -21,3 +21,525 @@ link-citations: true
 editor: visual
 ---
 
+```{r}
+source("../code/useful_funs.R")
+```
+
+
+# Hard-partitive algorithms
+
+## Dynamic clustering (a generalization of k-means algorithm){.smaller}
+The dynamic clustering algorithm: after initialization, a two-step algorithm looks for the best partition into $k$ classes and the best representation of clusters.
+
+### The DCA algorithm 
+
+::: columns
+::: column
+
+1. **Initialize the algorithm**
+      1. Set a number $k$ of clusters
+      2. Set $T=0$
+      3. Generate a random partition of the objects $P(0)$
+      4. Compute the criterion (the Within-cluster sum of Squares), $CRIT(0)$
+2. **Representation step**
+      1. Set $T=T+1$
+      2.  Compute the prototypes of each cluster using $P(T-1)$
+
+:::
+::: column
+      
+3. **Allocation step**
+      1.  Allocate objects to the nearest prototype obtaining the partition $P(T)$
+      2.  Compute $CRIT(T)$
+4. **STOP CONDITION**
+      +  If $CRIT(T)<CRIT(T-1)$ goto **step 2**, else return results.  
+
+:::
+:::
+
+
+## The `WH_kmeans` function
+
+### The function uses $L_2$ Wasserstein-based statistics
+```{r, echo=T, warning=FALSE}
+library("HistDAWass")
+```
+
+```{r , eval=FALSE, echo=T}
+results=WH_kmeans(x,                 # A MatH object  
+                  k,                 # The number of required clusters
+               rep=5,             # How many time it is initialized
+               simplify=FALSE,    # A flag for speeding up, 
+                                  # approximating data
+               qua=10,            # If symplify=TRUE how many quantiles 
+                                  # are used for approximating the
+                                  # distributions 
+               standardize=FALSE) # Do you need to standardize variables?
+```
+
+
+## The output of `WH_kmeans` function
+* **`results`** A list. It contains the best solution among the repetitions, i.e. the one having the minimum criterion.
+    + **`results$IDX`** A vector. The clusters at which the objects are assigned.
+    + **`results$cardinality`** A vector. The cardinality of each final cluster.
+    + **`results$centers`** A MatH object with the description of centers.
+    + **`results$Crit`** A number. The criterion (Within-cluster Sum od squared distances from the centers).
+    + **`results$quality`** A number. The percentage of Total SS explained by the model. (The higher the better)
+
+
+## Adaptive distances-based dynamic clustering [@Irpino_2014] {.smaller}
+A system of weights are calculated for the variables, for their components, clusterwise or globally. The system of weights is useful if data are clustered into non-spherical classes. 
+
+### The Adaptive DCA algorithm 
+
+::: columns
+::: column
+
+1. **Initialize the algorithm**
+      1. Set $T=0$, a number $k$ of clusters, initialize weights $W(0)$.
+      3. Generate a random partition of the objects $P(0)$
+      4. Compute the criterion (the Within-cluster sum of Squares), $CRIT(0)$
+2. **Representation step** (Fix the Partition and the Weights)
+      1. Set $T=T+1$. Compute the prototypes $G(T)$ of each cluster using $P(T-1)$ and $W(T-1)$.
+3. **Weighting step** (Fix the Prototypes and the Weights)
+      1. Compute the weight system $W(T)$ using $G(T)$ and $P(T-1)$
+
+:::
+::: column
+
+4. **Allocation step** (Fix the Weights and Prototypes)
+      1.  Assing objects to the nearest prototype in $G(T)$ using $W(T)$, obtaining the partition $P(T)$
+      2.  Compute $CRIT(T)$
+5. **STOP CONDITION** If $CRIT(T)<CRIT(T-1)$ goto **step 2**, else return results. 
+
+:::
+:::
+
+
+## Two possible functions for computing the weights and four possible combinations of weights{.smaller}
+
+### The system of weights may be
+* Multiplicative: the product of weights is fixed (generally equal to one) 
+* Additive: the sum of weights is fixed (generally equal to one)
+
+### Ways for assigning weights.
+1. A weight for **each variable**
+2. A weight for **each variable** and **each cluster**
+3. A weight for **each component** of a distributional variable (we mean the *position* and the *variability* component related to the decomposition of the $L_2$ Wasserstein distance)
+4. A weight for **each component** and **each cluster**
+
+## {.smaller}
+
+### The `WH_adaptive_kmeans` function
+
+::: columns
+::: {.column width="50%"}
+
+```{r, eval=FALSE, echo=T}
+results= WH_adaptive.kmeans(x, k,schema = 1, init, rep, simplify = FALSE, 
+                  qua = 10,standardize = FALSE, 
+                  weight.sys = "PROD", 
+                  theta = 2, init.weights = "EQUAL")
+```
+
+\begin{tabular}{lp{15cm}}
+\hline
+Parameter & Description \\
+\hline
+\textbf{x} & A MatH object (a matrix of distributionH).\\
+\textbf{k}	& An integer, the number of groups.\\
+\textbf{schema}	   & a number from 1 to 4:\\ 
+1&  A weight for each variable (default) \\
+2&  A weight for the average and the dispersion component of each variable\\
+3&  Same as 1 but a set of weights for each cluster\\
+4&  Same as 2 but a set of weights for each cluster\\
+\textbf{init} & (optional, do not use) initialization for partitioning the data default is 'RPART'\\
+\textbf{rep}  & Maximum number of repetitions of the algorithm (default rep=5).\\
+\hline
+\end{tabular}
+
+
+
+:::
+::: {.column width="50%"}
+
+
+\begin{tabular}{lp{10cm}}
+\hline
+Parameter & Description \\
+\hline
+\textbf{simplify}	 & A logic value (default is FALSE), if TRUE histograms are recomputed in order to speed-up the algorithm.\\
+\textbf{qua} & An integer, if simplify=TRUE is the number of quantiles used for recoding the histograms.\\
+\textbf{standardize} & A logic value (default is FALSE). If TRUE, histogram-valued data are standardized,variable by variable, using the Wassertein based standard deviation. \\
+\textbf{weight.sys}  & a string. Weights may add to one ('SUM') or their product is equal to 1 ('PROD', default).\\
+\textbf{theta}	     & a number. A parameter if weight.sys='SUM', default is 2.\\
+\textbf{init.weights} & a string how to initialize weights: 'EQUAL' (default), all weights are the same, 'RANDOM', weights are initalised at random.\\
+\hline
+\end{tabular}
+:::
+:::
+
+## The output{.smaller}
+
+\begin{tabular}{lp{10cm}}
+\hline
+Name & description\\
+\hline
+\textbf{results} & A list.Returns the best solution among the repetitions, i.e. the one having the minimum sum of squares criterion.\\
+\textbf{results\$IDX} & A vector. The final clusters labels of the objects.\\
+\textbf{results\$cardinality} & A vector. The cardinality of each final cluster.\\
+\textbf{results\$proto} & A MatH object with the description of centers.\\
+\textbf{results\$weights} & A matrix of weights for each component of each variable and each cluster.\\
+\textbf{results\$Crit} & A number. The criterion (Weighted Within-cluster SS) value at the end of the run.\\
+\textbf{results\$TOTSSQ} & The total SSQ computed with the system of weights.\\
+\textbf{results\$BSQ}  & The Between-clusters SSQ computed with the system of weights.\\
+\textbf{results\$WSQ}  & The Within-clusters SSQ computed with the system of weights.\\
+\textbf{results\$quality} & A number. The proportion of TSS explained by the model. (The higher the better)\\
+\hline
+\end{tabular}
+
+  
+#  Hierarchical clustering
+
+## Hierarchical clustering{.smaller}
+
+```{r, eval=FALSE, echo=T}
+results= WH_hclust (x, simplify=FALSE, qua=10,
+                     standardize=FALSE, distance="WDIST",
+                     method="complete")
+```
+
+\begin{footnotesize}
+\begin{tabular}{lp{9cm}}
+\textbf{Input param.}& \textbf{Description}\\
+\hline
+\textbf{x} & A MatH object (a matrix of distributionH)\\
+\textbf{simplify} & As before.\\
+\textbf{qua} & As before.\\
+\textbf{standardize} & As before.\\
+\textbf{distance} & A string default WDIST the $L_2$ Wasserstein distance (other distances will be implemented)\\
+\textbf{method} & A string, default="complete", is the the agglomeration method to be used.
+  This should be (an unambiguous abbreviation of) one of ward.D, ward.D2,  single, complete, average (= UPGMA), mcquitty (= WPGMA), median (= WPGMC) or centroid (= UPGMC).\\
+ \hline
+\end{tabular}
+\end{footnotesize}
+
+__Output__ : An object of the class `hclust` which describes the tree produced by the method.
+
+## An example: Time Use Data {.smaller}
+
+We will use data from the IPUMS <https://www.ipums.org/>, which provides census and survey data from around the world integrated across time and space.
+
+- Among the collection, we use micro data from the Annual American Time Use Survey (ATUS).
+- We considered two waves 2010, 2022.
+- The original sample extracted from the collection (<https://www.atusdata.org>,[@IPUMS]) was of about 21,4K respondents.
+- We extracted classes of respondents accordingly to the YEAR, the Occupation (OCC2_CPS8, General occupation category, main job (CPS)), and the Sex of workers (workers are people who declared to work at least 10 minutes in the previous day). 
+    - We considered only concepts with a size grater than 30.
+    - We obtained 34 concepts of respondents.
+- We considered only five activities: Food, Personal Care, Social and leisure, Traveling, and Working. The remaining activities time use are summed into an "All the rest of time".   
+
+
+<!-- Copies of such materials are also gratefully received at ipums@umn.edu. -->
+
+
+## The 34 concepts and the time use variables {.smaller}
+
+::: columns
+::: column
+
+### The concepts
+
+```{r}
+library(tidyverse)
+load("../Histo_data_IPUMS.RData")
+labs
+```
+:::
+::: column
+
+### The variables
+
+- ACT_PCARE	ACT: Personal care
+- ACT_WORK	ACT: Working and Work-related Activities
+- ACT_FOOD	ACT: Eat and drinking
+- ACT_SOCIAL	ACT: Socializing, relaxing, and leisure
+- ACT_TRAVEL	ACT: Traveling
+- ACT_ALL_THE_REST ACT: all the other activities
+
+:::
+:::
+
+Note: this is a didactic example.
+
+----------------
+
+## The (histogram) data table {.smaller}
+
+```{r}
+HMAT2<-HMAT
+labels<-row.names(HMAT2@M)
+labels<-gsub(pattern = "_Male_",replacement = "_M_",x = labels)
+labels<-gsub(pattern = "_Female_",replacement = "_F_",x = labels)
+labels<-gsub(pattern = "20",replacement = "",x = labels)
+row.names(HMAT2@M)<-labels
+```
+
+```{r}
+library(kableExtra)
+df<-Math_to_DF(HMAT2)
+df %>% kbl() %>% kable_minimal(full_width = F)  %>%  row_spec(0, background = "black") %>%kable_styling(font_size = 12) %>% scroll_box(width = "1200px", height = "450px")
+```
+
+
+
+-----
+```{r}
+#| echo: false
+#| fig-cap: "Time use distributional data table"
+#| fig-height: 5
+
+plot(HMAT2, type="DENS")
+
+```
+
+
+
+---------------------
+
+## Time use data: Hierarchical clustering
+
+```{r, echo=T}
+results=WH_hclust(x = HMAT2, method="complete")
+```
+
+```{r}
+#| echo: false
+#| fig-cap: "Time use dendrogram using complete linkage"
+#| fig-height: 7
+#| fig-width: 19
+library(dendextend)
+dend <- as.dendrogram(results)
+
+dend %>% ladderize %>%  set("branches_k_color", k=5) %>% highlight_branches_lwd() %>% plot(horiz = TRUE,xlim=c(301,-120),axes = FALSE,lwd=2);axis(1, at = c(0,100,200, 300))
+```
+
+## Time use data: DCA (or Kmeans){.smaller}
+
+```{r, eval=T, echo=F}
+set.seed(1234)
+```
+
+
+```{r, eval=T, echo=F, message=F,results='hide'}
+DCA.5k.resu<-WH_kmeans(HMAT2,k = 5,rep = 50)
+```
+
+```{r, eval=F, echo=T, message=F}
+DCA.5k.resu<-WH_kmeans(HMAT2,k = 5,rep = 50)
+```
+
+
+```{r results='asis'}
+members<-sort(DCA.5k.resu$solution$IDX)
+for(i in 1:5){
+cat(paste0("__Cluster ",i, "__ # ",DCA.5k.resu$solution$cardinality[i]),"\n\n")
+cat(paste(names(members[members==i]),collapse="; "), "\n\n")
+}
+```
+
+## The clusters centers
+
+```{r echo=T, eval=F}
+DCA.5k.resu$solution$centers
+```
+```{r}
+library(kableExtra)
+Math_to_DF(DCA.5k.resu$solution$centers) %>%
+  kbl() %>%
+  kable_material_dark(full_width = F) %>% kable_styling(font_size = 20)
+```
+
+
+
+## The plots of the centers
+
+::: columns
+::: column
+
+```{r echo=T}
+plot(DCA.5k.resu$solution$centers, type="DENS")
+```
+
+:::
+::: column
+
+```{r echo=T, fig.dim=c(6,8), out.width="50%"}
+plot(DCA.5k.resu$solution$centers, type="BOXPLOT")
+```
+:::
+:::
+
+## Tools of interpretation
+
+#### The Within SUM OF SQUARES 
+
+```{r echo=T, results='asis'}
+DCA.5k.resu$solution$Crit
+```
+
+#### The Quality of partition index $R^2=1-\frac{WSS}{TSS}$ 
+
+```{r echo=T, results='asis'}
+DCA.5k.resu$quality
+```
+
+## Other tools of interpretation
+
+- We can explore for each variable, what is the QPI
+
+- We can check for each center how far each local mean distribution is from the grand mean. The highest is the distance, the more the cluster is characterized by that variable for that cluster.
+
+- We can compute if the variability is mainly due to the variability of the averages or by that of the shapes of the distributions.
+
+That can enrich the interpretation of the results.
+
+## Fuzzy c_means
+
+We observed that the QPI is not so high, meaning that a strong separation of the clusters is not observed.
+
+Fuzzy c-means, is a generalization of the k-means algorithm wich allows the unit to belong to a cluster with a __membership__ degree (0= the concept doesn't belong at all to the cluster, 1= the concept belongs exclusively to that cluster).
+
+In fuzzy c-means, where $c$ represents the user-defined number of clusters, a further output is produced: the membership of concepts to clusters matrix.
+
+The code to call in R for the fuzzy cmeans is
+
+
+
+```{r echo=T, eval=F}
+WH_fcmeans(x, k, m = 1.6, rep, simplify = FALSE, qua = 10, standardize = FALSE)
+```
+
+## Fcmeans: arguments of the function
+
+```{r echo=T, eval=F}
+set.seed(1234)
+WH_fcmeans(x, k, m = 1.6, rep, simplify = FALSE, qua = 10, standardize = FALSE)
+```
+
+| Parameter | Description |
+|------|------|
+|   x   |   The distributional data table   |
+|   k  |    The number of fuzzy clusters  |
+|   m  |    The fuzzyness parameter $1<m<\infty$, 1=sharp clusters  |
+|   rep   |  As for K-means    |
+|   simplify   |  As for K-means    |
+|   qua   |   As for K-means   |
+|   standardize   | As for K-means     |
+
+## Fcmeans: main outputs{.smaller}
+
+
+| Slots of the output | Description                    |
+|----------------|--------------------------------|
+| `solution` | A list. It returns the best solution among the repetitions, i.e. the one having the minimum sum of squared deviations. |
+| `solution$membership` | A matrix. The membership degree of each unit to each cluster. |
+| `solution$IDX` |A vector. The crisp assignment to a cluster. |
+| `solution$cardinality` | A vector. The size of each final cluster (after the crisp assignment). |
+| `solution$Crit` | A number. The criterion (Sum of square deviation from the prototypes) value at the end of the run.|
+| `quality` | A number. The percentage of Sum of square deviation explained by the model. (The higher the better) |
+
+## Fcmeans: other outputs{.smaller}
+
+| Slots of the output | Description                    |
+|----------------|--------------------------------|
+| `Crisp_clu` | A list, containing the concepts belonging to the crisp clusters, accordingly to the highest membership. |
+| `TSQ` | The Total Sum of Squares. |
+| `WSQ` | The Within Sum of Squares. |
+| `BSQ` | The Between Sum of Squares. |
+| `ProtoGEN` | The mean distribution of each distributional variable. |
+
+
+
+## Time use: fcmeans {.smaller}
+
+```{r, eval=T, echo=T, message=F,results='hide'}
+DCA.5k.fc_resu<-WH_fcmeans(HMAT2,k = 5,rep = 50,m=1.5)
+```
+
+```{r}
+library(kableExtra)
+df<-round(DCA.5k.fc_resu$solution$membership,3) %>% as.data.frame()
+colnames(df)<-paste0("Cl.",c(1:5))
+df<-df %>% mutate(assign=DCA.5k.fc_resu$solution$IDX)
+df %>% arrange(assign) %>% kbl() %>%
+  kable_minimal(full_width = F)  %>%  row_spec(0, background = "black") %>% scroll_box(width = "1000px", height = "450px")
+```
+
+## Crisp membership{.smaller}
+
+```{r results='asis'}
+members<-DCA.5k.fc_resu$solution$IDX
+for(i in 1:5){
+cat(paste0("__Cluster ",i, "__ # ",DCA.5k.fc_resu$solution$cardinality[i]),"\n\n")
+cat(paste(get.MatH.rownames(HMAT2)[members==i],collapse="; "), "\n\n")
+}
+```
+
+
+## The means of each cluster and the grand mean{.smaller}
+
+::: columns
+::: {.column width="65%"}
+```{r}
+mat<-WH.bind.row(DCA.5k.fc_resu$solution$proto,DCA.5k.fc_resu$ProtoGEN)
+plot(mat,type="DENS") 
+```
+:::
+::: {.column style="font-size: 0.65em; width: 35%;"}
+```{r results='asis'}
+members<-DCA.5k.fc_resu$solution$IDX
+for(i in 1:5){
+cat(paste0("__Cluster ",i, "__ # ",DCA.5k.fc_resu$solution$cardinality[i]),"\n\n")
+cat(paste(get.MatH.rownames(HMAT2)[members==i],collapse="; "), "\n\n")
+}
+
+```
+:::
+:::
+
+## Comparing via QQ plots
+
+::: columns
+::: {.column width="78%"}
+```{r}
+centers<-DCA.5k.fc_resu$solution$proto
+Gc<-DCA.5k.fc_resu$ProtoGEN
+df<-compare_proto_to_gen(centers,Gc)
+library(plotly)
+ggplotly(ggplot(df) +geom_line(aes(x=gen,y=pro,color=Cluster), linewidth=1)+geom_abline(slope = 1,intercept = 0, linewidth=0.5, alpha =0.6)+facet_wrap(~ name_var, scale="free"))
+
+
+```
+:::
+::: {.column style="font-size: 0.4em; width: 22%;"}
+```{r results='asis'}
+members<-DCA.5k.fc_resu$solution$IDX
+for(i in 1:5){
+cat(paste0("__Cluster ",i, "__ # ",DCA.5k.fc_resu$solution$cardinality[i]),"\n\n")
+cat(paste(get.MatH.rownames(HMAT2)[members==i],collapse="; "), "\n\n")
+}
+
+```
+:::
+:::
+
+
+## Other clustering methods implemented in HistDAWass
+
+### Kohonen Self Organizing Maps
+
+### Adaptive distances-based k-means
+
+### Adaptive distances-based Fuzzy c-means
+
+## References

@@ -1,0 +1,56 @@
+---
+title: "Application and available datasets for \n the analysis of distributional SD"
+author: "A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024"
+format: 
+  revealjs: 
+    theme: [dark, custom.scss]
+    width: 1280
+    height: 500
+    fontsize: 2em
+    linestretch: 1.1
+    footer: "Applications and datasets for distributional SD, ESTP Cologne 14-16 May 2024"
+    slideNumber: true
+filters:
+  - "parse-latex.lua"
+title-slide-attributes:
+  data-background-image: "images/main.svg"
+  data-background-color: white
+  data-background-size: contain
+bibliography: biblio.bib
+link-citations: true
+editor: visual
+---
+
+```{r}
+source("../code/useful_funs.R")
+```
+
+# Datasets available for exercitation and applications
+
+## Datasets contained in the `HistDAWass` package
+
+The `HistDAWass` package in R contains some distributional datasets generated from some books and from raw data from different contexts of application. Let's see some of them:
+
+- `BLOOD` dataset, is the description of 14 typologies of patients in a hospital, the variables are histograms of the levels o Hematocrit, Hemoglobin and Cholesterol
+- `Age_Pyramids_2014`	Age pyramids of all the countries of the World in 2014
+- `Agronomique`	Agronomique data
+
+- `China_Month`	Distributions of climatic variables for each month  of 60 stations
+- `China_Seas`	Distributions of climatic variables for each season  of 60 stations China
+
+- `OzoneFull`	Full Ozone dataset for Histogram data analysis
+
+## Other distributional datasets
+
+
+
+# Some exploratory tools
+
+## Some links showing some exploration tools for distributional data
+
+- An application on climatic data: <https://airpino.github.io/ICDS_23_presentation/#/title-slide>
+
+- An application on EUSILC 2013 data: <https://airpino.github.io/DSSR2024_pres/#/title-slide>
+
+
+## References
