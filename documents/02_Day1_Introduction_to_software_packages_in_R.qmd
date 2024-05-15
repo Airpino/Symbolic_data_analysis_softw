@@ -1,6 +1,6 @@
 ---
 title: "Summary of R software for<br> Symbolic Data Analysis"
-author: "A. Irpino"
+author: "A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024"
 format: 
   revealjs: 
     theme: [dark, custom.scss]
@@ -9,7 +9,7 @@ format:
     fontsize: 2em
     linestretch: 1.1
     margin: 0.1
-    footer: "Summary of R software for Symbolic Data Analysis"
+    footer: "Summary of R software for Symbolic Data Analysis, ESTP Cologne 14-16 May 2024"
     slideNumber: true
 title-slide-attributes:
   data-background-image: "images/main.svg"
@@ -92,9 +92,21 @@ Histogram data analysis: In the framework of Symbolic Data Analysis, a relativel
 
 The package is provided with some datasets for showing some main procedures developed during the SODAS and ASSO project for the application of Symbolic Data Analysis to Official Statistics.
 
-### How to generated a symbolic data table from a classic data table in RSDA?
+### How is generated a symbolic data table from a classic data table in RSDA?
 
 The `classic.to.sym` function allows to convert a traditional table into a symbolic one, to this we must indicate the following parameters.
+
+```{r echo=T, eval=F}
+classic.to.sym(
+  x = NULL,
+  concept = NULL,
+  variables = tidyselect::everything(),
+  default.numeric = sym.interval,
+  default.categorical = sym.modal,
+  ...
+)
+
+```
 
 -   `x` = a data.frame
 -   `concept` = variables to be used as a concept
@@ -146,7 +158,7 @@ result$ViolentCrimesPerPop_hist[[1]]
 
 ------------------------------------------------------------------------
 
-#### Example 
+#### Example
 
 ```{r}
 data("ex_mcfa1")
@@ -244,7 +256,6 @@ sd(example3$F6, method = 'billard')
 :::
 :::
 
-
 ------------------------------------------------------------------------
 
 ### Symbolic correlation
@@ -259,13 +270,18 @@ cor(example3$F2, example3$F6, method = 'billard')
 
 ### Radar plot for intervals (Oils data)
 
+Each row in this table represents a class of oil described by four interval variables : 'specific gravity', 'freezing points', 'iodine value', 'saponification'
+
 ```{r echo=T}
 library(ggpolypath)
 data(oils)
 oils
+attr(oils,"concept")
 ```
 
--------------------
+are the "**L**inseed", "**P**erilla", "**Co**ttonseed", "**S**esame", "**Ca**mellia", "**O**live", "**B**eef", "**H**og".
+
+------------------------------------------------------------------------
 
 ```{r echo=T}
 oils <- RSDA:::to.v3(RSDA:::to.v2(oils))
@@ -288,7 +304,7 @@ model <- hclust(DM)
 plot(model, hang = -1)
 ```
 
----------------
+------------------------------------------------------------------------
 
 #### Ichino
 
@@ -299,7 +315,7 @@ model <- hclust(DM)
 plot(model, hang = -1)
 ```
 
----------------------
+------------------------------------------------------------------------
 
 #### Hausdorff
 
@@ -315,21 +331,13 @@ model <- hclust(DM)
 plot(model, hang = -1)
 ```
 
+------------------------------------------------------------------------
 
-------------------------
-
-## Linear regression for intervals{.smaller}
+## Linear regression for intervals {.smaller}
 
 The data is an object of class symbolic_tbl with 67 rows and 9 columns.
 
-The data for this example come from a study
-by Stamey et al. (1989) that examined the correlation between the level of prostate specific antigen (PSA) and a number of clinical measures, in 97
-men who were about to receive a radical prostatectomy.
-The goal is to predict the log of PSA (`lpsa`) from a number of measurements
-including log cancer volume (`lcavol`), log prostate weight `lweight`,
-`age`, log of benign prostatic hyperplasia amount `lbph`, seminal vesicle invasion
-`svi`, log of capsular penetration `lcp`, Gleason score `gleason`, and
-percent of Gleason scores 4 or 5 `pgg45`.
+The data for this example come from a study by Stamey et al. (1989) that examined the correlation between the level of prostate specific antigen (PSA) and a number of clinical measures, in 97 men who were about to receive a radical prostatectomy. The goal is to predict the log of PSA (`lpsa`) from a number of measurements including log cancer volume (`lcavol`), log prostate weight `lweight`, `age`, log of benign prostatic hyperplasia amount `lbph`, seminal vesicle invasion `svi`, log of capsular penetration `lcp`, Gleason score `gleason`, and percent of Gleason scores 4 or 5 `pgg45`.
 
 ```{r}
 data(int_prost_train)
@@ -337,8 +345,7 @@ data(int_prost_test)
 int_prost_train
 ```
 
-
--------------------
+------------------------------------------------------------------------
 
 #### Training
 
@@ -349,7 +356,7 @@ res.cm <- sym.lm(formula = lpsa~., sym.data = int_prost_train, method = 'cm')
 res.cm
 ```
 
----------------------
+------------------------------------------------------------------------
 
 #### Prediction
 
@@ -367,13 +374,12 @@ R2.U(int_prost_test$lpsa, pred.cm$Fitted)
 deter.coefficient(int_prost_test$lpsa, pred.cm$Fitted)
 ```
 
--------------------
+------------------------------------------------------------------------
 
-## PCA for intervals{.smaller}
+## PCA for intervals {.smaller}
 
 ::: columns
 ::: {.column width="40%"}
-
 #### Example Oils data
 
 ```{r echo=T}
@@ -383,16 +389,16 @@ res <- sym.pca(oils,'centers')
 
 ```
 :::
+
 ::: {.column width="30%"}
 ```{r echo=T,fig.dim=c(5,5)}
 plot(res, choix = "ind")
 ```
 :::
+
 ::: {.column width="30%"}
 ```{r echo=T,,fig.dim=c(5,5)}
 plot(res, choix = "var")
 ```
 :::
 :::
-
-

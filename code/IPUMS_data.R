@@ -7,14 +7,14 @@ library(ipumsr)
 # https://doi.org/10.18128/D060.V3.2
 
 if (!require("ipumsr")) stop("Reading IPUMS data into R requires the ipumsr package. It can be installed using the following command: install.packages('ipumsr')")
-
+library(readr)
+library(tidyverse)
+library(HistDAWass)
 atus_00002 <- read_csv("Data/atus_00002.csv", 
                            col_types = cols(CASEID = col_character(), 
                                                       STRATA = col_character(), AGE_CPS8 = col_character(), 
                                                        EDUC = col_character(), OCC2_CPS8 = col_character(), 
                                                        IND2_CPS8 = col_character()))
-atus_00002 %>% group_by(SEX,OCC2_CPS8) %>% 
-  summarize(n=n(),minA=min(ACT_CAREHH),maxA=max(ACT_CAREHH)) %>% print(n=100)
 
 data<-atus_00002
 data<- data %>%mutate(age_cl=cut(AGE,breaks = c(0,25,35,50,65,100)),
@@ -47,7 +47,52 @@ data<- data %>%mutate(age_cl=cut(AGE,breaks = c(0,25,35,50,65,100)),
                         SEX==1 ~ "Male",
                         SEX==2 ~ "Female"
                       ),
-                      key_G=paste0(age_cl,"_",SEX,"_",OCCU_sect)
+                      key_G=paste0(YEAR,"_",age_cl,"_",SEX,"_",OCCU_sect),
+                      key_G2=paste0(YEAR,"_",SEX,"_",OCCU_sect)
                       )
   
-data2<-data %>% filter(YEAR==2022) %>% group_by(OCCU_sect,SEX,age_cl) %>% summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  group_split()
+data<-data %>% rowwise() %>% mutate(ST = sum(c_across(ACT_CAREHH:ACT_WORK)))
+data_rid<-data %>% filter(ST>1439) %>% mutate(WST=if_else(ACT_WORK>10,"Worker","No Work")) %>% 
+  filter(WST=="Worker") %>% mutate(ACT_ALL_THE_REST=ST-(ACT_FOOD+ACT_PCARE+ACT_SOCIAL+ACT_TRAVEL+ ACT_WORK)) %>% 
+  select(key_G2,ACT_FOOD,ACT_PCARE,ACT_SOCIAL,ACT_TRAVEL, ACT_WORK,ACT_ALL_THE_REST)
+
+# data2<-data_rid %>% filter(YEAR==2022) %>% group_by(OCCU_sect,SEX,age_cl) %>% #summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  
+#   group_split()
+
+data3<-data_rid %>% group_by(key_G2) %>% #summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  
+  group_split()
+
+
+
+# uno<-sapply(data2,FUN=function(data){round(sapply(data %>% select(ACT_CAREHH:ACT_WORK), FUN=function(x){sum(x==0)/length(x)})*100,3)})
+# 
+# due<-sapply(data2,FUN=function(data){nrow(data)})
+# tre<-t(uno[,due>50])
+
+uno<-sapply(data3,FUN=function(data){round(sapply(data %>% select(ACT_FOOD:ACT_ALL_THE_REST), FUN=function(x){sum(x==0)/length(x)})*100,3)})
+
+due<-sapply(data3,FUN=function(data){nrow(data)})
+min_n<-30
+tre<-t(uno[,due>min_n])
+labs<-sapply(data3,FUN=function(x) {x$key_G2[1]})[due>min_n]
+tre<-as.data.frame(tre) %>% mutate(labs=labs)
+
+HMAT<-MatH(nrows=length(labs),ncols = 6,rownames = labs,varnames = colnames(tre)[1:6])
+
+for(i in 1:length(labs)){
+  for (j in 1:6){
+    tmpd<-data_rid %>% filter(key_G2==labs[i]) %>% select(j+1) %>% unlist() %>% unname()
+     tmp<-data2hist(tmpd,algo = "FixedQuantiles",qua = 20)
+     HMAT@M[i,j][[1]]<-tmp
+  }
+  
+}
+
+resu<-WH_hclust(HMAT)
+plot(resu)
+
+resuKM<-list()
+for(KK in 2:10){
+resuKM[[KK-1]]<-WH_kmeans(HMAT, k=KK, rep=50, qua=20)
+}
+resuWKM<-WH_adaptive.kmeans(HMAT,k=5,schema=2,rep = 100)

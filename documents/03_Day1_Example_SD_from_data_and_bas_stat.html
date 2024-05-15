@@ -10,7 +10,7 @@
 <link href="03_Day1_Example_SD_from_data_and_bas_stat_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.554">
 
-  <meta name="author" content="A. Irpino, R. Verde">
+  <meta name="author" content="A. Irpino, R. Verde ESTP Cologne 14-16 May 2024">
   <title>Symbolic Data from classical data  and basic stats for distributional data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -416,7 +416,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-A. Irpino, R. Verde 
+A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024 
 </div>
 </div>
 </div>
@@ -642,23 +642,25 @@ Bin_2 [ 2 ; 3 ]       0.6
 <section id="how-to-obtain-midponts-and-radii-1" class="slide level2">
 <h2>How to obtain midponts and radii (1)</h2>
 <div class="cell">
-<pre><code>##   min.x max.x   p
-## 1     7     8 0.2
-## 2     8    10 0.5
-## 3    10    15 0.3
-## $Centers
-## [1]  7.5  9.0 12.5
-## 
-## $Radii
-## [1] 0.5 1.0 2.5
-## 
-## $Weights
-## [1] 0.2 0.5 0.3</code></pre>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">get.histo</span>(mydist)</span>
+<span id="cb17-2"><a href=""></a><span class="do">##   min.x max.x   p</span></span>
+<span id="cb17-3"><a href=""></a><span class="do">## 1     7     8 0.2</span></span>
+<span id="cb17-4"><a href=""></a><span class="do">## 2     8    10 0.5</span></span>
+<span id="cb17-5"><a href=""></a><span class="do">## 3    10    15 0.3</span></span>
+<span id="cb17-6"><a href=""></a><span class="fu">crwtransform</span>(mydist) <span class="co">#return a list with three slots</span></span>
+<span id="cb17-7"><a href=""></a><span class="do">## $Centers</span></span>
+<span id="cb17-8"><a href=""></a><span class="do">## [1]  7.5  9.0 12.5</span></span>
+<span id="cb17-9"><a href=""></a><span class="do">## </span></span>
+<span id="cb17-10"><a href=""></a><span class="do">## $Radii</span></span>
+<span id="cb17-11"><a href=""></a><span class="do">## [1] 0.5 1.0 2.5</span></span>
+<span id="cb17-12"><a href=""></a><span class="do">## </span></span>
+<span id="cb17-13"><a href=""></a><span class="do">## $Weights</span></span>
+<span id="cb17-14"><a href=""></a><span class="do">## [1] 0.2 0.5 0.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="l_2-wasserstein-distance-between-distributionh-objects" class="slide level2 smaller">
 <h2><span class="math inline">\(L_2\)</span> Wasserstein distance between distributionH objects</h2>
-<p>Given two distributions having <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> as <em>pdf</em>s and, respectively, <span class="math inline">\(Q_f(p)\)</span> and <span class="math inline">\(Q_g(p)\)</span> as quantile functions, the (squared) <span class="math inline">\(L_2\)</span> Wasserstein distance is: <span class="math display">\[\boxed{\color{orange}{d_W^2(f,g)=\int\limits_0^1\left[Q_f(p)-Q_g(p)\right]^2dp}}\]</span> <span class="citation" data-cites="DBLP:conf/f-egc/2007">(<a href="#/references" role="doc-biblioref" onclick="">Irpino and Romano 2007</a>)</span> and <span class="citation" data-cites="IrpVer2015">(<a href="#/references" role="doc-biblioref" onclick="">Irpino and Verde 2015</a>)</span> showed that <span class="math display">\[\boxed{\color{yellow}{d_W^2(f,g)=\left(\mu_f-\mu_g\right)^2+\left(\sigma_f-\sigma_g\right)^2+2\sigma_f\sigma_g\left[1-\rho_{QQ}(f,g)\right]}}\]</span> where <span class="math inline">\(\rho_{QQ}(f,g)\)</span> is the Pearson correlation between two <em>qf</em>s: <span class="math display">\[\rho_{QQ}(f,s)=\frac{\int\limits_0^1Q_f(p)Q_g(p)dp-\mu_f\mu_g}{\sigma_f\sigma_g} \]</span></p>
+<p>Given two distributions having <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> as <em>pdf</em>s and, respectively, <span class="math inline">\(Q_f(p)\)</span> and <span class="math inline">\(Q_g(p)\)</span> as quantile functions, the (squared) <span class="math inline">\(L_2\)</span> Wasserstein distance is: <span class="math display">\[\boxed{\color{orange}{d_W^2(f,g)=\int\limits_0^1\left[Q_f(p)-Q_g(p)\right]^2dp}}\]</span> <span class="citation" data-cites="DBLP:conf/f-egc/2007">(<a href="#/references" role="doc-biblioref" onclick="">A. Irpino and Romano 2007</a>)</span> and <span class="citation" data-cites="IrpVer2015">(<a href="#/references" role="doc-biblioref" onclick="">R. Irpino A.and Verde 2015</a>)</span> showed that <span class="math display">\[\boxed{\color{yellow}{d_W^2(f,g)=\left(\mu_f-\mu_g\right)^2+\left(\sigma_f-\sigma_g\right)^2+2\sigma_f\sigma_g\left[1-\rho_{QQ}(f,g)\right]}}\]</span> where <span class="math inline">\(\rho_{QQ}(f,g)\)</span> is the Pearson correlation between two <em>qf</em>s: <span class="math display">\[\rho_{QQ}(f,s)=\frac{\int\limits_0^1Q_f(p)Q_g(p)dp-\mu_f\mu_g}{\sigma_f\sigma_g} \]</span></p>
 </section>
 <section id="computing-the-dot-product-between-two-quantile-functions-of-histograms" class="slide level2">
 <h2>Computing the dot product between two quantile functions of histograms</h2>
@@ -721,13 +723,53 @@ Bin_2 [ 2 ; 3 ]       0.6
 </section>
 <section id="from-raw-data-to-distributionh-objects" class="slide level2">
 <h2>From raw data to <code>distributionH</code> objects</h2>
-<div class="columns">
-<div class="column" style="width:20%;">
 <p><code>data2hist</code>, a function for converting raw data to histogram-valued one.</p>
-</div><div class="column" style="width:80%;">
-<p><img data-src="figures/data_to_hist.svg"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">data2hist</span>( data,</span>
+<span id="cb21-2"><a href=""></a>           <span class="at">algo =</span> <span class="st">"histogram"</span>,</span>
+<span id="cb21-3"><a href=""></a>           <span class="at">type =</span> <span class="st">"combined"</span>,</span>
+<span id="cb21-4"><a href=""></a>           <span class="at">qua =</span> <span class="dv">10</span>, <span class="at">breaks =</span> <span class="fu">numeric</span>(<span class="dv">0</span>), <span class="at">epsilon =</span> <span class="fl">0.01</span></span>
+<span id="cb21-5"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="columns">
+<div class="column" style="font-size: 0.65em; width: 100%;">
+<table>
+<thead>
+<tr class="header">
+<th><strong>Arguments</strong></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>data</code></td>
+<td>a set of numeric values.</td>
+</tr>
+<tr class="even">
+<td><code>algo</code></td>
+<td>(optional) a string. Default is <code>"histogram"</code>, i.e.&nbsp;the function “histogram” defined in the histogram package. <br> If <code>"base"</code> the hist function is used.<br><code>"FixedQuantiles"</code> computes the histogram using as breaks a fixed number of quantiles.<br><code>"ManualBreaks"</code> computes a histogram where breaks are provided as a vector of values.<br><code>"PolyLine"</code> computes a histogram using a piecewise linear approximation of the empirical cumulative distribution function using the “Ramer-Douglas-Peucker algorithm”, <a href="https://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm" class="uri">https://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm</a>. An epsilon parameter is required. The data are scaled in order to have a standard deviation equal to one.</td>
+</tr>
+<tr class="odd">
+<td><code>type</code></td>
+<td>(optional) a string. Default is <code>combined</code> and generates a histogram having regularly spaced breaks (i.e., equi-width bins) and irregularly spaced ones. The choice is done accordingly with the penalization method described in histogram. “regular” returns equi-width binned histograms, “irregular” returns a histogram without equi-width histograms.</td>
+</tr>
+<tr class="even">
+<td><code>qua</code></td>
+<td>a positive integer to provide if <code>algo="FixedQuantiles"</code> is chosen. Default=10.</td>
+</tr>
+<tr class="odd">
+<td><code>breaks</code></td>
+<td>a vector of values to provide if <code>algo="ManualBreaks"</code> is chosen.</td>
+</tr>
+<tr class="even">
+<td><code>epsilon</code></td>
+<td>a number between 0 and 1 to provide if <code>algo="PolyLine"</code> is chosen. Default=0.01.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
+<p><em>Output</em> : A distributionH object, i.e.&nbsp;a distribution.</p>
 </section></section>
 <section>
 <section id="the-mathclass-a-histogram-valued-data-table" class="title-slide slide level1 center">
@@ -788,27 +830,27 @@ u14: M-80+ [m= 205.48  ,s= 23.537 ]   [m= 12.12  ,s= 0.6163 ]   [m= 38.45  ,s= 2
 <section id="an-example-of-creation-of-a-new-math-object" class="slide level2">
 <h2>An example of creation of a new <code>MatH</code> object</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="do">##---- create a list of six distributionH objects</span></span>
-<span id="cb22-2"><a href=""></a>ListOfDist<span class="ot">&lt;-</span><span class="fu">vector</span>(<span class="st">"list"</span>,<span class="dv">6</span>)</span>
-<span id="cb22-3"><a href=""></a>ListOfDist[[<span class="dv">1</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>, <span class="dv">1</span>))</span>
-<span id="cb22-4"><a href=""></a>ListOfDist[[<span class="dv">2</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">15</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.7</span>, <span class="dv">1</span>))</span>
-<span id="cb22-5"><a href=""></a>ListOfDist[[<span class="dv">3</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">20</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</span>
-<span id="cb22-6"><a href=""></a>ListOfDist[[<span class="dv">4</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>, <span class="dv">1</span>))</span>
-<span id="cb22-7"><a href=""></a>ListOfDist[[<span class="dv">5</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">15</span>),<span class="fu">c</span>(<span class="dv">0</span>,  <span class="fl">0.75</span>, <span class="dv">1</span>))</span>
-<span id="cb22-8"><a href=""></a>ListOfDist[[<span class="dv">6</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">22</span>,<span class="dv">24</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.12</span>, <span class="dv">1</span>))</span>
-<span id="cb22-9"><a href=""></a></span>
-<span id="cb22-10"><a href=""></a><span class="do">## create a MatH object filling it by columns</span></span>
-<span id="cb22-11"><a href=""></a>MyMAT<span class="ot">=</span><span class="fu">MatH</span>(<span class="at">x=</span>ListOfDist,<span class="at">nrows=</span><span class="dv">3</span>,<span class="at">ncols=</span><span class="dv">2</span>,</span>
-<span id="cb22-12"><a href=""></a>  <span class="at">rownames=</span><span class="fu">c</span>(<span class="st">"I1"</span>,<span class="st">"I2"</span>,<span class="st">"I3"</span>), <span class="at">varnames=</span><span class="fu">c</span>(<span class="st">"Var1"</span>,<span class="st">"Var2"</span>),<span class="at">by.row=</span><span class="cn">FALSE</span>)</span>
-<span id="cb22-13"><a href=""></a></span>
-<span id="cb22-14"><a href=""></a><span class="co">#bulding an empty 10 by 4 matrix of histograms</span></span>
-<span id="cb22-15"><a href=""></a>empty.MAT<span class="ot">=</span><span class="fu">MatH</span>(<span class="at">nrows=</span><span class="dv">10</span>,<span class="at">ncols=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="do">##---- create a list of six distributionH objects</span></span>
+<span id="cb23-2"><a href=""></a>ListOfDist<span class="ot">&lt;-</span><span class="fu">vector</span>(<span class="st">"list"</span>,<span class="dv">6</span>)</span>
+<span id="cb23-3"><a href=""></a>ListOfDist[[<span class="dv">1</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>, <span class="dv">1</span>))</span>
+<span id="cb23-4"><a href=""></a>ListOfDist[[<span class="dv">2</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">15</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.7</span>, <span class="dv">1</span>))</span>
+<span id="cb23-5"><a href=""></a>ListOfDist[[<span class="dv">3</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">20</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</span>
+<span id="cb23-6"><a href=""></a>ListOfDist[[<span class="dv">4</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">8</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>, <span class="dv">1</span>))</span>
+<span id="cb23-7"><a href=""></a>ListOfDist[[<span class="dv">5</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">15</span>),<span class="fu">c</span>(<span class="dv">0</span>,  <span class="fl">0.75</span>, <span class="dv">1</span>))</span>
+<span id="cb23-8"><a href=""></a>ListOfDist[[<span class="dv">6</span>]]<span class="ot">&lt;-</span><span class="fu">distributionH</span>(<span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">22</span>,<span class="dv">24</span>),<span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.12</span>, <span class="dv">1</span>))</span>
+<span id="cb23-9"><a href=""></a></span>
+<span id="cb23-10"><a href=""></a><span class="do">## create a MatH object filling it by columns</span></span>
+<span id="cb23-11"><a href=""></a>MyMAT<span class="ot">=</span><span class="fu">MatH</span>(<span class="at">x=</span>ListOfDist,<span class="at">nrows=</span><span class="dv">3</span>,<span class="at">ncols=</span><span class="dv">2</span>,</span>
+<span id="cb23-12"><a href=""></a>  <span class="at">rownames=</span><span class="fu">c</span>(<span class="st">"I1"</span>,<span class="st">"I2"</span>,<span class="st">"I3"</span>), <span class="at">varnames=</span><span class="fu">c</span>(<span class="st">"Var1"</span>,<span class="st">"Var2"</span>),<span class="at">by.row=</span><span class="cn">FALSE</span>)</span>
+<span id="cb23-13"><a href=""></a></span>
+<span id="cb23-14"><a href=""></a><span class="co">#bulding an empty 10 by 4 matrix of histograms</span></span>
+<span id="cb23-15"><a href=""></a>empty.MAT<span class="ot">=</span><span class="fu">MatH</span>(<span class="at">nrows=</span><span class="dv">10</span>,<span class="at">ncols=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="show-method" class="slide level2">
 <h2><code>show</code> method</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">show</span>(MyMAT) <span class="co">#or simply type MyMAT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">show</span>(MyMAT) <span class="co">#or simply type MyMAT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>a matrix of distributions 
  2  variables  3  rows 
@@ -823,31 +865,31 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <section id="plot-method" class="slide level2">
 <h2><code>plot</code> method</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">plot</span>(MyMAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section id="more-on-ploting-a-math-13-basic-plot" class="slide level2">
-<h2>More on <code>plot</code>ing a <code>MatH</code> (1/3): basic plot</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"HISTO"</span>,  <span class="at">border=</span><span class="st">"blue"</span>) <span class="co">#plots a matrix of histograms</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">plot</span>(MyMAT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section id="more-on-ploting-a-math-23-density-plot" class="slide level2">
-<h2>More on <code>plot</code>ing a <code>MatH</code> (2/3): density plot</h2>
+<section id="more-on-ploting-a-math-13-basic-plot" class="slide level2">
+<h2>More on <code>plot</code>ing a <code>MatH</code> (1/3): basic plot</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a> <span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"DENS"</span>,  <span class="at">border=</span><span class="st">"blue"</span>) <span class="co">#plots a matrix of densities</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"HISTO"</span>,  <span class="at">border=</span><span class="st">"blue"</span>) <span class="co">#plots a matrix of histograms</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="more-on-ploting-a-math-23-density-plot" class="slide level2">
+<h2>More on <code>plot</code>ing a <code>MatH</code> (2/3): density plot</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a> <span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"DENS"</span>,  <span class="at">border=</span><span class="st">"blue"</span>) <span class="co">#plots a matrix of densities</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
 <section id="more-on-ploting-a-math-33-boxplots" class="slide level2">
 <h2>More on <code>plot</code>ing a <code>MatH</code> (3/3): boxplots</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a> <span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"BOXPLOT"</span>) <span class="co">#plots a  boxplots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a> <span class="fu">plot</span>(BLOOD, <span class="at">type=</span><span class="st">"BOXPLOT"</span>) <span class="co">#plots a  boxplots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1152"></section>
+<img data-src="03_Day1_Example_SD_from_data_and_bas_stat_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" width="1152"></section>
 <section id="main-methods-for-the-math-class" class="slide level2">
 <h2>Main methods for the <code>MatH</code> class</h2>
 <h3 id="for-accessing-to-some-basic-information">For accessing to some basic information</h3>
@@ -865,17 +907,17 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <h2>An example of <code>get.MatH.stats</code> method</h2>
 <p>The <code>get.MatH.stats</code> returns a list containing the name of the basic statistics computed and a <code>$mat</code> containing a matrix of numbers with the same size of the <code>MatH</code> object</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD) <span class="co"># the means of the distributions in BLOOD dataset </span></span>
-<span id="cb29-2"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'median'</span>) <span class="co"># the medians of the distributions</span></span>
-<span id="cb29-3"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="fl">0.5</span>) <span class="co">#the same as median</span></span>
-<span id="cb29-4"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'min'</span>) <span class="co"># minima of the distributions </span></span>
-<span id="cb29-5"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="dv">0</span>) <span class="co">#the same as min</span></span>
-<span id="cb29-6"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'max'</span>) <span class="co"># maxima of the distributions </span></span>
-<span id="cb29-7"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="dv">1</span>) <span class="co">#the same as max</span></span>
-<span id="cb29-8"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'std'</span>) <span class="co"># standard deviations </span></span>
-<span id="cb29-9"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'skewness'</span>) <span class="co">#skewness indices</span></span>
-<span id="cb29-10"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'kurtosis'</span>) <span class="co">#kurtosis indices</span></span>
-<span id="cb29-11"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>,<span class="at">prob=</span><span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD) <span class="co"># the means of the distributions in BLOOD dataset </span></span>
+<span id="cb30-2"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'median'</span>) <span class="co"># the medians of the distributions</span></span>
+<span id="cb30-3"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="fl">0.5</span>) <span class="co">#the same as median</span></span>
+<span id="cb30-4"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'min'</span>) <span class="co"># minima of the distributions </span></span>
+<span id="cb30-5"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="dv">0</span>) <span class="co">#the same as min</span></span>
+<span id="cb30-6"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'max'</span>) <span class="co"># maxima of the distributions </span></span>
+<span id="cb30-7"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>, <span class="at">prob=</span><span class="dv">1</span>) <span class="co">#the same as max</span></span>
+<span id="cb30-8"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'std'</span>) <span class="co"># standard deviations </span></span>
+<span id="cb30-9"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'skewness'</span>) <span class="co">#skewness indices</span></span>
+<span id="cb30-10"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'kurtosis'</span>) <span class="co">#kurtosis indices</span></span>
+<span id="cb30-11"><a href=""></a><span class="fu">get.MatH.stats</span>(BLOOD,<span class="at">stat=</span><span class="st">'quantile'</span>,<span class="at">prob=</span><span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="functions-useful-for-manipulating" class="slide level2 smaller">
@@ -896,43 +938,43 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <section id="subsetting-example" class="slide level2">
 <h2>Subsetting example</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>BLOOD[<span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] </span>
-<span id="cb30-2"><a href=""></a><span class="do">## a matrix of distributions </span></span>
-<span id="cb30-3"><a href=""></a><span class="do">##  2  variables  5  rows </span></span>
-<span id="cb30-4"><a href=""></a><span class="do">##  each distibution in the cell is represented by the mean and the standard deviation </span></span>
-<span id="cb30-5"><a href=""></a><span class="do">##                   Cholesterol               Hemoglobin        </span></span>
-<span id="cb30-6"><a href=""></a><span class="do">## u10: M-40 [m= 170.06  ,s= 20.011 ]  [m= 12.092  ,s= 0.52656 ]</span></span>
-<span id="cb30-7"><a href=""></a><span class="do">## u11: M-50 [m= 194.22  ,s= 30.165 ]  [m= 12.214  ,s= 0.59708 ]</span></span>
-<span id="cb30-8"><a href=""></a><span class="do">## u12: M-60 [m= 203.36  ,s= 26.223 ]  [m= 12.245  ,s= 0.50862 ]</span></span>
-<span id="cb30-9"><a href=""></a><span class="do">## u13: M-70 [m= 205.66  ,s= 22.499 ]  [m= 12.15  ,s= 0.33425 ] </span></span>
-<span id="cb30-10"><a href=""></a><span class="do">## u14: M-80+ [m= 205.48  ,s= 23.537 ]   [m= 12.12  ,s= 0.6163 ]</span></span>
-<span id="cb30-11"><a href=""></a></span>
-<span id="cb30-12"><a href=""></a>BLOOD[<span class="dv">2</span>,<span class="dv">3</span>] <span class="co">#ATTENTION: returns a 1x1 MatH, and not a distributionH</span></span>
-<span id="cb30-13"><a href=""></a><span class="do">## a matrix of distributions </span></span>
-<span id="cb30-14"><a href=""></a><span class="do">##  1  variables  1  rows </span></span>
-<span id="cb30-15"><a href=""></a><span class="do">##  each distibution in the cell is represented by the mean and the standard deviation </span></span>
-<span id="cb30-16"><a href=""></a><span class="do">##                  Hematocrit       </span></span>
-<span id="cb30-17"><a href=""></a><span class="do">## u2: F-30 [m= 36.497  ,s= 2.1225 ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>BLOOD[<span class="dv">10</span><span class="sc">:</span><span class="dv">14</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] </span>
+<span id="cb31-2"><a href=""></a><span class="do">## a matrix of distributions </span></span>
+<span id="cb31-3"><a href=""></a><span class="do">##  2  variables  5  rows </span></span>
+<span id="cb31-4"><a href=""></a><span class="do">##  each distibution in the cell is represented by the mean and the standard deviation </span></span>
+<span id="cb31-5"><a href=""></a><span class="do">##                   Cholesterol               Hemoglobin        </span></span>
+<span id="cb31-6"><a href=""></a><span class="do">## u10: M-40 [m= 170.06  ,s= 20.011 ]  [m= 12.092  ,s= 0.52656 ]</span></span>
+<span id="cb31-7"><a href=""></a><span class="do">## u11: M-50 [m= 194.22  ,s= 30.165 ]  [m= 12.214  ,s= 0.59708 ]</span></span>
+<span id="cb31-8"><a href=""></a><span class="do">## u12: M-60 [m= 203.36  ,s= 26.223 ]  [m= 12.245  ,s= 0.50862 ]</span></span>
+<span id="cb31-9"><a href=""></a><span class="do">## u13: M-70 [m= 205.66  ,s= 22.499 ]  [m= 12.15  ,s= 0.33425 ] </span></span>
+<span id="cb31-10"><a href=""></a><span class="do">## u14: M-80+ [m= 205.48  ,s= 23.537 ]   [m= 12.12  ,s= 0.6163 ]</span></span>
+<span id="cb31-11"><a href=""></a></span>
+<span id="cb31-12"><a href=""></a>BLOOD[<span class="dv">2</span>,<span class="dv">3</span>] <span class="co">#ATTENTION: returns a 1x1 MatH, and not a distributionH</span></span>
+<span id="cb31-13"><a href=""></a><span class="do">## a matrix of distributions </span></span>
+<span id="cb31-14"><a href=""></a><span class="do">##  1  variables  1  rows </span></span>
+<span id="cb31-15"><a href=""></a><span class="do">##  each distibution in the cell is represented by the mean and the standard deviation </span></span>
+<span id="cb31-16"><a href=""></a><span class="do">##                  Hematocrit       </span></span>
+<span id="cb31-17"><a href=""></a><span class="do">## u2: F-30 [m= 36.497  ,s= 2.1225 ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="extracting-a-distributionh-from-a-math-how-to-do-it" class="slide level2">
 <h2>Extracting a <code>distributionH</code> from a <code>MatH</code>: how to do it?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="co"># instead of BLOOD[2,3]</span></span>
-<span id="cb31-2"><a href=""></a><span class="co"># you must use </span></span>
-<span id="cb31-3"><a href=""></a></span>
-<span id="cb31-4"><a href=""></a>BLOOD<span class="sc">@</span>M[<span class="dv">2</span>,<span class="dv">3</span>][[<span class="dv">1</span>]] <span class="co">#Not attractive, it needs improvements! </span></span>
-<span id="cb31-5"><a href=""></a><span class="do">##               X             p</span></span>
-<span id="cb31-6"><a href=""></a><span class="do">## Bin_1   [ 31 ; 33 )         0.046</span></span>
-<span id="cb31-7"><a href=""></a><span class="do">## Bin_2   [ 33 ; 35 )         0.171</span></span>
-<span id="cb31-8"><a href=""></a><span class="do">## Bin_3 [ 35 ; 36.5 )         0.295</span></span>
-<span id="cb31-9"><a href=""></a><span class="do">## Bin_4 [ 36.5 ; 38 )         0.243</span></span>
-<span id="cb31-10"><a href=""></a><span class="do">## Bin_5 [ 38 ; 39.5 )          0.17</span></span>
-<span id="cb31-11"><a href=""></a><span class="do">## Bin_6 [ 39.5 ; 41 )         0.072</span></span>
-<span id="cb31-12"><a href=""></a><span class="do">## Bin_7   [ 41 ; 44 ]         0.003</span></span>
-<span id="cb31-13"><a href=""></a><span class="do">## </span></span>
-<span id="cb31-14"><a href=""></a><span class="do">##  mean =  36.497   std  =  2.12245714522903 </span></span>
-<span id="cb31-15"><a href=""></a><span class="do">## </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="co"># instead of BLOOD[2,3]</span></span>
+<span id="cb32-2"><a href=""></a><span class="co"># you must use </span></span>
+<span id="cb32-3"><a href=""></a></span>
+<span id="cb32-4"><a href=""></a>BLOOD<span class="sc">@</span>M[<span class="dv">2</span>,<span class="dv">3</span>][[<span class="dv">1</span>]] <span class="co">#Not attractive, it needs improvements! </span></span>
+<span id="cb32-5"><a href=""></a><span class="do">##               X             p</span></span>
+<span id="cb32-6"><a href=""></a><span class="do">## Bin_1   [ 31 ; 33 )         0.046</span></span>
+<span id="cb32-7"><a href=""></a><span class="do">## Bin_2   [ 33 ; 35 )         0.171</span></span>
+<span id="cb32-8"><a href=""></a><span class="do">## Bin_3 [ 35 ; 36.5 )         0.295</span></span>
+<span id="cb32-9"><a href=""></a><span class="do">## Bin_4 [ 36.5 ; 38 )         0.243</span></span>
+<span id="cb32-10"><a href=""></a><span class="do">## Bin_5 [ 38 ; 39.5 )          0.17</span></span>
+<span id="cb32-11"><a href=""></a><span class="do">## Bin_6 [ 39.5 ; 41 )         0.072</span></span>
+<span id="cb32-12"><a href=""></a><span class="do">## Bin_7   [ 41 ; 44 ]         0.003</span></span>
+<span id="cb32-13"><a href=""></a><span class="do">## </span></span>
+<span id="cb32-14"><a href=""></a><span class="do">##  mean =  36.497   std  =  2.12245714522903 </span></span>
+<span id="cb32-15"><a href=""></a><span class="do">## </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="matrix-operation-between-math-objects" class="slide level2 smaller">
@@ -942,15 +984,15 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <li><code>WH.mat.sum</code> performs a classic cell by cell sum. In particular, the result is a new <code>MatH</code> object having in each cell a distribution associated with the quantile function resulting from the sum of the corresponding quantile functions (It is a sum consistent with the Wasserstein metric). As usual, the matrix must have the same dimensions.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>MAT.sum<span class="ot">=</span><span class="fu">WH.mat.sum</span>(MyMAT1,MyMAT2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>MAT.sum<span class="ot">=</span><span class="fu">WH.mat.sum</span>(MyMAT1,MyMAT2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>WH.mat.prod</code> performs the matrix multiplication of two <code>MatH</code> objects. It returns a <strong>matrix of numbers</strong> according to the dot product defined for two distributions and associated with the <span class="math inline">\(L_2\)</span> Wasserstein metric. It is possible also to consider trasposition of matrices.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">FALSE</span>, <span class="at">traspose2=</span><span class="cn">FALSE</span>)</span>
-<span id="cb33-2"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">TRUE</span>, <span class="at">traspose2=</span><span class="cn">FALSE</span>)</span>
-<span id="cb33-3"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">FALSE</span>, <span class="at">traspose2=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">FALSE</span>, <span class="at">traspose2=</span><span class="cn">FALSE</span>)</span>
+<span id="cb34-2"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">TRUE</span>, <span class="at">traspose2=</span><span class="cn">FALSE</span>)</span>
+<span id="cb34-3"><a href=""></a>MAT.prod<span class="ot">=</span><span class="fu">WH.mat.prod</span>(MyMAT1,MyMAT2, <span class="at">traspose1=</span><span class="cn">FALSE</span>, <span class="at">traspose2=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="methods-for-univariate-and-bivariate-statistics-of-histogram-variables-the-mean-distribution" class="slide level2 smaller">
@@ -961,10 +1003,10 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <li><code>WH.vec.sum</code> same as <code>WH.vec.mean</code>, but computes only the sum.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">WH.vec.mean</span>(BLOOD[,<span class="dv">1</span>]) <span class="co">#returns the average distribution of </span></span>
-<span id="cb34-2"><a href=""></a><span class="co"># the first variable</span></span>
-<span id="cb34-3"><a href=""></a><span class="fu">WH.vec.mean</span>(BLOOD[,<span class="dv">1</span>], <span class="at">w =</span> <span class="fu">runif</span>(<span class="fu">get.MatH.nrows</span>(MyMAT)))</span>
-<span id="cb34-4"><a href=""></a><span class="co"># returns a random weighted average</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">WH.vec.mean</span>(BLOOD[,<span class="dv">1</span>]) <span class="co">#returns the average distribution of </span></span>
+<span id="cb35-2"><a href=""></a><span class="co"># the first variable</span></span>
+<span id="cb35-3"><a href=""></a><span class="fu">WH.vec.mean</span>(BLOOD[,<span class="dv">1</span>], <span class="at">w =</span> <span class="fu">runif</span>(<span class="fu">get.MatH.nrows</span>(MyMAT)))</span>
+<span id="cb35-4"><a href=""></a><span class="co"># returns a random weighted average</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="a-graphic-example-of-wh.vec.mean" class="slide level2">
@@ -973,7 +1015,7 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <img data-src="figures/Mean_BLOOD.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="methods-for-univariate-and-bivariate-statistics-of-histogram-variables-the-variability-and-the-association-indexes" class="slide level2 smaller">
 <h2>Methods for univariate and bivariate statistics of histogram variables: the variability and the association indexes</h2>
-<p>These methods returns a matrix of numbers accordingly to the number of the compared variables. The formulas are those presented in <span class="citation" data-cites="IrpVer2015">(<a href="#/references" role="doc-biblioref" onclick="">Irpino and Verde 2015</a>)</span>.</p>
+<p>These methods returns a matrix of numbers accordingly to the number of the compared variables. The formulas are those presented in <span class="citation" data-cites="IrpVer2015">(<a href="#/references" role="doc-biblioref" onclick="">R. Irpino A.and Verde 2015</a>)</span>.</p>
 <h3 id="sum-of-squares"><strong>Sum of squares</strong></h3>
 <ul>
 <li><strong><code>WH.SSQ(MyMAT, w=w)</code></strong> computes the wheighted Sum of Squares and the Sum of products of the deviations from the means of a <code>MatH</code> object. The weights are associated to the rows, if missing, the weights are considered equal. The result is square matrix of dimension equal to the number of variables of the <code>MatH</code> object.</li>
@@ -991,29 +1033,29 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <li><strong><code>WH.correlation2(MyMAT1, MyMAT2, w=w)</code></strong> computes the correlation matrix of two <code>MatH</code> objects.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">WH.var.covar</span>(BLOOD)</span>
-<span id="cb35-2"><a href=""></a><span class="do">##             Cholesterol Hemoglobin  Hematocrit</span></span>
-<span id="cb35-3"><a href=""></a><span class="do">## Cholesterol  388.137633 -5.0005134 -14.9202378</span></span>
-<span id="cb35-4"><a href=""></a><span class="do">## Hemoglobin    -5.000513  0.2802215   0.8266558</span></span>
-<span id="cb35-5"><a href=""></a><span class="do">## Hematocrit   -14.920238  0.8266558   2.9779786</span></span>
-<span id="cb35-6"><a href=""></a><span class="fu">WH.correlation</span>(BLOOD)</span>
-<span id="cb35-7"><a href=""></a><span class="do">##             Cholesterol Hemoglobin Hematocrit</span></span>
-<span id="cb35-8"><a href=""></a><span class="do">## Cholesterol   1.0000000 -0.4794806 -0.4388560</span></span>
-<span id="cb35-9"><a href=""></a><span class="do">## Hemoglobin   -0.4794806  1.0000000  0.9049264</span></span>
-<span id="cb35-10"><a href=""></a><span class="do">## Hematocrit   -0.4388560  0.9049264  1.0000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="fu">WH.var.covar</span>(BLOOD)</span>
+<span id="cb36-2"><a href=""></a><span class="do">##             Cholesterol Hemoglobin  Hematocrit</span></span>
+<span id="cb36-3"><a href=""></a><span class="do">## Cholesterol  388.137633 -5.0005134 -14.9202378</span></span>
+<span id="cb36-4"><a href=""></a><span class="do">## Hemoglobin    -5.000513  0.2802215   0.8266558</span></span>
+<span id="cb36-5"><a href=""></a><span class="do">## Hematocrit   -14.920238  0.8266558   2.9779786</span></span>
+<span id="cb36-6"><a href=""></a><span class="fu">WH.correlation</span>(BLOOD)</span>
+<span id="cb36-7"><a href=""></a><span class="do">##             Cholesterol Hemoglobin Hematocrit</span></span>
+<span id="cb36-8"><a href=""></a><span class="do">## Cholesterol   1.0000000 -0.4794806 -0.4388560</span></span>
+<span id="cb36-9"><a href=""></a><span class="do">## Hemoglobin   -0.4794806  1.0000000  0.9049264</span></span>
+<span id="cb36-10"><a href=""></a><span class="do">## Hematocrit   -0.4388560  0.9049264  1.0000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="examples-of-how-to-compute-basic-statistics-of-variability-for-a-single-variable" class="slide level2">
 <h2>Examples of how to compute basic statistics of variability for a single variable</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="co"># the variance of a histogram variable</span></span>
-<span id="cb36-2"><a href=""></a>VAR.Choresterol<span class="ot">=</span><span class="fu">WH.var.covar</span>(BLOOD[,<span class="dv">1</span>])</span>
-<span id="cb36-3"><a href=""></a><span class="fu">as.numeric</span>(VAR.Choresterol)</span>
-<span id="cb36-4"><a href=""></a><span class="do">## [1] 388.1376</span></span>
-<span id="cb36-5"><a href=""></a><span class="co"># the standard deviation</span></span>
-<span id="cb36-6"><a href=""></a>STD.Choresterol<span class="ot">=</span><span class="fu">sqrt</span>(VAR.Choresterol)</span>
-<span id="cb36-7"><a href=""></a><span class="fu">as.numeric</span>(STD.Choresterol)</span>
-<span id="cb36-8"><a href=""></a><span class="do">## [1] 19.70121</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a><span class="co"># the variance of a histogram variable</span></span>
+<span id="cb37-2"><a href=""></a>VAR.Choresterol<span class="ot">=</span><span class="fu">WH.var.covar</span>(BLOOD[,<span class="dv">1</span>])</span>
+<span id="cb37-3"><a href=""></a><span class="fu">as.numeric</span>(VAR.Choresterol)</span>
+<span id="cb37-4"><a href=""></a><span class="do">## [1] 388.1376</span></span>
+<span id="cb37-5"><a href=""></a><span class="co"># the standard deviation</span></span>
+<span id="cb37-6"><a href=""></a>STD.Choresterol<span class="ot">=</span><span class="fu">sqrt</span>(VAR.Choresterol)</span>
+<span id="cb37-7"><a href=""></a><span class="fu">as.numeric</span>(STD.Choresterol)</span>
+<span id="cb37-8"><a href=""></a><span class="do">## [1] 19.70121</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -1029,10 +1071,10 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <li>a <code>period</code>, a list containing two slots <code>start</code> and <code>end</code>, two numbers (for now, a time/date dormat will be chosen in the future), indicating the initial and the final period of observation. Indeed, we imagine that a histogram (or a distribution) is the set of values observed during a time period.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>My.Time.histo  <span class="ot">=</span> <span class="fu">new</span>(<span class="st">'TdistributionH'</span>,<span class="at">tstamp=</span><span class="dv">1</span>, </span>
-<span id="cb37-2"><a href=""></a>                      <span class="at">x=</span>dist1<span class="sc">@</span>x, <span class="at">p=</span>dist1<span class="sc">@</span>p)</span>
-<span id="cb37-3"><a href=""></a>My.Period.histo<span class="ot">=</span> <span class="fu">new</span>(<span class="st">'TdistributionH'</span>,<span class="at">period=</span><span class="fu">list</span>(<span class="at">start=</span><span class="dv">1</span>,<span class="at">end=</span><span class="dv">3</span>),</span>
-<span id="cb37-4"><a href=""></a>                      <span class="at">x=</span>dist1<span class="sc">@</span>x, <span class="at">p=</span>dist1<span class="sc">@</span>p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a>My.Time.histo  <span class="ot">=</span> <span class="fu">new</span>(<span class="st">'TdistributionH'</span>,<span class="at">tstamp=</span><span class="dv">1</span>, </span>
+<span id="cb38-2"><a href=""></a>                      <span class="at">x=</span>dist1<span class="sc">@</span>x, <span class="at">p=</span>dist1<span class="sc">@</span>p)</span>
+<span id="cb38-3"><a href=""></a>My.Period.histo<span class="ot">=</span> <span class="fu">new</span>(<span class="st">'TdistributionH'</span>,<span class="at">period=</span><span class="fu">list</span>(<span class="at">start=</span><span class="dv">1</span>,<span class="at">end=</span><span class="dv">3</span>),</span>
+<span id="cb38-4"><a href=""></a>                      <span class="at">x=</span>dist1<span class="sc">@</span>x, <span class="at">p=</span>dist1<span class="sc">@</span>p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -1045,19 +1087,19 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <p><strong>Initializing a <code>HTS</code></strong></p>
 <p>The list of <code>TdistributionH</code> objects are organized into a vector of dimension equal to <code>epoc</code>. The slot containing the vector is called <code>data</code>. If we need to see what is in the HTS we need to call elements from <code>@data</code> slot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a><span class="co"># RetHTS is a HTS of the returns five-minutes returns of DOLL/YEN changes </span></span>
-<span id="cb38-2"><a href=""></a><span class="co"># rates observed along 108 days (it is one of the dataset available in the pkg)</span></span>
-<span id="cb38-3"><a href=""></a>RetHTS<span class="sc">@</span>data[<span class="dv">2</span>]</span>
-<span id="cb38-4"><a href=""></a><span class="do">## [[1]]</span></span>
-<span id="cb38-5"><a href=""></a><span class="do">##                   X                 p</span></span>
-<span id="cb38-6"><a href=""></a><span class="do">## Bin_1  [ -0.1 ; -0.06 )           0.03833</span></span>
-<span id="cb38-7"><a href=""></a><span class="do">## Bin_2 [ -0.06 ; -0.03 )            0.1394</span></span>
-<span id="cb38-8"><a href=""></a><span class="do">## Bin_3  [ -0.03 ; 0.03 )            0.7038</span></span>
-<span id="cb38-9"><a href=""></a><span class="do">## Bin_4   [ 0.03 ; 0.06 )           0.09059</span></span>
-<span id="cb38-10"><a href=""></a><span class="do">## Bin_5   [ 0.06 ; 0.12 ]           0.02787</span></span>
-<span id="cb38-11"><a href=""></a><span class="do">## </span></span>
-<span id="cb38-12"><a href=""></a><span class="do">##  mean =  -0.00275259208362382   std  =  0.0342206481885284 </span></span>
-<span id="cb38-13"><a href=""></a><span class="do">## </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a><span class="co"># RetHTS is a HTS of the returns five-minutes returns of DOLL/YEN changes </span></span>
+<span id="cb39-2"><a href=""></a><span class="co"># rates observed along 108 days (it is one of the dataset available in the pkg)</span></span>
+<span id="cb39-3"><a href=""></a>RetHTS<span class="sc">@</span>data[<span class="dv">2</span>]</span>
+<span id="cb39-4"><a href=""></a><span class="do">## [[1]]</span></span>
+<span id="cb39-5"><a href=""></a><span class="do">##                   X                 p</span></span>
+<span id="cb39-6"><a href=""></a><span class="do">## Bin_1  [ -0.1 ; -0.06 )           0.03833</span></span>
+<span id="cb39-7"><a href=""></a><span class="do">## Bin_2 [ -0.06 ; -0.03 )            0.1394</span></span>
+<span id="cb39-8"><a href=""></a><span class="do">## Bin_3  [ -0.03 ; 0.03 )            0.7038</span></span>
+<span id="cb39-9"><a href=""></a><span class="do">## Bin_4   [ 0.03 ; 0.06 )           0.09059</span></span>
+<span id="cb39-10"><a href=""></a><span class="do">## Bin_5   [ 0.06 ; 0.12 ]           0.02787</span></span>
+<span id="cb39-11"><a href=""></a><span class="do">## </span></span>
+<span id="cb39-12"><a href=""></a><span class="do">##  mean =  -0.00275259208362382   std  =  0.0342206481885284 </span></span>
+<span id="cb39-13"><a href=""></a><span class="do">## </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2">
@@ -1295,35 +1337,35 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <section id="the-plot-method-14" class="slide level2">
 <h2>The <code>plot</code> method (1/4)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a><span class="co">#plots the first 20 elements RetHTS dataset</span></span>
-<span id="cb40-2"><a href=""></a><span class="fu">plot</span>(<span class="fu">subsetHTS</span>(RetHTS,<span class="at">from=</span><span class="dv">1</span>,<span class="at">to=</span><span class="dv">20</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="co">#plots the first 20 elements RetHTS dataset</span></span>
+<span id="cb41-2"><a href=""></a><span class="fu">plot</span>(<span class="fu">subsetHTS</span>(RetHTS,<span class="at">from=</span><span class="dv">1</span>,<span class="at">to=</span><span class="dv">20</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="figures/HTS1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="the-plot-method-24" class="slide level2">
 <h2>The <code>plot</code> method (2/4)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="co"># plots the first 60 elements RetHTS dataset divided in </span></span>
-<span id="cb41-2"><a href=""></a><span class="co"># pieces of 30 epocs</span></span>
-<span id="cb41-3"><a href=""></a><span class="fu">plot</span>(<span class="fu">subsetHTS</span>(RetHTS,<span class="at">from=</span><span class="dv">1</span>,<span class="at">to=</span><span class="dv">60</span>), <span class="at">maxno.perplot=</span><span class="dv">30</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a><span class="co"># plots the first 60 elements RetHTS dataset divided in </span></span>
+<span id="cb42-2"><a href=""></a><span class="co"># pieces of 30 epocs</span></span>
+<span id="cb42-3"><a href=""></a><span class="fu">plot</span>(<span class="fu">subsetHTS</span>(RetHTS,<span class="at">from=</span><span class="dv">1</span>,<span class="at">to=</span><span class="dv">60</span>), <span class="at">maxno.perplot=</span><span class="dv">30</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="figures/HTS2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="the-plot-method-34" class="slide level2">
 <h2>The <code>plot</code> method (3/4)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a><span class="co"># plots HTS elements RetHTS dataset divided in </span></span>
-<span id="cb42-2"><a href=""></a><span class="co"># pieces of 36 epocs</span></span>
-<span id="cb42-3"><a href=""></a><span class="fu">plot</span>(RetHTS, <span class="at">maxno.perplot=</span><span class="dv">36</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a><span class="co"># plots HTS elements RetHTS dataset divided in </span></span>
+<span id="cb43-2"><a href=""></a><span class="co"># pieces of 36 epocs</span></span>
+<span id="cb43-3"><a href=""></a><span class="fu">plot</span>(RetHTS, <span class="at">maxno.perplot=</span><span class="dv">36</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="figures/HTS3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="the-plot-method-44-plotting-using-boxplots" class="slide level2">
 <h2>The <code>plot</code> method (4/4): plotting using boxplots</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a><span class="co"># plots HTS elements RetHTS dataset divided in </span></span>
-<span id="cb43-2"><a href=""></a><span class="co"># pieces of 54 epocs</span></span>
-<span id="cb43-3"><a href=""></a><span class="fu">plot</span>(RetHTS, <span class="at">type=</span><span class="st">"BOXPLOT"</span>, <span class="at">maxno.perplot=</span><span class="dv">54</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href=""></a><span class="co"># plots HTS elements RetHTS dataset divided in </span></span>
+<span id="cb44-2"><a href=""></a><span class="co"># pieces of 54 epocs</span></span>
+<span id="cb44-3"><a href=""></a><span class="fu">plot</span>(RetHTS, <span class="at">type=</span><span class="st">"BOXPLOT"</span>, <span class="at">maxno.perplot=</span><span class="dv">54</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="figures/HTS4.png" class="quarto-figure quarto-figure-center r-stretch"></section>
@@ -1362,18 +1404,18 @@ I3 [m= 12.75  ,s= 3.3323 ]  [m= 22.76  ,s= 0.86933 ]</code></pre>
 <h2>References</h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
-<p>Symbolic Data from classical data and basic stats</p>
+<p>Symbolic Data from classical data and basic stats, ESTP Cologne 14-16 May 2024</p>
 </div>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Gilch2000" class="csl-entry" role="listitem">
-Gilchrist, Warren. 2000. <em>Statistical Modelling with Quantile Functions</em>. Abingdon: CRC Press.
+Gilchrist, W. 2000. <em>Statistical Modelling with Quantile Functions</em>. Abingdon: CRC Press.
 </div>
 <div id="ref-DBLP:conf/f-egc/2007" class="csl-entry" role="listitem">
 Irpino, Antonio, and Elvira Romano. 2007. <span>“Optimal Histogram Representation of Large Data Sets: Fisher Vs Piecewise Linear Approximation.”</span> In <em>EGC</em>, edited by Monique Noirhomme-Fraiture and Gilles Venturini, RNTI-E-9:99–110. Revue Des Nouvelles Technologies de l’information. C<span>é</span>padu<span>è</span>s-<span>É</span>ditions.
 </div>
 <div id="ref-IrpVer2015" class="csl-entry" role="listitem">
-Irpino, Antonio, and Rosanna Verde. 2015. <span>“Basic Statistics for Distributional Symbolic Variables: A New Metric-Based Approach.”</span> <em>Advances in Data Analysis and Classification</em> 9 (2): 143–75. <a href="https://doi.org/10.1007/s11634-014-0176-4">https://doi.org/10.1007/s11634-014-0176-4</a>.
+Irpino, R., A.and Verde. 2015. <span>“Basic Statistics for Distributional Symbolic Variables: A New Metric-Based Approach.”</span> <em>Advances in Data Analysis and Classification</em> 9 (2): 143–75. <a href="https://doi.org/10.1007/s11634-014-0176-4">https://doi.org/10.1007/s11634-014-0176-4</a>.
 </div>
 </div>
 </section></section>
@@ -1555,7 +1597,7 @@ Irpino, Antonio, and Rosanna Verde. 2015. <span>“Basic Statistics for Distribu
         // specified using percentage units.
         width: 1280,
 
-        height: 500,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,

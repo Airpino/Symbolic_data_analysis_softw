@@ -1,0 +1,147 @@
+---
+title: "Application and available datasets for \n the analysis of distributional SD"
+author: "A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024"
+format: 
+  revealjs: 
+    theme: [dark, custom.scss]
+    width: 1280
+    height: 720
+    fontsize: 2em
+    linestretch: 1.1
+    footer: "Applications and datasets for distributional SD, ESTP Cologne 14-16 May 2024"
+    slideNumber: true
+filters:
+  - "parse-latex.lua"
+title-slide-attributes:
+  data-background-image: "images/main.svg"
+  data-background-color: white
+  data-background-size: contain
+bibliography: biblio.bib
+link-citations: true
+editor: visual
+---
+
+```{r}
+source("../code/useful_funs.R")
+```
+
+# Datasets available for exercitating
+
+## Datasets contained in the `HistDAWass` package
+
+The `HistDAWass` package in R contains some distributional datasets generated from some books and from raw data from different contexts of application. Let's see some of them:
+
+- `BLOOD` dataset, is the description of 14 typologies of patients in a hospital, the variables are histograms of the levels o Hematocrit, Hemoglobin and Cholesterol
+- `Age_Pyramids_2014`	Age pyramids of all the countries of the World in 2014
+- `China_Month`	Distributions of climatic variables for each month  of 60 stations
+- `China_Seas`	Distributions of climatic variables for each season  of 60 stations China
+- `OzoneFull`	Full Ozone dataset for Histogram data analysis
+
+## The BLOOD dataset
+
+```{r fig.align='center'}
+library(HistDAWass)
+plot(BLOOD)
+```
+
+-----------
+
+### The AGE PYRAMIDS dataset (229 counties)
+
+::: columns
+::: {.column width="25%"}
+
+```{r, fig.dim=c(8,10),out.width = "100%"}
+plot(Age_Pyramids_2014[1:60,], type="DENS")
+```
+
+:::
+::: {.column width="25%"}
+```{r, fig.dim=c(8,10),out.width = "100%"}
+plot(Age_Pyramids_2014[61:120,], type="DENS")
+```
+:::
+::: {.column width="25%"}
+```{r, fig.dim=c(8,10),out.width = "100%"}
+plot(Age_Pyramids_2014[121:180,], type="DENS")
+```
+:::
+::: {.column width="25%"}
+```{r, fig.dim=c(8,10),out.width = "100%"}
+plot(Age_Pyramids_2014[181:229,], type="DENS")
+```
+:::
+:::
+
+---------
+
+### The CHINA season dataset 60 obs, 56 vars
+
+```{r cache=T}
+p1<-plot(China_Seas[,1:28], type="DENS")
+p2<-plot(China_Seas[,29:56], type="DENS")
+```
+
+
+```{r, fig.dim=c(24,8),out.width="100%",cache=T}
+p1
+```
+
+-----------------
+
+```{r, fig.dim=c(24,8),out.width="100%",cache=T}
+p2
+```
+
+---------
+
+### The OZONE dataset 78 obs, 4 vars
+
+::: columns
+::: {.column width="50%"}
+
+```{r, fig.dim=c(8,8),out.width = "80%", fig.align='center'}
+plot(OzoneFull[1:39,], type="DENS")
+```
+
+:::
+::: {.column width="50%"}
+```{r, fig.dim=c(8,8),out.width = "80%", fig.align='center'}
+plot(OzoneFull[39:78,], type="DENS")
+```
+:::
+:::
+
+----------------
+
+#### Other distributional datasets {.smaller}
+
+- `HMAT` Time use distributional data created from from an IPUMS dataset available from <https://github.com/Airpino/Symbolic_data_analysis_softw/raw/main/Histo_data_IPUMS.RData>
+
+```{r, fig.dim=c(30,10),out.width = "100%", fig.align='center'}
+load("../Histo_data_IPUMS.RData")
+plot(HMAT, type="DENS")
+```
+
+
+# Some exploratory tools
+
+## Some links showing some exploration tools for distributional data
+
+- An application on climatic data: <https://airpino.github.io/ICDS_23_presentation/#/title-slide>
+
+- An application on EUSILC 2013 data: <https://airpino.github.io/DSSR2024_pres/#/title-slide>
+
+
+## An analysis task
+
+1. Choose a dataset 
+2. Explore the data
+    - compute some basic statistics from data
+3. Fix some objectives
+4. Analyze the data (or a selection of the data) using at least one of the following techniques
+   - Principal components analysis
+   - Regression analysis
+   - Clustering analysis
+5. Present the results
+6. Let's discuss together

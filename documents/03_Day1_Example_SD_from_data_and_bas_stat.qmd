@@ -1,14 +1,14 @@
 ---
 title: "Symbolic Data from classical data<br> and basic stats for distributional data"
-author: "A. Irpino, R. Verde"
+author: "A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024"
 format: 
   revealjs: 
     theme: [dark, custom.scss]
     width: 1280
-    height: 500
+    height: 720
     fontsize: 2em
     linestretch: 1.1
-    footer: "Symbolic Data from classical data and basic stats"
+    footer: "Symbolic Data from classical data and basic stats, ESTP Cologne 14-16 May 2024"
     slideNumber: true
 filters:
   - "parse-latex.lua"
@@ -191,7 +191,7 @@ The skewness and the kurtosis indices are computed as the third and the fourth s
 
 ## How to obtain midponts and radii (1)
 
-```{r center_raddi_transform, collapse=TRUE}
+```{r center_raddi_transform, collapse=TRUE,echo=T}
 get.histo(mydist)
 crwtransform(mydist) #return a list with three slots
 ```
@@ -264,15 +264,31 @@ The method `rQQ` computes the Pearson correlation index of two quantile function
 
 ## From raw data to `distributionH` objects
 
-::: columns
-::: {.column width="20%"}
 `data2hist`, a function for converting raw data to histogram-valued one.
+
+```{r eval=F, echo=T}
+data2hist( data,
+           algo = "histogram",
+           type = "combined",
+           qua = 10, breaks = numeric(0), epsilon = 0.01
+)
+```
+
+::: columns
+::: {.column style="font-size: 0.65em; width: 100%;"}
+| __Arguments__ | Description |
+|---|------------------------|
+| `data`	| a set of numeric values. |
+| `algo`	| (optional) a string. Default is  `"histogram"`, i.e. the function "histogram" defined in the histogram package. <br> If `"base"` the hist function is used.<br>`"FixedQuantiles"` computes the histogram using as breaks a fixed number of quantiles.<br>`"ManualBreaks"` computes a histogram where breaks are provided as a vector of values.<br>`"PolyLine"` computes a histogram using a piecewise linear approximation of the empirical cumulative distribution function using the "Ramer-Douglas-Peucker algorithm", <https://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm>. An epsilon parameter is required. The data are scaled in order to have a standard deviation equal to one. |
+| `type` | (optional) a string. Default is `combined` and generates a histogram having regularly spaced breaks (i.e., equi-width bins) and irregularly spaced ones. The choice is done accordingly with the penalization method described in histogram. "regular" returns equi-width binned histograms, "irregular" returns a histogram without equi-width histograms. |
+| `qua` | a positive integer to provide if `algo="FixedQuantiles"` is chosen. Default=10. |
+| `breaks` | a vector of values to provide if `algo="ManualBreaks"` is chosen. |
+| `epsilon` | a number between 0 and 1 to provide if `algo="PolyLine"` is chosen. Default=0.01. |
+:::
 :::
 
-::: {.column width="80%"}
-![](figures/data_to_hist.svg)
-:::
-:::
+_Output_ : A distributionH object, i.e. a distribution.
+
 
 # The `MatH`class: a histogram-valued data table
 
@@ -583,15 +599,11 @@ plot(RetHTS, type="BOXPLOT", maxno.perplot=54)
 -   Principal component analysis
     -   of a single Histogram variable
     -   of several histogram variables
-
 -   Regression
     -   Two components regression analysis
-
-
 :::
 
 ::: {.column width="50%"}
-
 -   Clustering methods
     -   Dynamic clustering (a generalization of k-means algorithm)
     -   Adaptive distances-based dynamic clustering
@@ -599,7 +611,6 @@ plot(RetHTS, type="BOXPLOT", maxno.perplot=54)
     -   Kohonen Self Organizing Maps
     -   Fuzzy c-means
     -   Adaptive distances-based Fuzzy c-means
-
 :::
 :::
 

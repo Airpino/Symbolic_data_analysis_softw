@@ -1,6 +1,6 @@
 ---
 title: "Symbolic Data on official statistics and visual exploration"
-author: "Antonio Irpino"
+author: "A. Irpino, R. Verde<br>ESTP Cologne 14-16 May 2024"
 format: 
   revealjs: 
     theme: [dark, custom.scss]
@@ -9,7 +9,7 @@ format:
     fontsize: 2em
     linestretch: 1.1
     margin: 0.1
-    footer: "Symbolic Data on official stats and visualization"
+    footer: "Symbolic Data on official stats and visualization, ESTP Cologne 14-16 May 2024"
     slideNumber: true
 title-slide-attributes:
   data-background-image: "images/main.svg"
@@ -72,7 +72,7 @@ In summary, symbolic data analysis enriches our understanding of complex data st
 
 ## DATA Fusion {.scrollable}
 
-Certainly! Data fusion is becoming increasingly relevant in official statistics. The aim of data fusion is to combine two or more data sources using statistical methods in order to analyze different characteristics that were not jointly observed in one data source². Let's delve into this topic further.
+Data fusion is becoming increasingly relevant in official statistics. The aim of data fusion is to combine two or more data sources using statistical methods in order to analyze different characteristics that were not jointly observed in one data source². Let's delve into this topic further.
 
 Data fusion involves integrating multiple related datasets. It allows statisticians to manage uncertainty and conflicting data on a large scale. The goal of data fusion is to create useful representations of reality that are more complete and reliable than what a single source of data can provide⁴.
 
@@ -208,7 +208,7 @@ Uses of Joining Objects in Official Statistics: Data Fusion We find a new applic
 
 Fusion using symbolic objects differs from the traditional data fusion in the way of matching. Instead of joining record by record of common variables, we join by symbolic objects each one describing a group.
 
-The fusion allows us to relate independent surveys to some common items. In the SODAS project framework, this comparison will be between surveys of different countries of the European Union.
+The fusion allows us to relate independent surveys to some common items. In the SODAS project framework, this comparison is between surveys of different countries of the European Union.
 
 ![](figures/fusion.png){fig-align="center"}
 

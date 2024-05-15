@@ -4,3 +4,7 @@
 .Ruserdata
 Pums.RData
 Pums2.RData
+IPUMS.RData
+Data/atus_00002.csv
+Data/atus_00002.csv.gz
+Data/mtus_multi.csv
