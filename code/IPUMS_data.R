@@ -52,14 +52,22 @@ data<- data %>%mutate(age_cl=cut(AGE,breaks = c(0,25,35,50,65,100)),
                       )
   
 data<-data %>% rowwise() %>% mutate(ST = sum(c_across(ACT_CAREHH:ACT_WORK)))
+<<<<<<< HEAD
 data_rid<-data %>% filter(ST>1439) %>% mutate(WST=if_else(ACT_WORK>10,"Worker","No Work")) %>% 
   filter(WST=="Worker") %>% mutate(ACT_ALL_THE_REST=ST-(ACT_FOOD+ACT_PCARE+ACT_SOCIAL+ACT_TRAVEL+ ACT_WORK)) %>% 
   select(key_G2,ACT_FOOD,ACT_PCARE,ACT_SOCIAL,ACT_TRAVEL, ACT_WORK,ACT_ALL_THE_REST)
+=======
+data_rid<-data %>% filter(ST>1439) %>% mutate(WST=if_else(ACT_WORK>0,"Worker","No Work")) %>% filter(WST=="Worker")
+>>>>>>> 29a0b31018c6f61740c2f9775720b4f3d5da83f6
 
 # data2<-data_rid %>% filter(YEAR==2022) %>% group_by(OCCU_sect,SEX,age_cl) %>% #summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  
 #   group_split()
 
+<<<<<<< HEAD
 data3<-data_rid %>% group_by(key_G2) %>% #summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  
+=======
+data3<-data_rid %>% group_by(YEAR,OCCU_sect,SEX) %>% #summarize(n=n(),.groups="keep") %>% filter(n>50) %>%  
+>>>>>>> 29a0b31018c6f61740c2f9775720b4f3d5da83f6
   group_split()
 
 
@@ -69,6 +77,7 @@ data3<-data_rid %>% group_by(key_G2) %>% #summarize(n=n(),.groups="keep") %>% fi
 # due<-sapply(data2,FUN=function(data){nrow(data)})
 # tre<-t(uno[,due>50])
 
+<<<<<<< HEAD
 uno<-sapply(data3,FUN=function(data){round(sapply(data %>% select(ACT_FOOD:ACT_ALL_THE_REST), FUN=function(x){sum(x==0)/length(x)})*100,3)})
 
 due<-sapply(data3,FUN=function(data){nrow(data)})
@@ -96,3 +105,11 @@ for(KK in 2:10){
 resuKM[[KK-1]]<-WH_kmeans(HMAT, k=KK, rep=50, qua=20)
 }
 resuWKM<-WH_adaptive.kmeans(HMAT,k=5,schema=2,rep = 100)
+=======
+uno<-sapply(data3,FUN=function(data){round(sapply(data %>% select(ACT_CAREHH:ACT_WORK), FUN=function(x){sum(x==0)/length(x)})*100,3)})
+
+due<-sapply(data3,FUN=function(data){nrow(data)})
+tre<-t(uno[,due>50])
+labs<-sapply(data3,FUN=function(x) {x$key_G2[1]})[due>50]
+tre<-as.data.frame(tre) %>% mutate(labs=labs)
+>>>>>>> 29a0b31018c6f61740c2f9775720b4f3d5da83f6

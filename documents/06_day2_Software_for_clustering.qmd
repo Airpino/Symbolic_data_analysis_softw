@@ -5,7 +5,11 @@ format:
   revealjs: 
     theme: [dark, custom.scss]
     width: 1280
+<<<<<<< HEAD
     height: 720
+=======
+    height: 500
+>>>>>>> 29a0b31018c6f61740c2f9775720b4f3d5da83f6
     fontsize: 2em
     linestretch: 1.1
     footer: "Software demonstration for clustering of distributional SD, ESTP Cologne 14-16 May 2024"
